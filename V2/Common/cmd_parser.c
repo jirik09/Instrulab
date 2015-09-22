@@ -31,9 +31,10 @@ command giveNextCmd(void);
   */
 	//portTASK_FUNCTION(vCmdParserTask, pvParameters) {
 void CmdParserTask(void const *argument){
+	portBASE_TYPE xHigherPriorityTaskWoken;
 	cmdParserMessageQueue = xQueueCreate(10, 20);
 	uint8_t message[20];
-	uint8_t cmdIn[4];
+	uint8_t cmdIn[5];
 	uint8_t chr;
 	uint8_t byteRead;
 	command tempCmd;
@@ -50,35 +51,49 @@ void CmdParserTask(void const *argument){
 				byteRead = commBufferReadByte(&chr);
 			}while(byteRead==0 && chr != ':' && chr != ';');
 			
-			switch (BUILD_CMD(cmdIn)){
-				case CMD_IDN: //send IDN
-					///ommsSendString("PARS_IDN\r\n");
-					///xQueueSendToBack (messageQueue, STR_IDN, portMAX_DELAY);
-					xQueueSendToBack (messageQueue, IDN_STRING, portMAX_DELAY);
-					
-				break;
-				case CMD_SCOPE: //parse scope command
-					///commsSendString("PARS_Scope\r\n");
-					tempCmd = parseScopeCmd();
-					if(tempCmd == CMD_END){
-						xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
-					}else{
-						xQueueSendToBack(messageQueue, STR_ERR, portMAX_DELAY);
-					}
-				break;
-					
-				case CMD_GENERATOR: //parse scope command
-					///commsSendString("PARS_Scope\r\n");
-					tempCmd = parseGeneratorCmd();
-					if(tempCmd == CMD_END){
-						xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
-					}else{
-						xQueueSendToBack(messageQueue, STR_ERR, portMAX_DELAY);
-					}
-				break;
-				default:
-						xQueueSendToBack(messageQueue, STR_ERR, portMAX_DELAY);
-			}	
+			if(byteRead==0){
+				switch (BUILD_CMD(cmdIn)){
+					case CMD_IDN: //send IDN
+						///commsSendString("PARS_IDN\r\n");
+						///xQueueSendToBack (messageQueue, STR_IDN, portMAX_DELAY);
+						xQueueSendToBack (messageQueue, IDN_STRING, portMAX_DELAY);
+						
+					break;
+					case CMD_SCOPE: //parse scope command
+						///commsSendString("PARS_Scope\r\n");
+						tempCmd = parseScopeCmd();
+						if(tempCmd == CMD_END){
+							xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
+						}else{
+							cmdIn[0]='e';
+							cmdIn[1]=(tempCmd/100)%10+48;
+							cmdIn[2]=(tempCmd/10)%10+48;
+							cmdIn[3]=tempCmd%10+48;
+							cmdIn[4]=0;
+							xQueueSendToBack(messageQueue, cmdIn, portMAX_DELAY);
+						}
+					break;
+						
+					case CMD_GENERATOR: //parse scope command
+						///commsSendString("PARS_Scope\r\n");
+						tempCmd = parseGeneratorCmd();
+						if(tempCmd == CMD_END){
+							xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
+						}else{
+							cmdIn[0]='E';
+							cmdIn[1]=tempCmd%10+48;
+							cmdIn[2]=(tempCmd/10)%10+48;
+							cmdIn[3]=(tempCmd/100)%10+48;
+							xQueueSendToBack(messageQueue, cmdIn, portMAX_DELAY);
+						}
+					break;
+					default:
+							xQueueSendToBack(messageQueue, UNSUPORTED_FUNCTION_ERR_STR, portMAX_DELAY);
+				}	
+			}
+		}
+		if (getBytesAvailable()>0){
+			xQueueSendToBackFromISR(cmdParserMessageQueue, "1TryParseCmd", &xHigherPriorityTaskWoken);
 		}
 	}
 }
@@ -108,6 +123,7 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 				
@@ -121,6 +137,7 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;		
 				
@@ -138,6 +155,7 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 				
@@ -155,26 +173,27 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 				
-				//setting of data resolution not used
-////			case CMD_SCOPE_DATA_DEPTH: //set data bit depth
-////				cmdIn = giveNextCmd();
-////				if(isScopeDataDepth(cmdIn)){
-////					if(cmdIn == CMD_DATA_DEPTH_12B){
-////						error=scopeSetDataDepth(ADC_12B);
-////					}else if(cmdIn == CMD_DATA_DEPTH_10B){
-////						error=scopeSetDataDepth(ADC_10B);
-////					}else if(cmdIn == CMD_DATA_DEPTH_8B){
-////						error=scopeSetDataDepth(ADC_8B);
-////					}else if(cmdIn == CMD_DATA_DEPTH_6B){
-////						error=scopeSetDataDepth(ADC_6B);
-////					}
-////				}else{
-////					cmdIn = CMD_ERR;
-////				}
-////			break;
+			case CMD_SCOPE_DATA_DEPTH: //set data bit depth
+				cmdIn = giveNextCmd();
+				if(isScopeDataDepth(cmdIn)){
+					if(cmdIn == CMD_DATA_DEPTH_12B){
+						error=scopeSetDataDepth(12);
+					}else if(cmdIn == CMD_DATA_DEPTH_10B){
+						error=SCOPE_UNSUPPORTED_RESOLUTION;
+					}else if(cmdIn == CMD_DATA_DEPTH_8B){
+						error=scopeSetDataDepth(8);
+					}else if(cmdIn == CMD_DATA_DEPTH_6B){
+						error=SCOPE_UNSUPPORTED_RESOLUTION;
+					}
+				}else{
+					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
+				}
+			break;
 				
 			case CMD_SCOPE_SAMPLING_FREQ: //set sampling frequency
 				cmdIn = giveNextCmd();
@@ -208,6 +227,7 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 						
@@ -217,6 +237,7 @@ command parseScopeCmd(void){
 					scopeSetTrigLevel((uint16_t)cmdIn);
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 				
@@ -226,13 +247,16 @@ command parseScopeCmd(void){
 					scopeSetPretrigger((uint16_t)cmdIn);
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;	
 				
 			case CMD_SCOPE_DATA_LENGTH: //set trigger edge
 				cmdIn = giveNextCmd();
 				if(isScopeNumOfSamples(cmdIn)){
-					if(cmdIn == CMD_SAMPLES_200){
+					if(cmdIn == CMD_SAMPLES_100){
+						error=scopeSetNumOfSamples(100);
+					}else if(cmdIn == CMD_SAMPLES_200){
 						error=scopeSetNumOfSamples(200);
 					}else if(cmdIn == CMD_SAMPLES_500){
 						error=scopeSetNumOfSamples(500);
@@ -253,6 +277,7 @@ command parseScopeCmd(void){
 					}
 				}else{
 					cmdIn = CMD_ERR;
+					error = SCOPE_INVALID_FEATURE_PARAM;
 				}
 			break;
 				
@@ -270,12 +295,13 @@ command parseScopeCmd(void){
 				
 			case CMD_END:break;
 			default:
+				error = SCOPE_INVALID_FEATURE;
 				cmdIn = CMD_ERR;
 			break;
 		}
 	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
-	if(error==1){
-		cmdIn=CMD_ERR;
+	if(error>0){
+		cmdIn=error;
 	}
 return cmdIn;
 }
@@ -303,8 +329,9 @@ command parseGeneratorCmd(void){
 				index=cmdIn;
 				length=cmdIn>>16;
 				chan=cmdIn>>24;
-				if(getBytesAvailable()<length*2){
+				if(getBytesAvailable()<length*2+1){
 					error=1;
+					while(commBufferReadByte(&chan)==0 && chan!=';');
 				}else{
 					error=genSetData(index*2,length*2,chan);
 				}
@@ -356,12 +383,13 @@ command parseGeneratorCmd(void){
 				
 			case CMD_END:break;
 			default:
+				error = GEN_INVALID_FEATURE;
 				cmdIn = CMD_ERR;
 			break;
 		}
 	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
-	if(error==1){
-		cmdIn=CMD_ERR;
+	if(error>0){
+		cmdIn=error;
 	}
 return cmdIn;
 }

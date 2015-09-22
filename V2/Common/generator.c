@@ -95,8 +95,11 @@ void genInit(void){
 uint8_t genSetData(uint16_t index,uint8_t length,uint8_t chan){
 	uint8_t result = 1;
 	if(generator.state==GENERATOR_IDLE && length<=generator.oneChanSamples && generator.numOfChannles<=chan){
-		commBufferReadNBytes((uint8_t *)generator.pChanMem[chan-1]+index,length);
-		result = 0;
+		if(commBufferReadNBytes((uint8_t *)generator.pChanMem[chan-1]+index,length)==length && commBufferReadByte(&result)==0 && result==';'){
+			result = 0;
+		}else{
+			result = 1;
+		}
 	}
 	return result;
 }

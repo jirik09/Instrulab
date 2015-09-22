@@ -1,0 +1,4 @@
+- preorganizovat pamet scope bufferu aby byla data usporadana spravne a taky posilana spravne
+- doplnit kontrolu velikosti bufferu pri zmene nastaveni
+
+- rozchodit generator

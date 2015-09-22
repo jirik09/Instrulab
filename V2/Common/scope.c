@@ -19,16 +19,16 @@
 // External variables definitions =============================================
 xQueueHandle scopeMessageQueue;
 
-uint16_t scopeBuffer[MAX_SCOPE_BUFF_SIZE/2]; 
-uint16_t blindBuffer[MAX_ADC_CHANNELS];
-static uint16_t triggerIndex;
+uint8_t scopeBuffer[MAX_SCOPE_BUFF_SIZE+MAX_ADC_CHANNELS*SCOPE_BUFFER_MARGIN]; 
+uint8_t blindBuffer[MAX_ADC_CHANNELS];
+static uint32_t triggerIndex;
 static uint16_t triggerLevel;
-static uint16_t samplesToStop=0;
-static uint16_t samplesToStart=0;
+static uint32_t samplesToStop=0;
+static uint32_t samplesToStart=0;
 
 static xSemaphoreHandle scopeMutex ;
-static uint16_t writingIndex=0;
-static uint16_t lastWritingIndex=0;
+static uint32_t writingIndex=0;
+static uint32_t lastWritingIndex=0;
 static volatile scopeTypeDef scope;
 
 // Function prototypes ========================================================
@@ -100,7 +100,7 @@ void ScopeTask(void const *argument){
   */
 //portTASK_FUNCTION(vScopeTriggerTask, pvParameters) {
 void ScopeTriggerTask(void const *argument) {
-	uint16_t actualIndex = 0;
+	uint32_t actualIndex = 0;
 	uint16_t data = 0;
 	uint32_t samplesTaken = 0;
 	uint32_t totalSmpTaken = 0;
@@ -115,7 +115,12 @@ void ScopeTriggerTask(void const *argument) {
 			
 			//wait for right level before finding trigger (lower level then trigger level for rising edge, higher level for falling edge)
 			if(scope.state == SCOPE_SAMPLING_WAITING){ 
-				data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex);
+				if(scope.settings.adcRes<=8){
+					data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex/2);
+					data = data & 0x00ff;
+				}else{
+					data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex);
+				}
 				////data = scopeBuffer[actualIndex];
 				updateTrigger();
 				samplesTaken += samplesPassed(writingIndex,lastWritingIndex);	
@@ -130,7 +135,12 @@ void ScopeTriggerTask(void const *argument) {
 			//finding for trigger
 			}else if(scope.state == SCOPE_SAMPLING_TRIGGER_WAIT){
 				samplesTaken += samplesPassed(writingIndex,lastWritingIndex);	
-				data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex);
+				if(scope.settings.adcRes<=8){
+					data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex/2);
+					data = data & 0x00ff;
+				}else{
+					data=*(scope.pChanMem[scope.triggerChannel-1]+actualIndex);
+				}
 				////data = scopeBuffer[actualIndex];
 				updateTrigger();
 				if((scope.settings.triggerEdge == EDGE_RISING && data > triggerLevel) 
@@ -154,18 +164,30 @@ void ScopeTriggerTask(void const *argument) {
 					
 					//finding exact trigger
 					if (scope.settings.triggerMode != TRIG_AUTO){	
-						if(scope.settings.triggerEdge == EDGE_RISING){ 
-							while(*(scope.pChanMem[scope.triggerChannel-1]+triggerIndex) > triggerLevel){
-								triggerIndex--;
+						if(scope.settings.adcRes>8){
+							if(scope.settings.triggerEdge == EDGE_RISING){
+								while(*(scope.pChanMem[scope.triggerChannel-1]+triggerIndex) > triggerLevel){
+									triggerIndex--;
+								}
+							}else{
+								while(*(scope.pChanMem[scope.triggerChannel-1]+triggerIndex) < triggerLevel){
+									triggerIndex--;
+								}
 							}
-						}else{
-							while(*(scope.pChanMem[scope.triggerChannel-1]+triggerIndex) < triggerLevel){
-								triggerIndex--;
+						}else{							
+							if(scope.settings.triggerEdge == EDGE_RISING){
+								while(*((uint8_t *)scope.pChanMem[scope.triggerChannel-1]+triggerIndex) > triggerLevel){
+									triggerIndex--;
+								}
+							}else{
+								while(*((uint8_t *)scope.pChanMem[scope.triggerChannel-1]+triggerIndex) < triggerLevel){
+									triggerIndex--;
+								}
 							}
 						}
 						triggerIndex++;
 					}
-					
+					scope.triggerIndex = triggerIndex;
 					scope.state = SCOPE_DATA_SENDING;
 					samplesTaken = totalSmpTaken;
 					samplesTaken = 0 ;
@@ -203,11 +225,11 @@ uint16_t samplesPassed(uint16_t index, uint16_t lastIndex){
 uint8_t validateBuffUsage(){
 	uint8_t result=1;
 	uint32_t data_len=scope.settings.samplesToSend;
-	if(scope.settings.adcRes>256){
+	if(scope.settings.adcRes>8){
 		data_len=data_len*2;
 	}
 	data_len=data_len*scope.numOfChannles;
-	if(data_len<MAX_SCOPE_BUFF_SIZE){
+	if(data_len<=MAX_SCOPE_BUFF_SIZE){
 		result=0;
 	}
 	return result;
@@ -238,7 +260,7 @@ void scopeInit(void){
   * @retval None
   */
 void updateTrigger(void){
-	triggerLevel = (scope.settings.triggerLevel * scope.settings.adcRes) >> 16;
+	triggerLevel = (scope.settings.triggerLevel * scope.settings.adcLevels) >> 16;
 	samplesToStop = ((scope.settings.samplesToSend * (UINT16_MAX - scope.settings.pretrigger)) >> 16)+1;
 	samplesToStart = (scope.settings.samplesToSend * (scope.settings.pretrigger)) >> 16;
 }
@@ -251,15 +273,20 @@ void updateTrigger(void){
 void scopeSetDefault(void){
 	scope.bufferMemory = scopeBuffer;
 	scope.settings.samplingFrequency = SCOPE_DEFAULT_SAMPLING_FREQ;
-	scope.settings.triggerEdge = EDGE_RISING;
-	scope.settings.triggerMode = TRIG_AUTO;
+	scope.settings.triggerEdge = SCOPE_DEFAULT_TRIG_EDGE;
+	scope.settings.triggerMode = SCOPE_DEFAULT_TRIGGER;
 	scope.settings.triggerLevel = SCOPE_DEFAULT_TRIGGER_LEVEL;
 	scope.settings.pretrigger = SCOPE_DEFAULT_PRETRIGGER;
-	scope.settings.adcRes = ADC_DATA_DEPTH;
+	scope.settings.adcRes = SCOPE_DEFAULT_ADC_RES;
+	scope.settings.adcLevels=pow(2,SCOPE_DEFAULT_ADC_RES);
 	scope.settings.samplesToSend = SCOPE_DEFAULT_DATA_LEN;
 	scope.pChanMem[0] = (uint16_t*)scopeBuffer;
-	scope.oneChanMemSize = MAX_SCOPE_BUFF_SIZE;
-	scope.oneChanSamples = MAX_SCOPE_BUFF_SIZE/2;
+	scope.oneChanMemSize = MAX_SCOPE_BUFF_SIZE+SCOPE_BUFFER_MARGIN;
+	if(scope.settings.adcRes>8){
+		scope.oneChanSamples = scope.oneChanMemSize/2;
+	}else{
+		scope.oneChanSamples = scope.oneChanMemSize;
+	}
 	scope.numOfChannles = 1;
 	scope.triggerChannel = 1;
 }
@@ -289,6 +316,15 @@ uint16_t *getDataPointer(uint8_t chan){
   */
 uint32_t getOneChanMemSize(){
 	return scope.oneChanMemSize;
+}
+
+/**
+  * @brief  Getter function of one channel samples.
+  * @param  None
+  * @retval mem size
+  */
+uint32_t getOneChanMemSamples(){
+	return scope.oneChanSamples;
 }
 
 /**
@@ -364,23 +400,23 @@ void scopeSetTriggerEdge(scopeTriggerEdge edge){
   * @param  ADC resolution 2^N where N is number of bits
   * @retval success/error
   */
-//settings od ADC resolution is not used
-////uint8_t scopeSetDataDepth(uint16_t res){
-////	uint8_t result=1;
-////	uint16_t resTmp=res;
-////	if (isDataDepth(res)){
-////		xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
-////		scope.settings.adcRes = res;
-////		if(validateBuffUsage()){
-////			scope.settings.adcRes = resTmp;
-////		}else{
-////			result=0;
-////		}
-////		xSemaphoreGiveRecursive(scopeMutex);
-////		xQueueSendToBack(scopeMessageQueue, "3Invalidate", portMAX_DELAY);
-////	}
-////	return result;
-////}
+uint8_t scopeSetDataDepth(uint16_t res){
+	uint8_t result=BUFFER_SIZE_ERR;
+	uint8_t resTmp=res;
+	xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
+	scope.settings.adcRes = res;
+	if(validateBuffUsage()){
+		scope.settings.adcRes = resTmp;
+	}else{
+		scope.settings.adcLevels=pow(2,scope.settings.adcRes);
+		adcSetResolution(res);
+		result=0;
+	}
+	xSemaphoreGiveRecursive(scopeMutex);
+	xQueueSendToBack(scopeMessageQueue, "3Invalidate", portMAX_DELAY);
+	
+	return result;
+}
 
 /**
   * @brief  Setter for sampling frequency
@@ -388,7 +424,7 @@ void scopeSetTriggerEdge(scopeTriggerEdge edge){
   * @retval success/error
   */
 uint8_t scopeSetSamplingFreq(uint32_t freq){
-	uint8_t result=1;
+	uint8_t result=SCOPE_INVALID_SAMPLING_FREQ;
 	if (freq<=MAX_SAMPLING_FREQ){
 		xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
 		scope.settings.samplingFrequency = freq;
@@ -427,7 +463,7 @@ void scopeSetPretrigger(uint16_t pretrig){
   * @retval None
   */
 uint8_t scopeSetNumOfSamples(uint32_t smp){
-	uint8_t result=1;
+	uint8_t result=BUFFER_SIZE_ERR;
 	uint32_t smpTmp=scope.settings.samplesToSend;
 	xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
 	scope.settings.samplesToSend = smp;
@@ -447,7 +483,7 @@ uint8_t scopeSetNumOfSamples(uint32_t smp){
   * @retval success/error
   */
 uint8_t scopeSetNumOfChannels(uint8_t chan){
-	uint8_t result=1;
+	uint8_t result=BUFFER_SIZE_ERR;
 	uint8_t chanTmp=scope.numOfChannles;
 	xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
 	if(chan<=MAX_ADC_CHANNELS){
@@ -455,14 +491,14 @@ uint8_t scopeSetNumOfChannels(uint8_t chan){
 		if(validateBuffUsage()){
 			scope.numOfChannles = chanTmp;
 		}else{
-			for(uint8_t i=0;i<chan;i++){
-				scope.oneChanMemSize=MAX_SCOPE_BUFF_SIZE/chan;
-				if(scope.settings.adcRes>256){
+				scope.oneChanMemSize=MAX_SCOPE_BUFF_SIZE/chan+SCOPE_BUFFER_MARGIN;
+				if(scope.settings.adcRes>8){
 					scope.oneChanSamples=scope.oneChanMemSize/2;
 				}else{
 					scope.oneChanSamples=scope.oneChanMemSize;
 				}
-				scope.pChanMem[i]=(uint16_t *)&scopeBuffer[i*scope.oneChanSamples];
+				for(uint8_t i=0;i<chan;i++){
+				scope.pChanMem[i]=(uint16_t *)&scopeBuffer[i*scope.oneChanMemSize];
 			}
 			result=0;
 		}
@@ -478,7 +514,7 @@ uint8_t scopeSetNumOfChannels(uint8_t chan){
   * @retval None
   */
 uint8_t scopeSetTrigChannel(uint8_t chan){
-	uint8_t result=1;
+	uint8_t result=SCOPE_INVALID_TRIGGER_CHANNEL;
 	if(chan<=MAX_ADC_CHANNELS){
 		xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
 		scope.triggerChannel=chan;

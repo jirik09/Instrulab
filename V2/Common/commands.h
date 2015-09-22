@@ -117,6 +117,7 @@ REGISTER_CMD(FREQ_10M,10M_)
 													
 //Scope data lengths
 enum{
+REGISTER_CMD(SAMPLES_100,100_),	
 REGISTER_CMD(SAMPLES_200,200_),	
 REGISTER_CMD(SAMPLES_500,500_),	
 REGISTER_CMD(SAMPLES_1K,1K__),	
@@ -127,7 +128,8 @@ REGISTER_CMD(SAMPLES_20K,20K_),
 REGISTER_CMD(SAMPLES_50K,50K_),
 REGISTER_CMD(SAMPLES_100K,100K)
 };
-#define isScopeNumOfSamples(CMD) (((CMD) == CMD_SAMPLES_200) || \
+#define isScopeNumOfSamples(CMD) (((CMD) == CMD_SAMPLES_100) || \
+																((CMD) == CMD_SAMPLES_200) || \
                                 ((CMD) == CMD_SAMPLES_500) || \
                                 ((CMD) == CMD_SAMPLES_1K) || \
                                 ((CMD) == CMD_SAMPLES_2K) || \
@@ -137,18 +139,18 @@ REGISTER_CMD(SAMPLES_100K,100K)
 																((CMD) == CMD_SAMPLES_50K) || \
 																((CMD) == CMD_SAMPLES_100K))	
 
-//setting of data resolution not used
-//////Scope Data depths
-////enum{
-////REGISTER_CMD(DATA_DEPTH_12B,12B_),	
-////REGISTER_CMD(DATA_DEPTH_10B,10B_),
-////REGISTER_CMD(DATA_DEPTH_8B,8B__),
-////REGISTER_CMD(DATA_DEPTH_6B,6B__)
-////};
-////#define isScopeDataDepth(CMD) (((CMD) == CMD_DATA_DEPTH_12B) || \
-////                               ((CMD) == CMD_DATA_DEPTH_10B) || \
-////                               ((CMD) == CMD_DATA_DEPTH_8B) || \
-////                               ((CMD) == CMD_DATA_DEPTH_6B))	
+
+//Scope Data depths
+enum{
+REGISTER_CMD(DATA_DEPTH_12B,12B_),	
+REGISTER_CMD(DATA_DEPTH_10B,10B_),
+REGISTER_CMD(DATA_DEPTH_8B,8B__),
+REGISTER_CMD(DATA_DEPTH_6B,6B__)
+};
+#define isScopeDataDepth(CMD) (((CMD) == CMD_DATA_DEPTH_12B) || \
+                               ((CMD) == CMD_DATA_DEPTH_10B) || \
+                               ((CMD) == CMD_DATA_DEPTH_8B) || \
+                               ((CMD) == CMD_DATA_DEPTH_6B))	
 															 
 //Number of channels
 enum{
@@ -164,6 +166,7 @@ REGISTER_CMD(CHANNELS_4,4CH_)
 
 // Exported variables =========================================================
 // Exported functions =========================================================
+
 
 
 #endif /* COMMANDS_H_ */

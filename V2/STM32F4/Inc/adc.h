@@ -59,6 +59,7 @@ uint16_t DMA_GetCurrDataCounter(uint8_t channel);
 void ADC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len);	
 void samplingEnable(void);
 void samplingDisable(void);
+void adcSetResolution (uint8_t res);
 
 #ifdef __cplusplus
 }

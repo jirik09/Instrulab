@@ -87,7 +87,7 @@ datasmp(51)
 
 %% 
 flushinput(s);
-fwrite(s,'OSCP:DATA 12B_;'); %RISE, FALL
+fwrite(s,'OSCP:DATA 8B__;'); %RISE, FALL
 pause(0.1);
 data = fread(s,4);
 str=char(data');
@@ -102,8 +102,8 @@ disp(str)
 
 %% Yours settings
 flushinput(s);
-fwrite(s,'OSCP:DATA 12B_;');
-fwrite(s,'OSCP:CHAN 1CH_;');
+fwrite(s,'OSCP:DATA 12B__;');
+fwrite(s,'OSCP:CHAN 3CH_;');
 fwrite(s,'OSCP:LENG 100_;');
 fwrite(s,'OSCP:FREQ 1K__;');
 fwrite(s,'OSCP:TRCH 1CH_;');

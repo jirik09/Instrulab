@@ -16,7 +16,10 @@
 #define SCOPE_DEFAULT_SAMPLING_FREQ 1000
 #define SCOPE_DEFAULT_TRIGGER_LEVEL 0x8000
 #define SCOPE_DEFAULT_PRETRIGGER 0x8000
-#define SCOPE_DEFAULT_DATA_LEN 200
+#define SCOPE_DEFAULT_DATA_LEN 100
+#define SCOPE_DEFAULT_TRIGGER TRIG_AUTO
+#define SCOPE_DEFAULT_TRIG_EDGE EDGE_RISING
+#define SCOPE_DEFAULT_ADC_RES 12
 
 // Types definitions ==========================================================
 
@@ -50,15 +53,16 @@ typedef struct{
 	uint16_t triggerLevel;					//65535 is 100%
 	uint16_t pretrigger;						//65535 is 100%
 	uint16_t adcRes;
+	uint16_t adcLevels;
 }scopeSettings;
 
 typedef struct{
-	uint16_t *bufferMemory;		
+	uint8_t *bufferMemory;		
 	uint32_t triggerIndex;		
 	scopeSettings settings;
 	scopeState state;	
 	uint8_t numOfChannles;
-	uint16_t *pChanMem[4];
+	uint16_t *pChanMem[MAX_ADC_CHANNELS];
 	uint32_t oneChanMemSize;
 	uint32_t oneChanSamples;
 	uint8_t triggerChannel;
@@ -88,6 +92,7 @@ void sendData(void);
 uint8_t GetNumOfChannels (void);
 uint16_t *getDataPointer (uint8_t chan);
 uint32_t getOneChanMemSize(void);
+uint32_t getOneChanMemSamples(void);
 uint32_t getTriggerIndex(void);
 uint32_t getSamples(void);
 uint16_t getADCRes(void);

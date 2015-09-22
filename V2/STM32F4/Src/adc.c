@@ -51,7 +51,8 @@ DMA_HandleTypeDef hdma_adc1;
 DMA_HandleTypeDef hdma_adc2;
 DMA_HandleTypeDef hdma_adc3;
 
-uint16_t Data[3][32];
+//uint16_t Data[3][32];
+uint32_t ADCResolution=ADC_RESOLUTION12b;
 
 /* ADC1 init function */
 void MX_ADC1_Init(void)
@@ -62,7 +63,7 @@ void MX_ADC1_Init(void)
     */
   hadc1.Instance = ADC1;
   hadc1.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
-  hadc1.Init.Resolution = ADC_RESOLUTION12b;
+  hadc1.Init.Resolution = ADCResolution;
   hadc1.Init.ScanConvMode = DISABLE;
   hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
@@ -81,7 +82,7 @@ void MX_ADC1_Init(void)
   sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
   HAL_ADC_ConfigChannel(&hadc1, &sConfig);
 	
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&Data[0][0], 8);
+/////	HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&Data[0][0], 8);
 
 }
 /* ADC2 init function */
@@ -93,7 +94,7 @@ void MX_ADC2_Init(void)
     */
   hadc2.Instance = ADC2;
   hadc2.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
-  hadc2.Init.Resolution = ADC_RESOLUTION12b;
+  hadc2.Init.Resolution = ADCResolution;
   hadc2.Init.ScanConvMode = DISABLE;
   hadc2.Init.ContinuousConvMode = DISABLE;
   hadc2.Init.DiscontinuousConvMode = DISABLE;
@@ -112,7 +113,7 @@ void MX_ADC2_Init(void)
   sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
   HAL_ADC_ConfigChannel(&hadc2, &sConfig);
 	
-	HAL_ADC_Start_DMA(&hadc2, (uint32_t *)&Data[1][0], 8);
+/////	HAL_ADC_Start_DMA(&hadc2, (uint32_t *)&Data[1][0], 8);
 
 }
 /* ADC3 init function */
@@ -124,7 +125,7 @@ void MX_ADC3_Init(void)
     */
   hadc3.Instance = ADC3;
   hadc3.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
-  hadc3.Init.Resolution = ADC_RESOLUTION12b;
+  hadc3.Init.Resolution = ADCResolution;
   hadc3.Init.ScanConvMode = DISABLE;
   hadc3.Init.ContinuousConvMode = DISABLE;
   hadc3.Init.DiscontinuousConvMode = DISABLE;
@@ -143,7 +144,7 @@ void MX_ADC3_Init(void)
   sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
   HAL_ADC_ConfigChannel(&hadc3, &sConfig);
 	
-	HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&Data[2][0], 8);
+/////	HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&Data[2][0], 8);
 
 }
 
@@ -174,8 +175,13 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     hdma_adc1.Init.Direction = DMA_PERIPH_TO_MEMORY;
     hdma_adc1.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_adc1.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+		if (ADCResolution==ADC_RESOLUTION8b || ADCResolution==ADC_RESOLUTION6b){
+			hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;	
+			hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+		}else{
+			hdma_adc1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+			hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		}
     hdma_adc1.Init.Mode = DMA_CIRCULAR;
     hdma_adc1.Init.Priority = DMA_PRIORITY_LOW;
     hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
@@ -213,8 +219,13 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     hdma_adc2.Init.Direction = DMA_PERIPH_TO_MEMORY;
     hdma_adc2.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_adc2.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_adc2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_adc2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+		if (ADCResolution==ADC_RESOLUTION8b || ADCResolution==ADC_RESOLUTION6b){
+			hdma_adc2.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;	
+			hdma_adc2.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+		}else{
+			hdma_adc2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+			hdma_adc2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		}
     hdma_adc2.Init.Mode = DMA_CIRCULAR;
     hdma_adc2.Init.Priority = DMA_PRIORITY_LOW;
     hdma_adc2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
@@ -252,8 +263,13 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
     hdma_adc3.Init.Direction = DMA_PERIPH_TO_MEMORY;
     hdma_adc3.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_adc3.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_adc3.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+		if (ADCResolution==ADC_RESOLUTION8b || ADCResolution==ADC_RESOLUTION6b){
+			hdma_adc3.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;	
+			hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+		}else{
+			hdma_adc3.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+			hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		}
     hdma_adc3.Init.Mode = DMA_CIRCULAR;
     hdma_adc3.Init.Priority = DMA_PRIORITY_LOW;
     hdma_adc3.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
@@ -392,6 +408,33 @@ void samplingDisable (void){
 	HAL_TIM_Base_Stop(&htim3);
 	GPIOD->ODR &= ~GPIO_PIN_15;
 }
+
+
+void adcSetResolution (uint8_t res){
+	samplingDisable();
+	HAL_ADC_Stop_DMA(&hadc1);
+	HAL_ADC_Stop_DMA(&hadc2);
+	HAL_ADC_Stop_DMA(&hadc3);
+	if(res==8){
+		ADCResolution	= ADC_RESOLUTION8b;
+	}else if(res==12){
+		ADCResolution	= ADC_RESOLUTION12b;
+	}else{
+		return;
+	}
+	
+	HAL_ADC_DeInit(&hadc1);
+	HAL_ADC_DeInit(&hadc2);
+	HAL_ADC_DeInit(&hadc3);
+	
+	HAL_DMA_DeInit(&hdma_adc1);
+	HAL_DMA_DeInit(&hdma_adc2);
+	HAL_DMA_DeInit(&hdma_adc3);
+	
+	MX_ADC1_Init();
+  MX_ADC2_Init();
+  MX_ADC3_Init();
+} 
 /* USER CODE END 1 */
 
 /**

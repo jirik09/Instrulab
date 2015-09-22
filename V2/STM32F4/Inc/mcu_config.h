@@ -11,6 +11,8 @@
 
 #include "stm32f4xx_hal.h"
 #include "usb_device.h"
+#include "math.h"
+#include "err_list.h"
 
 
 // Communication constatnts ===================================================
@@ -21,15 +23,14 @@
 #define MAX_SAMPLING_FREQ 2000000 //smps
 #define MAX_ADC_CHANNELS 3
 
-#define MAX_SCOPE_BUFF_SIZE 101000 //in bytes
-
-#define	ADC_DATA_DEPTH 4096
+#define MAX_SCOPE_BUFF_SIZE 500 //in bytes
+#define SCOPE_BUFFER_MARGIN 10
 
 
 #define MAX_GENERATING_FREQ 2000000 //smps
 #define MAX_DAC_CHANNELS 2
-#define MAX_GENERATOR_BUFF_SIZE 4000
-#define	DAC_DATA_DEPTH 4096
+#define MAX_GENERATOR_BUFF_SIZE 1000
+#define	DAC_DATA_DEPTH 12
 
 
 
@@ -41,8 +42,6 @@
 #define ADC_DMA_CHANNEL_CH_1  DMA_CHANNEL_0
 #define ADC_DMA_STREAM_CH_1  DMA2_Stream0
 
-
-
 /* Definition of ADC and DMA for channel 2 */
 #define ADC_CH_2  ADC2
 #define ADC_GPIO_CH_2  GPIOC
@@ -51,8 +50,6 @@
 #define ADC_DMA_CHANNEL_CH_2  DMA_CHANNEL_1
 #define ADC_DMA_STREAM_CH_2  DMA2_Stream2 
 
-
-
 /* Definition of ADC and DMA for channel 3 */
 #define ADC_CH_3  ADC3
 #define ADC_GPIO_CH_3  GPIOC
@@ -60,8 +57,6 @@
 #define ADC_CHANNEL_CH_3  ADC_CHANNEL_12
 #define ADC_DMA_CHANNEL_CH_3  DMA_CHANNEL_2
 #define ADC_DMA_STREAM_CH_3  DMA2_Stream1
-
-
 
 /* Definition of ADC and DMA for channel 4 */
 #define ADC_CH_4  0

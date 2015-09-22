@@ -55,18 +55,25 @@ void CommTask(void const *argument){
 		if(message[0]=='1' && getScopeState() == SCOPE_DATA_SENDING){
 			/////TODO - j is pointer where to start send data. Do correct sending ;)
 			oneChanMemSize=getOneChanMemSize();
-			j = (getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ) + (oneChanMemSize/2)) % (oneChanMemSize/2);
 			dataLength = getSamples();
 			adcRes = getADCRes();
 			
+			j = (getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ));
+			if(adcRes>8){
+				j=(j*2+(oneChanMemSize)) % (oneChanMemSize);
+				dataLength*=2;
+			}else{
+				j=(j+(oneChanMemSize)) % (oneChanMemSize);
+			} 
+			
 			header[8]=(uint8_t)adcRes;
-			header[9]=(uint8_t)(adcRes >> 8);
-			header[10]=(uint8_t)dataLength;
-			header[11]=(uint8_t)(dataLength >> 8);
+			header[9]=(uint8_t)dataLength;
+			header[10]=(uint8_t)(dataLength >> 8);
+			header[11]=(uint8_t)(dataLength >> 16);
 			header[15]=GetNumOfChannels();
 			
-			if(j+dataLength>oneChanMemSize/2){
-				dataLenFirst=oneChanMemSize/2-j;
+			if(j+dataLength>oneChanMemSize){
+				dataLenFirst=oneChanMemSize-j;
 				dataLenSecond=dataLength-dataLenFirst;
 			}else{
 				dataLenFirst=dataLength;
@@ -82,13 +89,13 @@ void CommTask(void const *argument){
 				
 				commsSendBuff(header,16);
 				
-				if(dataLenFirst*2>65535 || dataLenSecond*2>65535){
+				if(dataLenFirst>65535 || dataLenSecond>65535){
 					while(1){} //TODO data is to long -> split it
 				}
 				
-				commsSendBuff(pointer + j*2, dataLenFirst*2);
+				commsSendBuff(pointer + j, dataLenFirst);
 				if(dataLenSecond!=0){
-					commsSendBuff(pointer, dataLenSecond*2);
+					commsSendBuff(pointer, dataLenSecond);
 				}
 			}	
 			///commsSendString("COMMS_DataSending\r\n");

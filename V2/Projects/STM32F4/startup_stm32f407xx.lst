@@ -868,12 +868,15 @@ ARM Macro Assembler    Page 14
   438 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend="usb_
-cdc_clear configuration\startup_stm32f407xx.d" -o"usb_cdc_clear configuration\s
-tartup_stm32f407xx.o" -I..\..\Inc -I"C:\Program Files (x86)\Keil\ARM\RV31\INC" 
--I"C:\Program Files (x86)\Keil\ARM\CMSIS\Include" --predefine="__MICROLIB SETA 
-1" --list=startup_stm32f407xx.lst ..\..\STM32F4\Drivers\CMSIS\Device\ST\STM32F4
-xx\Source\Templates\arm\startup_stm32f407xx.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend="usb_cdc_clear configuration\startup_stm32f407xx.d" -o"usb_cdc_
+clear configuration\startup_stm32f407xx.o" -I..\..\Inc -IF:\Git\Instrulab\V2\Pr
+ojects\STM32F4\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include -IC:\Kei
+l_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Includ
+e --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 516" --pr
+edefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=startup_stm32f40
+7xx.lst ..\..\STM32F4\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\st
+artup_stm32f407xx.s
 
 
 
@@ -2285,4 +2288,4 @@ e\Templates\arm\startup_stm32f407xx.s
 e\Templates\arm\startup_stm32f407xx.s
 Comment: __main used once
 2 symbols
-442 symbols in table
+445 symbols in table
