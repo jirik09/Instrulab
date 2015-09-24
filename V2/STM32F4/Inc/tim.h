@@ -44,11 +44,15 @@
 
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim6;
+extern TIM_HandleTypeDef htim7;
 
 void MX_TIM3_Init(void);
 void MX_TIM6_Init(void);
+void MX_TIM7_Init(void);
 	 
-void TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base);
+uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t* realFreq);
+uint8_t TIM_Reconfig_scope(uint32_t samplingFreq);
+uint8_t TIM_Reconfig_gen(uint32_t samplingFreq,uint8_t chan,uint32_t* realFreq);
 
 #ifdef __cplusplus
 }

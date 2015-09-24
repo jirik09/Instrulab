@@ -10,16 +10,28 @@
 #define ERR_LIST_H_
 
 // List of possible Errors ====================================================
-#define BUFFER_SIZE_ERR 8 // Buffer size exceeded located memory
-#define SCOPE_INVALID_FEATURE 2
-#define GEN_INVALID_FEATURE 3
-#define SCOPE_INVALID_FEATURE_PARAM 4
-#define SCOPE_UNSUPPORTED_RESOLUTION 5
-#define SCOPE_INVALID_TRIGGER_CHANNEL 6
-#define SCOPE_INVALID_SAMPLING_FREQ 7
+#define BUFFER_SIZE_ERR 58 // Buffer size exceeded located memory
+#define SCOPE_INVALID_FEATURE 52
+#define SCOPE_INVALID_FEATURE_PARAM 54
+#define SCOPE_UNSUPPORTED_RESOLUTION 55
+#define SCOPE_INVALID_TRIGGER_CHANNEL 56
+#define SCOPE_INVALID_SAMPLING_FREQ 57
+
+#define GEN_INVALID_FEATURE 100
+#define GEN_INVALID_STATE 101
+#define GEN_OUT_OF_MEMORY 102 //writing data for generating out of memory
+#define GEN_BUFFER_SIZE_ERR 103
+#define GEN_MISSING_DATA 104 //expected more data
+#define GEN_TO_HIGH_FREQ 105
+#define GEN_FREQ_IS_INACCURATE 107
+#define GEN_FREQ_MISMATCH 108
+#define GEN_INVALID_DATA 109
+
+#define SYSTEM_INVALID_FEATURE 1
+#define COMMS_INVALID_FEATURE 1
 
 #define UNSUPORTED_FUNCTION_ERR_STR "E999" // Unsupported function
-#define UNKNOW_ERROR 100
+#define UNKNOW_ERROR 255
 
 
 #endif /* ERR_LIST_H_ */

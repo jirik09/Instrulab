@@ -15,6 +15,7 @@
 #include "comms_hal.h"
 #include "cmd_parser.h"
 #include "scope.h"
+#include "generator.h"
 
 
 
@@ -33,10 +34,11 @@ static commBuffer comm;
 //portTASK_FUNCTION(vPrintTask, pvParameters) {
 void CommTask(void const *argument){
 	commsInit();
-	messageQueue = xQueueCreate(10, 50);
+	messageQueue = xQueueCreate(5, 30);
 	commsMutex = xSemaphoreCreateRecursiveMutex();
-	char message[50];
-	uint8_t header[16]="OSC_DATAxxxxCHxx";
+	char message[30];
+	uint8_t header[16]="OSC_DATAxxxxCH0x";
+	uint8_t header_gen[12]="GEN_CH0xFxxx";
 	uint8_t *pointer;
 	uint8_t i;
 	uint32_t j;
@@ -67,9 +69,9 @@ void CommTask(void const *argument){
 			} 
 			
 			header[8]=(uint8_t)adcRes;
-			header[9]=(uint8_t)dataLength;
+			header[9]=(uint8_t)(dataLength >> 16);
 			header[10]=(uint8_t)(dataLength >> 8);
-			header[11]=(uint8_t)(dataLength >> 16);
+			header[11]=(uint8_t)dataLength;
 			header[15]=GetNumOfChannels();
 			
 			if(j+dataLength>oneChanMemSize){
@@ -100,6 +102,59 @@ void CommTask(void const *argument){
 			}	
 			///commsSendString("COMMS_DataSending\r\n");
 			xQueueSendToBack(scopeMessageQueue, "2DataSent", portMAX_DELAY);
+			
+		//send generating frequency	
+		}else if(message[0]=='2'){
+			for(uint8_t i = 0;i<MAX_DAC_CHANNELS;i++){
+				header_gen[7]=i+1;
+				j=getRealSmplFreq(i+1);
+				header_gen[9]=(uint8_t)(j>>16);
+				header_gen[10]=(uint8_t)(j>>8);
+				header_gen[11]=(uint8_t)(j);
+				commsSendBuff(header_gen,12);
+			}
+		// send system config
+		}else if(message[0]=='3'){
+			commsSendString("CCLK");
+			commsSendUint32(HAL_RCC_GetHCLKFreq());
+			commsSendString("PCLK");
+			commsSendUint32(HAL_RCC_GetPCLK2Freq());
+			commsSendString("MCU_");
+			commsSendString(MCU);
+			
+		// send comms config
+		}else if(message[0]=='4'){
+			commsSendString("BUFF");
+			commsSendUint32(COMM_BUFFER_SIZE);
+			commsSendString("UART");
+			commsSendUint32(UART_SPEED);
+			commsSendString(USART_CFG_STR);
+			#ifdef USE_USB
+			commsSendString("!USB");
+			commsSendString(USB_CFG_STR);
+			#endif
+			
+		// send scope config
+		}else if(message[0]=='5'){
+			commsSendString("SMPL");
+			commsSendUint32(MAX_SAMPLING_FREQ);
+			commsSendString("BUFF");
+			commsSendUint32(MAX_SCOPE_BUFF_SIZE);
+			commsSendString("CHAN");
+			commsSendUint32(MAX_ADC_CHANNELS);
+			commsSendString(SCOPE_CFG_STR);
+			
+		// send gen config
+		}else if(message[0]=='6'){
+			commsSendString("GEN_");
+			commsSendUint32(MAX_GENERATING_FREQ);
+			commsSendString("BUFF");
+			commsSendUint32(MAX_GENERATOR_BUFF_SIZE);
+			commsSendString("DATA");
+			commsSendUint32(DAC_DATA_DEPTH);
+			commsSendString("CHAN");
+			commsSendUint32(MAX_DAC_CHANNELS);
+			commsSendString(GEN_CFG_STR);
 			
 		// send IDN string
 		}else if (message[0] == 'I'){
@@ -243,6 +298,8 @@ uint16_t getBytesAvailable(){
 		return result;
 	}
 }
+
+
 
 
 

@@ -14,24 +14,35 @@
 #include "math.h"
 #include "err_list.h"
 
+#define IDN_STRING "STM32F4-Discovery FW1.00" //max 30 chars
+#define MCU "STM32F407VG"
 
 // Communication constatnts ===================================================
 #define COMM_BUFFER_SIZE 512
 #define UART_SPEED 230400
 
+#define USART_GPIO GPIOA
+#define USART_TX GPIO_PIN_2
+#define USART_RX GPIO_PIN_3
+#define USART_CFG_STR "TX-PA2 RX-PA3"
+
+#define USE_USB
+#define USB_CFG_STR "DP-PA12 DM-PA11"
+
 // Scope constatnts ===================================================
 #define MAX_SAMPLING_FREQ 2000000 //smps
 #define MAX_ADC_CHANNELS 3
 
-#define MAX_SCOPE_BUFF_SIZE 500 //in bytes
-#define SCOPE_BUFFER_MARGIN 10
+#define MAX_SCOPE_BUFF_SIZE 5000 //in bytes
+#define SCOPE_BUFFER_MARGIN 100
+#define SCOPE_CFG_STR "CH1-PC1 CH2-PC2 CH3-PC3" //TODO definice dole prepsat tak aby byly pouzity
 
 
 #define MAX_GENERATING_FREQ 2000000 //smps
 #define MAX_DAC_CHANNELS 2
-#define MAX_GENERATOR_BUFF_SIZE 1000
+#define MAX_GENERATOR_BUFF_SIZE 2000
 #define	DAC_DATA_DEPTH 12
-
+#define GEN_CFG_STR "CH1-PA4 CH2-PA5"
 
 
 /* Definition of ADC and DMA for channel 1 */

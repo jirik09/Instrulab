@@ -19,9 +19,12 @@
 
 // External variables definitions =============================================
 xQueueHandle cmdParserMessageQueue;
+command parseSystemCmd(void);
+command parseCommsCmd(void);
 command parseScopeCmd(void);
 command parseGeneratorCmd(void);
 command giveNextCmd(void);
+void printErrResponse(command cmd);
 // Function definitions =======================================================
 
 /**
@@ -54,38 +57,25 @@ void CmdParserTask(void const *argument){
 			if(byteRead==0){
 				switch (BUILD_CMD(cmdIn)){
 					case CMD_IDN: //send IDN
-						///commsSendString("PARS_IDN\r\n");
-						///xQueueSendToBack (messageQueue, STR_IDN, portMAX_DELAY);
+						xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
 						xQueueSendToBack (messageQueue, IDN_STRING, portMAX_DELAY);
-						
+					break;
+					case CMD_SYSTEM: 
+						tempCmd = parseSystemCmd();
+						printErrResponse(tempCmd);
+					break;
+					case CMD_COMMS: 
+						tempCmd = parseCommsCmd();
+						printErrResponse(tempCmd);
 					break;
 					case CMD_SCOPE: //parse scope command
-						///commsSendString("PARS_Scope\r\n");
 						tempCmd = parseScopeCmd();
-						if(tempCmd == CMD_END){
-							xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
-						}else{
-							cmdIn[0]='e';
-							cmdIn[1]=(tempCmd/100)%10+48;
-							cmdIn[2]=(tempCmd/10)%10+48;
-							cmdIn[3]=tempCmd%10+48;
-							cmdIn[4]=0;
-							xQueueSendToBack(messageQueue, cmdIn, portMAX_DELAY);
-						}
+						printErrResponse(tempCmd);
 					break;
 						
-					case CMD_GENERATOR: //parse scope command
-						///commsSendString("PARS_Scope\r\n");
+					case CMD_GENERATOR: //parse generator command
 						tempCmd = parseGeneratorCmd();
-						if(tempCmd == CMD_END){
-							xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
-						}else{
-							cmdIn[0]='E';
-							cmdIn[1]=tempCmd%10+48;
-							cmdIn[2]=(tempCmd/10)%10+48;
-							cmdIn[3]=(tempCmd/100)%10+48;
-							xQueueSendToBack(messageQueue, cmdIn, portMAX_DELAY);
-						}
+						printErrResponse(tempCmd);
 					break;
 					default:
 							xQueueSendToBack(messageQueue, UNSUPORTED_FUNCTION_ERR_STR, portMAX_DELAY);
@@ -96,6 +86,65 @@ void CmdParserTask(void const *argument){
 			xQueueSendToBackFromISR(cmdParserMessageQueue, "1TryParseCmd", &xHigherPriorityTaskWoken);
 		}
 	}
+}
+
+
+/**
+  * @brief  System command parse function 
+  * @param  None
+  * @retval Command ACK or ERR
+  */
+command parseSystemCmd(void){
+	command cmdIn=CMD_ERR;
+	uint8_t error=0;
+	//try to parse command while buffer is not empty 
+
+		do{ 
+		cmdIn = giveNextCmd();
+		switch(cmdIn){
+			case CMD_GET_CONFIG:
+				xQueueSendToBack(messageQueue, "3SendSystemConfig", portMAX_DELAY);
+			break;
+			case CMD_END:break;
+			default:
+				error = SYSTEM_INVALID_FEATURE;
+				cmdIn = CMD_ERR;
+			break;
+		}
+	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+	if(error>0){
+		cmdIn=error;
+	}
+return cmdIn;
+}
+
+/**
+  * @brief  Communications command parse function 
+  * @param  None
+  * @retval Command ACK or ERR
+  */
+command parseCommsCmd(void){
+	command cmdIn=CMD_ERR;
+	uint8_t error=0;
+	//try to parse command while buffer is not empty 
+
+		do{ 
+		cmdIn = giveNextCmd();
+		switch(cmdIn){
+			case CMD_GET_CONFIG:
+				xQueueSendToBack(messageQueue, "4SendCommsConfig", portMAX_DELAY);
+			break;
+			case CMD_END:break;
+			default:
+				error = COMMS_INVALID_FEATURE;
+				cmdIn = CMD_ERR;
+			break;
+		}
+	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+	if(error>0){
+		cmdIn=error;
+	}
+return cmdIn;
 }
 
 /**
@@ -291,7 +340,11 @@ command parseScopeCmd(void){
 			
 			case CMD_SCOPE_NEXT: //restart sampling
 				scopeRestart();
+			
 			break;	
+			case CMD_GET_CONFIG:
+				xQueueSendToBack(messageQueue, "5SendScopeConfig", portMAX_DELAY);
+			break;
 				
 			case CMD_END:break;
 			default:
@@ -326,30 +379,38 @@ command parseGeneratorCmd(void){
 		switch(cmdIn){
 			case CMD_GEN_DATA://set data
 				cmdIn = giveNextCmd();
-				index=cmdIn;
+				//index=(cmdIn&0xff00)>>8 | (cmdIn&0x00ff)<<8;
+				index=SWAP_UINT16(cmdIn);
 				length=cmdIn>>16;
 				chan=cmdIn>>24;
 				if(getBytesAvailable()<length*2+1){
-					error=1;
-					while(commBufferReadByte(&chan)==0 && chan!=';');
+					error=GEN_MISSING_DATA;
+					while(commBufferReadByte(&chan)==0);
 				}else{
-					error=genSetData(index*2,length*2,chan);
+					error=genSetData(index,length*2,chan);
+					if (error){
+						while(commBufferReadByte(&chan)==0);
+					}
 				}
 			break;
 				
 			case CMD_GEN_SAMPLING_FREQ: //set sampling freq
 				cmdIn = giveNextCmd();
 				if(cmdIn != CMD_END && cmdIn != CMD_ERR){
-					error=genSetFrequency(cmdIn);
+					error=genSetFrequency(SWAP_UINT32(cmdIn)&0xffffff,(uint8_t)(cmdIn));
 				}else{
 					cmdIn = CMD_ERR;
 				}
 			break;	
 				
+			case CMD_GEN_GET_REAL_SMP_FREQ: //set sampling freq
+				genSendRealSamplingFreq();
+			break;	
+				
 			case CMD_GEN_DATA_LENGTH: //set data length
 				cmdIn = giveNextCmd();
 				if(cmdIn != CMD_END && cmdIn != CMD_ERR){
-					error=genSetLength(cmdIn);
+					error=genSetLength(SWAP_UINT32(cmdIn));
 				}else{
 					cmdIn = CMD_ERR;
 				}
@@ -380,6 +441,10 @@ command parseGeneratorCmd(void){
 			case CMD_GEN_STOP: //stop sampling
 				genStop();
 			break;	
+			
+			case CMD_GET_CONFIG:
+				xQueueSendToBack(messageQueue, "6SendGenConfig", portMAX_DELAY);
+			break;
 				
 			case CMD_END:break;
 			default:
@@ -410,3 +475,23 @@ command giveNextCmd(void){
 		return CMD_ERR;
 	}
 } 
+
+
+/**
+  * @brief  Printr error code 
+  * @param  Command
+  * @retval None
+  */
+void printErrResponse(command cmd){
+	uint8_t err[5];
+  if(cmd == CMD_END){
+		xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
+	}else{
+		err[0]='E';
+		err[1]=(cmd/100)%10+48;
+		err[2]=(cmd/10)%10+48;
+		err[3]=cmd%10+48;
+		err[4]=0;
+		xQueueSendToBack(messageQueue, err, portMAX_DELAY);
+	}
+}

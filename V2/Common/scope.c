@@ -250,7 +250,8 @@ void scopeInit(void){
 			ADC_DMA_Reconfig(i,(uint32_t *)&blindBuffer[i], 1);
 		}
 	}
-	TIM_Reconfig(scope.settings.samplingFrequency,&htim3);
+	//TIM_Reconfig(scope.settings.samplingFrequency,&htim3,0);
+	TIM_Reconfig_scope(scope.settings.samplingFrequency);
 	//triggerInit(scope.settings.samplingFrequency);
 }
 

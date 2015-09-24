@@ -183,7 +183,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 			hdma_adc1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
 		}
     hdma_adc1.Init.Mode = DMA_CIRCULAR;
-    hdma_adc1.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_adc1.Init.Priority = DMA_PRIORITY_HIGH;
     hdma_adc1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     hdma_adc1.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
     hdma_adc1.Init.MemBurst = DMA_MBURST_SINGLE;
@@ -227,7 +227,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 			hdma_adc2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
 		}
     hdma_adc2.Init.Mode = DMA_CIRCULAR;
-    hdma_adc2.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_adc2.Init.Priority = DMA_PRIORITY_HIGH;
     hdma_adc2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     hdma_adc2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
     hdma_adc2.Init.MemBurst = DMA_MBURST_SINGLE;
@@ -271,7 +271,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 			hdma_adc3.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
 		}
     hdma_adc3.Init.Mode = DMA_CIRCULAR;
-    hdma_adc3.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_adc3.Init.Priority = DMA_PRIORITY_HIGH;
     hdma_adc3.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     hdma_adc3.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
     hdma_adc3.Init.MemBurst = DMA_MBURST_SINGLE;

@@ -5,3 +5,7 @@
 *.crf
 
 desktop.ini
+
+
+#runable files
+*.exe

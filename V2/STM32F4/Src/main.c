@@ -94,6 +94,7 @@ int main(void)
   MX_DAC_Init();
   MX_TIM3_Init();
 	MX_TIM6_Init();
+	MX_TIM7_Init();
   MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
@@ -102,12 +103,12 @@ int main(void)
 
   /* Init code generated for FreeRTOS */
   /* Create Start thread */
-	osThreadDef(CMD_PARSER_TASK, CmdParserTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*4);
+	osThreadDef(CMD_PARSER_TASK, CmdParserTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(USER_TASK, StartThread, osPriorityNormal, 0, configMINIMAL_STACK_SIZE);
-	osThreadDef(COMM_TASK, CommTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*4);
-	osThreadDef(SCOPE_TASK, ScopeTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*4);
-	osThreadDef(SCOPE_TRIG_TASK, ScopeTriggerTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*4);
-	osThreadDef(GENERATOR_TASK, GeneratorTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*4);
+	osThreadDef(COMM_TASK, CommTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	osThreadDef(SCOPE_TASK, ScopeTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	osThreadDef(SCOPE_TRIG_TASK, ScopeTriggerTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	osThreadDef(GENERATOR_TASK, GeneratorTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadCreate (osThread(CMD_PARSER_TASK), NULL);
 	osThreadCreate (osThread(USER_TASK), NULL);
 	osThreadCreate (osThread(COMM_TASK), NULL);

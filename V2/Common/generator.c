@@ -19,6 +19,7 @@
 // External variables definitions =============================================
 xQueueHandle generatorMessageQueue;
 uint8_t validateGenBuffUsage(void);
+void clearGenBuffer(void);
 static volatile generatorTypeDef generator;
 uint16_t blindValue=0;
 
@@ -46,10 +47,11 @@ void GeneratorTask(void const *argument){
 
 		}else if(message[0]=='3'){ //invalidate
 			if(generator.state==GENERATOR_IDLE){
-				genInit();
+				
 			}
 		}else if(message[0]=='4'){ //start
 			if(generator.state==GENERATOR_IDLE){
+				genInit();
 				GeneratingEnable();
 				generator.state=GENERATOR_RUN;
 			}
@@ -72,7 +74,11 @@ void GeneratorTask(void const *argument){
   */
 void generatorSetDefault(void){
 	generator.bufferMemory=generatorBuffer;
-	generator.generatingFrequency=DEFAULT_GENERATING_FREQ;
+	for(uint8_t i = 0;i<MAX_DAC_CHANNELS;i++){
+		generator.generatingFrequency[i]=DEFAULT_GENERATING_FREQ;
+		generator.realGenFrequency[i]=DEFAULT_GENERATING_FREQ;
+	}
+
 	generator.numOfChannles=1;
 	generator.oneChanSamples=MAX_GENERATOR_BUFF_SIZE/2;
 	generator.pChanMem[0]=generatorBuffer;
@@ -87,41 +93,59 @@ void genInit(void){
 		}else{
 			DAC_DMA_Reconfig(i,(uint32_t *)&blindValue, 1);
 		}
+		TIM_Reconfig_gen(generator.generatingFrequency[i],i,0);
 	}
-	TIM_Reconfig(generator.generatingFrequency,&htim6);
+	
+	
 }
 
 
 uint8_t genSetData(uint16_t index,uint8_t length,uint8_t chan){
-	uint8_t result = 1;
-	if(generator.state==GENERATOR_IDLE && length<=generator.oneChanSamples && generator.numOfChannles<=chan){
-		if(commBufferReadNBytes((uint8_t *)generator.pChanMem[chan-1]+index,length)==length && commBufferReadByte(&result)==0 && result==';'){
-			result = 0;
+	uint8_t result = GEN_INVALID_STATE;
+	if(generator.state==GENERATOR_IDLE ){
+		if ((index*length+length)/2<=generator.oneChanSamples && generator.numOfChannles>=chan){
+			if(commBufferReadNBytes((uint8_t *)generator.pChanMem[chan-1]+index*length,length)==length && commBufferReadByte(&result)==0 && result==';'){
+				result = 0;
+				xQueueSendToBack(generatorMessageQueue, "3Invalidate", portMAX_DELAY);
+			}else{
+			result = GEN_INVALID_DATA;
+			}
 		}else{
-			result = 1;
+			result = GEN_OUT_OF_MEMORY;
 		}
 	}
 	return result;
 }
 
-uint8_t genSetFrequency(uint32_t freq){
-	uint8_t result = 1;
-	if(generator.state==GENERATOR_IDLE && freq<=MAX_GENERATING_FREQ){
-		generator.generatingFrequency=freq;
-		xQueueSendToBack(generatorMessageQueue, "3Invalidate", portMAX_DELAY);
-		result=0;
+uint8_t genSetFrequency(uint32_t freq,uint8_t chan){
+	uint8_t result = GEN_TO_HIGH_FREQ;
+	uint32_t realFreq;
+	if(freq<=MAX_GENERATING_FREQ){
+		generator.generatingFrequency[chan-1] = freq;
+		result = TIM_Reconfig_gen(generator.generatingFrequency[chan-1],chan-1,&realFreq);
+		generator.realGenFrequency[chan-1] = realFreq;
 	}
 	return result;
 }
 
+void genSendRealSamplingFreq(void){
+	xQueueSendToBack(messageQueue, "2SendGenFreq", portMAX_DELAY);
+}
+
+uint32_t getRealSmplFreq(uint8_t chan){
+	return generator.realGenFrequency[chan-1];
+}
+
 uint8_t genSetLength(uint32_t length){
-	uint8_t result=1;
+	uint8_t result=GEN_INVALID_STATE;
 	if(generator.state==GENERATOR_IDLE){
 		uint32_t smpTmp=generator.oneChanSamples;
 		generator.oneChanSamples=length;
 		if(validateGenBuffUsage()){
+			result = GEN_BUFFER_SIZE_ERR;
 			generator.oneChanSamples=smpTmp;
 		}else{
+			clearGenBuffer();
 			result=0;
 		}
 		xQueueSendToBack(generatorMessageQueue, "3Invalidate", portMAX_DELAY);
@@ -132,12 +156,13 @@ uint8_t genSetLength(uint32_t length){
 
 
 uint8_t genSetNumOfChannels(uint8_t chan){
-	uint8_t result=1;
+	uint8_t result=GEN_INVALID_STATE;
 	uint8_t chanTmp=generator.numOfChannles;
 	if(generator.state==GENERATOR_IDLE){
 		if(chan<=MAX_DAC_CHANNELS){
 			generator.numOfChannles=chan;
 			if(validateGenBuffUsage()){
+				result = GEN_BUFFER_SIZE_ERR;
 				generator.numOfChannles = chanTmp;
 			}else{
 				for(uint8_t i=0;i<chan;i++){
@@ -160,7 +185,7 @@ uint8_t genSetNumOfChannels(uint8_t chan){
 uint8_t validateGenBuffUsage(){
 	uint8_t result=1;
 	uint32_t data_len=generator.oneChanSamples;
-	if(generator.DAC_res>256){
+	if(generator.DAC_res>8){
 		data_len=data_len*2;
 	}
 	data_len=data_len*generator.numOfChannles;
@@ -169,6 +194,19 @@ uint8_t validateGenBuffUsage(){
 	}
 	return result;
 }
+
+/**
+  * @brief 	Clears generator buffer
+  * @param  None
+  * @retval None
+  */
+void clearGenBuffer(void){
+	for(uint32_t i=0;i<MAX_GENERATOR_BUFF_SIZE/2;i++){
+		generatorBuffer[i]=0;
+	}
+}
+
+
 
 
 /**

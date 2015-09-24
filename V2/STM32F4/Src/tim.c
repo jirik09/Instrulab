@@ -35,13 +35,14 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
-
+#include "err_list.h"
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 
 /* TIM3 init function */
 void MX_TIM3_Init(void)
@@ -93,6 +94,39 @@ void MX_TIM6_Init(void)
 }
 
 
+
+/**             
+  * @brief  TIM6 Configuration
+  * @note   TIM6 configuration is based on APB1 frequency
+  * @note   TIM6 Update event occurs each TIM6CLK/256   
+  * @param  None
+  * @retval None
+  */
+void MX_TIM7_Init(void)
+{
+  TIM_MasterConfigTypeDef sMasterConfig;
+  
+  /*##-1- Configure the TIM peripheral #######################################*/
+  /* Time base configuration */
+  htim7.Instance = TIM7;
+  
+  htim7.Init.Period = 0x7FF;          
+  htim7.Init.Prescaler = 0;       
+  htim7.Init.ClockDivision = 0;    
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP; 
+  HAL_TIM_Base_Init(&htim7);
+
+  /* TIM6 TRGO selection */
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  
+  HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig);
+  
+  /*##-2- Enable TIM peripheral counter ######################################*/
+  //HAL_TIM_Base_Start(&htim6);
+}
+
+
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
 
@@ -110,6 +144,9 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_ENABLE();
 	}
+	if(htim_base->Instance==TIM7){
+		__TIM7_CLK_ENABLE();
+	}
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
@@ -126,27 +163,49 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspDeInit 1 */
   }
-		if(htim_base->Instance==TIM6){
+	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_DISABLE();
+	}
+	if(htim_base->Instance==TIM7){
+		__TIM7_CLK_DISABLE();
 	}
 	
 } 
 
 /* USER CODE BEGIN 1 */
-void TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base){
+uint8_t TIM_Reconfig_scope(uint32_t samplingFreq){
+	return TIM_Reconfig(samplingFreq,&htim3,0);
+}
+
+uint8_t TIM_Reconfig_gen(uint32_t samplingFreq,uint8_t chan,uint32_t* realFreq){
+	if(chan==0){
+		return TIM_Reconfig(samplingFreq,&htim6,realFreq);
+	}else if(chan==1){
+		return TIM_Reconfig(samplingFreq,&htim7,realFreq);
+	}else{
+		return 0;
+	}
+}
+
+
+uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t* realFreq){
 	
 	int32_t clkDiv;
 	uint16_t prescaler;
 	uint16_t autoReloadReg;
 	uint32_t errMinRatio = 0;
+	uint8_t result = UNKNOW_ERROR;
+	
+
 
 	clkDiv = HAL_RCC_GetPCLK2Freq() / samplingFreq;
 	
 	if(clkDiv == 0){ //error
-		return;
+		result = GEN_FREQ_MISMATCH;
 	}else if(clkDiv <= 0x0FFFF){ //Sampling frequency is high enough so no prescaler needed
 		prescaler = 0;
 		autoReloadReg = clkDiv - 1;
+		result = 0;
 	}else{	// finding prescaler and autoReload value
 		uint32_t errVal = 0xFFFFFFFF;
 		uint32_t errMin = 0xFFFFFFFF;
@@ -166,7 +225,6 @@ void TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base){
 			if(ratio == 0xFFFF){ //exact combination wasnt found. we use best found
 				div = clkDiv/errMinRatio;
 				ratio = errMinRatio;
-				errVal = 0;
 				break;
 			}			
 		}
@@ -177,11 +235,21 @@ void TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base){
 		}else{
 			prescaler = ratio - 1;
 			autoReloadReg = div - 1;
-		}			
+		}	
+
+		if(errVal){
+			result = GEN_FREQ_IS_INACCURATE;
+		}else{
+			result = 0;
+		}
 	}
+	
+	*realFreq=HAL_RCC_GetPCLK2Freq()/((prescaler+1)*(autoReloadReg+1));
   htim_base->Init.Prescaler = prescaler;
   htim_base->Init.Period = autoReloadReg;
   HAL_TIM_Base_Init(htim_base);
+	return result;
+
 }
 /* USER CODE END 1 */
 

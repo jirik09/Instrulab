@@ -12,7 +12,7 @@
 // Types definitions ==========================================================
 typedef  uint32_t command;
 
-#define IDN_STRING "v1.1 STM32F407 Oscilloscope"
+
 #define STR_ACK "ACK_"
 #define STR_NACK "NACK"
 #define STR_ERR "ERR_"
@@ -22,8 +22,11 @@ typedef  uint32_t command;
 #define STRINGIFY(str) #str
 #define BUILD_CMD(a) ((a[3] << 24)|(a[2] << 16)|(a[1] << 8)|(a[0]))
 
-#define STRINGIFY(str) #str
-#define BUILD_CMD(a) ((a[3] << 24)|(a[2] << 16)|(a[1] << 8)|(a[0]))
+//#define STRINGIFY(str) #str
+//#define BUILD_CMD(a) ((a[3] << 24)|(a[2] << 16)|(a[1] << 8)|(a[0]))
+
+#define SWAP_UINT16(x) (((x & 0xff00) >> 8) | ((x & 0x00ff) << 8))
+#define SWAP_UINT32(x) ( (x&0xff000000)>>24 | (x&0x00ff0000)>>8 | (x&0x0000ff00)<<8 | (x&0x000000ff)<<24 )
 
 
 #define REGISTER_CMD(name,value) CMD_##name=(int)BUILD_CMD(STRINGIFY(value))
@@ -32,10 +35,13 @@ typedef  uint32_t command;
 //Common commands
 enum{
 REGISTER_CMD(IDN,IDN?),
+REGISTER_CMD(GET_CONFIG,CFG?),
 
 REGISTER_CMD(SCOPE,OSCP),
 REGISTER_CMD(GENERATOR,GEN_),
-
+REGISTER_CMD(COMMS,COMS),
+REGISTER_CMD(SYSTEM,SYST),	
+	
 REGISTER_CMD(ERR,ERR_),
 REGISTER_CMD(ACK,ACK_),
 REGISTER_CMD(NACK,NACK),
@@ -45,7 +51,7 @@ REGISTER_CMD(END,END_),
 REGISTER_CMD(SCOPE_TRIG_MODE,TRIG),
 REGISTER_CMD(SCOPE_TRIG_EDGE,EDGE),
 REGISTER_CMD(SCOPE_SAMPLING_FREQ,FREQ),
-REGISTER_CMD(SCOPE_DATA_LENGTH,LENG),
+REGISTER_CMD(SCOPE_DATA_LENGTH,LENG),  //number of samples
 REGISTER_CMD(SCOPE_TRIG_LEVEL,LEVL),
 REGISTER_CMD(SCOPE_TRIG_CHANNEL,TRCH),
 REGISTER_CMD(SCOPE_DATA_DEPTH,DATA),
@@ -57,7 +63,8 @@ REGISTER_CMD(SCOPE_NEXT,NEXT),
 
 REGISTER_CMD(GEN_DATA,DATA),
 REGISTER_CMD(GEN_SAMPLING_FREQ,FREQ),
-REGISTER_CMD(GEN_DATA_LENGTH,LENG),
+REGISTER_CMD(GEN_GET_REAL_SMP_FREQ,FRQ?),
+REGISTER_CMD(GEN_DATA_LENGTH,LENG),   //number of samples
 REGISTER_CMD(GEN_CHANNELS,CHAN),
 REGISTER_CMD(GEN_START,STRT),
 REGISTER_CMD(GEN_STOP,STOP)

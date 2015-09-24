@@ -19,10 +19,11 @@ typedef enum{
 
 typedef struct{
 	uint16_t *bufferMemory;		
-	uint32_t generatingFrequency; 	
+	uint32_t generatingFrequency[MAX_DAC_CHANNELS];
+	uint32_t realGenFrequency[MAX_DAC_CHANNELS];
 	generatorState state;	
 	uint8_t numOfChannles;
-	uint16_t *pChanMem[4];
+	uint16_t *pChanMem[MAX_DAC_CHANNELS];
 	uint32_t oneChanSamples;
 	uint16_t DAC_res;
 }generatorTypeDef;
@@ -32,7 +33,9 @@ void GeneratorTask(void const *argument);
 void generatorSetDefault(void);
 void genInit(void);
 uint8_t genSetData(uint16_t index,uint8_t length,uint8_t chan);
-uint8_t genSetFrequency(uint32_t freq);
+uint8_t genSetFrequency(uint32_t freq,uint8_t chan);
+void genSendRealSamplingFreq(void);
+uint32_t getRealSmplFreq(uint8_t chan);
 uint8_t genSetLength(uint32_t length);
 uint8_t genSetNumOfChannels(uint8_t chan);
 void genStart(void);

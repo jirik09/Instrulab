@@ -1,4 +1,13 @@
-- preorganizovat pamet scope bufferu aby byla data usporadana spravne a taky posilana spravne
-- doplnit kontrolu velikosti bufferu pri zmene nastaveni
+Generator
+- doplnit generovani Sine,PWM,triangle  (delka,faze,amplituda atd)
+- dodelat sweep
 
-- rozchodit generator
+Scope
+- prepinani rozsahu (ukladani do flash)
+
+
+Aplikace
+
+
+
+Obecne

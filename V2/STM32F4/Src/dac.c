@@ -44,6 +44,8 @@
 /* USER CODE END 0 */
 
 DAC_HandleTypeDef hdac;
+DMA_HandleTypeDef hdma_dac1;
+DMA_HandleTypeDef hdma_dac2;
 
 /* DAC init function */
 void MX_DAC_Init(void)
@@ -63,8 +65,10 @@ void MX_DAC_Init(void)
 
     /**DAC channel OUT2 config 
     */
-  HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2);
-
+  
+	sConfig.DAC_Trigger = DAC_TRIGGER_T7_TRGO;
+  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+	HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2);
 }
 
 void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
@@ -89,6 +93,47 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN DAC_MspInit 1 */
+				/* Set the parameters to be configured for Channel1*/
+		hdma_dac1.Instance = DMA1_Stream5;
+		
+		hdma_dac1.Init.Channel  = DMA_CHANNEL_7;
+		hdma_dac1.Init.Direction = DMA_MEMORY_TO_PERIPH;
+		hdma_dac1.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_dac1.Init.MemInc = DMA_MINC_ENABLE;
+		hdma_dac1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		hdma_dac1.Init.MemDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		hdma_dac1.Init.Mode = DMA_CIRCULAR;
+		hdma_dac1.Init.Priority = DMA_PRIORITY_HIGH;
+		hdma_dac1.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
+		hdma_dac1.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
+		hdma_dac1.Init.MemBurst = DMA_MBURST_SINGLE;
+		hdma_dac1.Init.PeriphBurst = DMA_PBURST_SINGLE; 
+
+		HAL_DMA_Init(&hdma_dac1);
+			
+		/* Associate the initialized DMA handle to the the DAC handle */
+		__HAL_LINKDMA(hdac, DMA_Handle1, hdma_dac1);
+		
+						/* Set the parameters to be configured for Channel2*/
+		hdma_dac2.Instance = DMA1_Stream6;
+		
+		hdma_dac2.Init.Channel  = DMA_CHANNEL_7;
+		hdma_dac2.Init.Direction = DMA_MEMORY_TO_PERIPH;
+		hdma_dac2.Init.PeriphInc = DMA_PINC_DISABLE;
+		hdma_dac2.Init.MemInc = DMA_MINC_ENABLE;
+		hdma_dac2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		hdma_dac2.Init.MemDataAlignment = DMA_PDATAALIGN_HALFWORD;
+		hdma_dac2.Init.Mode = DMA_CIRCULAR;
+		hdma_dac2.Init.Priority = DMA_PRIORITY_HIGH;
+		hdma_dac2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;         
+		hdma_dac2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL;
+		hdma_dac2.Init.MemBurst = DMA_MBURST_SINGLE;
+		hdma_dac2.Init.PeriphBurst = DMA_PBURST_SINGLE; 
+
+		HAL_DMA_Init(&hdma_dac2);
+			
+		/* Associate the initialized DMA handle to the the DAC handle */
+		__HAL_LINKDMA(hdac, DMA_Handle2, hdma_dac2);
 
   /* USER CODE END DAC_MspInit 1 */
   }
@@ -140,6 +185,7 @@ void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
   */
 void GeneratingEnable (void){
 	HAL_TIM_Base_Start(&htim6);
+	HAL_TIM_Base_Start(&htim7);
 	GPIOD->ODR |= GPIO_PIN_13;
 }
 
@@ -150,6 +196,7 @@ void GeneratingEnable (void){
   */
 void GeneratingDisable (void){
 	HAL_TIM_Base_Stop(&htim6);
+	HAL_TIM_Base_Stop(&htim7);	
 	GPIOD->ODR &= ~GPIO_PIN_13;
 }
 /* USER CODE END 1 */
