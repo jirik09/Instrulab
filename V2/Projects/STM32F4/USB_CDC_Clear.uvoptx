@@ -196,25 +196,25 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>397</LineNumber>
+          <LineNumber>83</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134252376</Address>
+          <Address>134221438</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\Common\cmd_parser.c</Filename>
+          <Filename>..\..\Common\comms.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\USB_CDC_Clear_Configuration\../../Common/cmd_parser.c\397</Expression>
+          <Expression>\\USB_CDC_Clear_Configuration\../../Common/comms.c\83</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>scope,0x0A</ItemText>
+          <ItemText>scope,0x10</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -307,6 +307,11 @@
           <count>2</count>
           <WinNumber>2</WinNumber>
           <ItemText>freq</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>RANGES</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>

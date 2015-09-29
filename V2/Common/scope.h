@@ -109,6 +109,7 @@ uint8_t scopeSetNumOfSamples(uint32_t len);
 uint8_t scopeSetTrigChannel(uint8_t chan);
 uint8_t scopeSetNumOfChannels(uint8_t chan);
 uint8_t scopeSetTrigChannel(uint8_t chan);
+const int16_t* scopeGetRanges(uint8_t * len);
 void scopeRestart(void);
 void scopeStart(void);
 void scopeStop(void);

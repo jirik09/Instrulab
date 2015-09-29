@@ -34,40 +34,40 @@
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_general = new System.Windows.Forms.GroupBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.label_MCU = new System.Windows.Forms.Label();
+            this.label_con4 = new System.Windows.Forms.Label();
+            this.label_con3 = new System.Windows.Forms.Label();
+            this.label_con2 = new System.Windows.Forms.Label();
+            this.label_con1 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
+            this.label_Freq = new System.Windows.Forms.Label();
             this.groupBox_scope = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.btn_scope_open = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label_scope_smpl = new System.Windows.Forms.Label();
+            this.label_scope_pins = new System.Windows.Forms.Label();
+            this.label_scope_vref = new System.Windows.Forms.Label();
+            this.label_scope_channs = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.label_scope_buff_len = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.groupBox_generator = new System.Windows.Forms.GroupBox();
             this.label52 = new System.Windows.Forms.Label();
             this.btn_gen_open = new System.Windows.Forms.Button();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
+            this.label_gen_smpl = new System.Windows.Forms.Label();
+            this.label_gen_data_depth = new System.Windows.Forms.Label();
+            this.label_gen_pins = new System.Windows.Forms.Label();
+            this.label_gen_channs = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
+            this.label_gen_vref = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
+            this.label_gen_buff_len = new System.Windows.Forms.Label();
             this.btn_connect = new System.Windows.Forms.Button();
             this.btn_scan = new System.Windows.Forms.Button();
             this.listBox_devices = new System.Windows.Forms.ListBox();
@@ -106,7 +106,7 @@
             this.panel1.Controls.Add(this.listBox_devices);
             this.panel1.Location = new System.Drawing.Point(3, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(780, 383);
+            this.panel1.Size = new System.Drawing.Size(793, 383);
             this.panel1.TabIndex = 0;
             // 
             // groupBox_device_info
@@ -118,7 +118,7 @@
             this.groupBox_device_info.Controls.Add(this.tableLayoutPanel8);
             this.groupBox_device_info.Location = new System.Drawing.Point(8, 10);
             this.groupBox_device_info.Name = "groupBox_device_info";
-            this.groupBox_device_info.Size = new System.Drawing.Size(520, 366);
+            this.groupBox_device_info.Size = new System.Drawing.Size(533, 366);
             this.groupBox_device_info.TabIndex = 3;
             this.groupBox_device_info.TabStop = false;
             this.groupBox_device_info.Text = "Device info";
@@ -130,7 +130,7 @@
             this.label_device.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label_device.Location = new System.Drawing.Point(6, 18);
             this.label_device.Name = "label_device";
-            this.label_device.Size = new System.Drawing.Size(507, 35);
+            this.label_device.Size = new System.Drawing.Size(520, 35);
             this.label_device.TabIndex = 3;
             this.label_device.Text = "No device connected";
             this.label_device.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,24 +155,26 @@
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 302F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(506, 302);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 302);
             this.tableLayoutPanel8.TabIndex = 2;
             // 
             // groupBox_general
             // 
             this.groupBox_general.Controls.Add(this.label42);
-            this.groupBox_general.Controls.Add(this.label41);
-            this.groupBox_general.Controls.Add(this.label53);
-            this.groupBox_general.Controls.Add(this.label26);
+            this.groupBox_general.Controls.Add(this.label_MCU);
+            this.groupBox_general.Controls.Add(this.label_con4);
+            this.groupBox_general.Controls.Add(this.label_con3);
+            this.groupBox_general.Controls.Add(this.label_con2);
+            this.groupBox_general.Controls.Add(this.label_con1);
             this.groupBox_general.Controls.Add(this.label29);
             this.groupBox_general.Controls.Add(this.label35);
-            this.groupBox_general.Controls.Add(this.label37);
+            this.groupBox_general.Controls.Add(this.label_Freq);
             this.groupBox_general.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_general.Location = new System.Drawing.Point(4, 4);
             this.groupBox_general.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_general.Name = "groupBox_general";
             this.groupBox_general.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_general.Size = new System.Drawing.Size(160, 294);
+            this.groupBox_general.Size = new System.Drawing.Size(165, 294);
             this.groupBox_general.TabIndex = 0;
             this.groupBox_general.TabStop = false;
             this.groupBox_general.Text = "General";
@@ -183,39 +185,56 @@
             this.label42.Location = new System.Drawing.Point(8, 20);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(83, 17);
+            this.label42.Size = new System.Drawing.Size(51, 17);
             this.label42.TabIndex = 0;
-            this.label42.Text = "Device core";
+            this.label42.Text = "Device";
             // 
-            // label41
+            // label_MCU
             // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(8, 40);
-            this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(18, 17);
-            this.label41.TabIndex = 1;
-            this.label41.Text = "--";
+            this.label_MCU.AutoSize = true;
+            this.label_MCU.Location = new System.Drawing.Point(19, 40);
+            this.label_MCU.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_MCU.Name = "label_MCU";
+            this.label_MCU.Size = new System.Drawing.Size(18, 17);
+            this.label_MCU.TabIndex = 1;
+            this.label_MCU.Text = "--";
             // 
-            // label53
+            // label_con4
             // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(8, 140);
-            this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(18, 17);
-            this.label53.TabIndex = 1;
-            this.label53.Text = "--";
+            this.label_con4.AutoSize = true;
+            this.label_con4.Location = new System.Drawing.Point(19, 180);
+            this.label_con4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_con4.Name = "label_con4";
+            this.label_con4.Size = new System.Drawing.Size(0, 17);
+            this.label_con4.TabIndex = 1;
             // 
-            // label26
+            // label_con3
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(8, 120);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(18, 17);
-            this.label26.TabIndex = 1;
-            this.label26.Text = "--";
+            this.label_con3.AutoSize = true;
+            this.label_con3.Location = new System.Drawing.Point(19, 160);
+            this.label_con3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_con3.Name = "label_con3";
+            this.label_con3.Size = new System.Drawing.Size(0, 17);
+            this.label_con3.TabIndex = 1;
+            // 
+            // label_con2
+            // 
+            this.label_con2.AutoSize = true;
+            this.label_con2.Location = new System.Drawing.Point(19, 140);
+            this.label_con2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_con2.Name = "label_con2";
+            this.label_con2.Size = new System.Drawing.Size(0, 17);
+            this.label_con2.TabIndex = 1;
+            // 
+            // label_con1
+            // 
+            this.label_con1.AutoSize = true;
+            this.label_con1.Location = new System.Drawing.Point(19, 120);
+            this.label_con1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_con1.Name = "label_con1";
+            this.label_con1.Size = new System.Drawing.Size(18, 17);
+            this.label_con1.TabIndex = 1;
+            this.label_con1.Text = "--";
             // 
             // label29
             // 
@@ -237,37 +256,35 @@
             this.label35.TabIndex = 0;
             this.label35.Text = "Connection";
             // 
-            // label37
+            // label_Freq
             // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(8, 80);
-            this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(18, 17);
-            this.label37.TabIndex = 1;
-            this.label37.Text = "--";
+            this.label_Freq.AutoSize = true;
+            this.label_Freq.Location = new System.Drawing.Point(19, 80);
+            this.label_Freq.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_Freq.Name = "label_Freq";
+            this.label_Freq.Size = new System.Drawing.Size(18, 17);
+            this.label_Freq.TabIndex = 1;
+            this.label_Freq.Text = "--";
             // 
             // groupBox_scope
             // 
             this.groupBox_scope.Controls.Add(this.label17);
             this.groupBox_scope.Controls.Add(this.btn_scope_open);
-            this.groupBox_scope.Controls.Add(this.label18);
-            this.groupBox_scope.Controls.Add(this.label11);
-            this.groupBox_scope.Controls.Add(this.label12);
-            this.groupBox_scope.Controls.Add(this.label5);
+            this.groupBox_scope.Controls.Add(this.label_scope_smpl);
+            this.groupBox_scope.Controls.Add(this.label_scope_pins);
+            this.groupBox_scope.Controls.Add(this.label_scope_vref);
+            this.groupBox_scope.Controls.Add(this.label_scope_channs);
             this.groupBox_scope.Controls.Add(this.label7);
-            this.groupBox_scope.Controls.Add(this.label23);
+            this.groupBox_scope.Controls.Add(this.label_scope_buff_len);
             this.groupBox_scope.Controls.Add(this.label9);
-            this.groupBox_scope.Controls.Add(this.label20);
             this.groupBox_scope.Controls.Add(this.label4);
             this.groupBox_scope.Controls.Add(this.label22);
-            this.groupBox_scope.Controls.Add(this.label21);
             this.groupBox_scope.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_scope.Location = new System.Drawing.Point(340, 4);
+            this.groupBox_scope.Location = new System.Drawing.Point(350, 4);
             this.groupBox_scope.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_scope.Name = "groupBox_scope";
             this.groupBox_scope.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_scope.Size = new System.Drawing.Size(162, 294);
+            this.groupBox_scope.Size = new System.Drawing.Size(165, 294);
             this.groupBox_scope.TabIndex = 3;
             this.groupBox_scope.TabStop = false;
             this.groupBox_scope.Text = "Oscilloscope";
@@ -286,98 +303,89 @@
             // 
             this.btn_scope_open.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_scope_open.Enabled = false;
             this.btn_scope_open.Location = new System.Drawing.Point(7, 262);
             this.btn_scope_open.Name = "btn_scope_open";
-            this.btn_scope_open.Size = new System.Drawing.Size(148, 25);
+            this.btn_scope_open.Size = new System.Drawing.Size(151, 25);
             this.btn_scope_open.TabIndex = 1;
             this.btn_scope_open.Text = "Open";
             this.btn_scope_open.UseVisualStyleBackColor = true;
             this.btn_scope_open.Click += new System.EventHandler(this.btn_scope_open_Click);
             // 
-            // label18
+            // label_scope_smpl
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 40);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(51, 17);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "-- ksps";
+            this.label_scope_smpl.AutoSize = true;
+            this.label_scope_smpl.Location = new System.Drawing.Point(19, 40);
+            this.label_scope_smpl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_scope_smpl.Name = "label_scope_smpl";
+            this.label_scope_smpl.Size = new System.Drawing.Size(51, 17);
+            this.label_scope_smpl.TabIndex = 1;
+            this.label_scope_smpl.Text = "-- ksps";
             // 
-            // label11
+            // label_scope_pins
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 240);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(18, 17);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "--";
+            this.label_scope_pins.AutoSize = true;
+            this.label_scope_pins.Location = new System.Drawing.Point(19, 200);
+            this.label_scope_pins.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_scope_pins.Name = "label_scope_pins";
+            this.label_scope_pins.Size = new System.Drawing.Size(18, 17);
+            this.label_scope_pins.TabIndex = 1;
+            this.label_scope_pins.Text = "--";
             // 
-            // label12
+            // label_scope_vref
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 160);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(42, 17);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "-- mV";
+            this.label_scope_vref.AutoSize = true;
+            this.label_scope_vref.Location = new System.Drawing.Point(19, 120);
+            this.label_scope_vref.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_scope_vref.Name = "label_scope_vref";
+            this.label_scope_vref.Size = new System.Drawing.Size(42, 17);
+            this.label_scope_vref.TabIndex = 1;
+            this.label_scope_vref.Text = "-- mV";
             // 
-            // label5
+            // label_scope_channs
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 200);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(18, 17);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "--";
+            this.label_scope_channs.AutoSize = true;
+            this.label_scope_channs.Location = new System.Drawing.Point(19, 160);
+            this.label_scope_channs.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_scope_channs.Name = "label_scope_channs";
+            this.label_scope_channs.Size = new System.Drawing.Size(18, 17);
+            this.label_scope_channs.TabIndex = 1;
+            this.label_scope_channs.Text = "--";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 220);
+            this.label7.Location = new System.Drawing.Point(8, 180);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 17);
             this.label7.TabIndex = 0;
             this.label7.Text = "Scope pin";
             // 
-            // label23
+            // label_scope_buff_len
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 120);
-            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(56, 17);
-            this.label23.TabIndex = 1;
-            this.label23.Text = "-- bytes";
+            this.label_scope_buff_len.AutoSize = true;
+            this.label_scope_buff_len.Location = new System.Drawing.Point(19, 80);
+            this.label_scope_buff_len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_scope_buff_len.Name = "label_scope_buff_len";
+            this.label_scope_buff_len.Size = new System.Drawing.Size(56, 17);
+            this.label_scope_buff_len.TabIndex = 1;
+            this.label_scope_buff_len.Text = "-- bytes";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 140);
+            this.label9.Location = new System.Drawing.Point(8, 100);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(81, 17);
             this.label9.TabIndex = 0;
             this.label9.Text = "Voltage ref.";
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 60);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(78, 17);
-            this.label20.TabIndex = 0;
-            this.label20.Text = "Data depth";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 180);
+            this.label4.Location = new System.Drawing.Point(8, 140);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 17);
@@ -387,44 +395,34 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(8, 100);
+            this.label22.Location = new System.Drawing.Point(8, 60);
             this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(89, 17);
             this.label22.TabIndex = 0;
             this.label22.Text = "Buffer lenght";
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 80);
-            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(37, 17);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "-- bit";
-            // 
             // groupBox_generator
             // 
             this.groupBox_generator.Controls.Add(this.label52);
             this.groupBox_generator.Controls.Add(this.btn_gen_open);
-            this.groupBox_generator.Controls.Add(this.label51);
-            this.groupBox_generator.Controls.Add(this.label43);
-            this.groupBox_generator.Controls.Add(this.label3);
-            this.groupBox_generator.Controls.Add(this.label50);
+            this.groupBox_generator.Controls.Add(this.label_gen_smpl);
+            this.groupBox_generator.Controls.Add(this.label_gen_data_depth);
+            this.groupBox_generator.Controls.Add(this.label_gen_pins);
+            this.groupBox_generator.Controls.Add(this.label_gen_channs);
             this.groupBox_generator.Controls.Add(this.label44);
-            this.groupBox_generator.Controls.Add(this.label49);
+            this.groupBox_generator.Controls.Add(this.label_gen_vref);
             this.groupBox_generator.Controls.Add(this.label45);
             this.groupBox_generator.Controls.Add(this.label2);
             this.groupBox_generator.Controls.Add(this.label48);
             this.groupBox_generator.Controls.Add(this.label46);
-            this.groupBox_generator.Controls.Add(this.label47);
+            this.groupBox_generator.Controls.Add(this.label_gen_buff_len);
             this.groupBox_generator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_generator.Location = new System.Drawing.Point(172, 4);
+            this.groupBox_generator.Location = new System.Drawing.Point(177, 4);
             this.groupBox_generator.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_generator.Name = "groupBox_generator";
             this.groupBox_generator.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_generator.Size = new System.Drawing.Size(160, 294);
+            this.groupBox_generator.Size = new System.Drawing.Size(165, 294);
             this.groupBox_generator.TabIndex = 2;
             this.groupBox_generator.TabStop = false;
             this.groupBox_generator.Text = "Generator";
@@ -443,53 +441,54 @@
             // 
             this.btn_gen_open.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_gen_open.Enabled = false;
             this.btn_gen_open.Location = new System.Drawing.Point(11, 262);
             this.btn_gen_open.Name = "btn_gen_open";
-            this.btn_gen_open.Size = new System.Drawing.Size(142, 25);
+            this.btn_gen_open.Size = new System.Drawing.Size(147, 25);
             this.btn_gen_open.TabIndex = 1;
             this.btn_gen_open.Text = "Open";
             this.btn_gen_open.UseVisualStyleBackColor = true;
             this.btn_gen_open.Click += new System.EventHandler(this.btn_gen_open_Click);
             // 
-            // label51
+            // label_gen_smpl
             // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(8, 40);
-            this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(51, 17);
-            this.label51.TabIndex = 1;
-            this.label51.Text = "-- ksps";
+            this.label_gen_smpl.AutoSize = true;
+            this.label_gen_smpl.Location = new System.Drawing.Point(19, 40);
+            this.label_gen_smpl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_smpl.Name = "label_gen_smpl";
+            this.label_gen_smpl.Size = new System.Drawing.Size(51, 17);
+            this.label_gen_smpl.TabIndex = 1;
+            this.label_gen_smpl.Text = "-- ksps";
             // 
-            // label43
+            // label_gen_data_depth
             // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(8, 80);
-            this.label43.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(37, 17);
-            this.label43.TabIndex = 1;
-            this.label43.Text = "-- bit";
+            this.label_gen_data_depth.AutoSize = true;
+            this.label_gen_data_depth.Location = new System.Drawing.Point(19, 80);
+            this.label_gen_data_depth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_data_depth.Name = "label_gen_data_depth";
+            this.label_gen_data_depth.Size = new System.Drawing.Size(37, 17);
+            this.label_gen_data_depth.TabIndex = 1;
+            this.label_gen_data_depth.Text = "-- bit";
             // 
-            // label3
+            // label_gen_pins
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 240);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(18, 17);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "--";
+            this.label_gen_pins.AutoSize = true;
+            this.label_gen_pins.Location = new System.Drawing.Point(19, 240);
+            this.label_gen_pins.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_pins.Name = "label_gen_pins";
+            this.label_gen_pins.Size = new System.Drawing.Size(18, 17);
+            this.label_gen_pins.TabIndex = 1;
+            this.label_gen_pins.Text = "--";
             // 
-            // label50
+            // label_gen_channs
             // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(8, 200);
-            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(18, 17);
-            this.label50.TabIndex = 1;
-            this.label50.Text = "--";
+            this.label_gen_channs.AutoSize = true;
+            this.label_gen_channs.Location = new System.Drawing.Point(19, 200);
+            this.label_gen_channs.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_channs.Name = "label_gen_channs";
+            this.label_gen_channs.Size = new System.Drawing.Size(18, 17);
+            this.label_gen_channs.TabIndex = 1;
+            this.label_gen_channs.Text = "--";
             // 
             // label44
             // 
@@ -501,15 +500,15 @@
             this.label44.TabIndex = 0;
             this.label44.Text = "Buffer lenght";
             // 
-            // label49
+            // label_gen_vref
             // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(8, 160);
-            this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(42, 17);
-            this.label49.TabIndex = 1;
-            this.label49.Text = "-- mV";
+            this.label_gen_vref.AutoSize = true;
+            this.label_gen_vref.Location = new System.Drawing.Point(19, 160);
+            this.label_gen_vref.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_vref.Name = "label_gen_vref";
+            this.label_gen_vref.Size = new System.Drawing.Size(42, 17);
+            this.label_gen_vref.TabIndex = 1;
+            this.label_gen_vref.Text = "-- mV";
             // 
             // label45
             // 
@@ -551,21 +550,21 @@
             this.label46.TabIndex = 0;
             this.label46.Text = "Voltage ref.";
             // 
-            // label47
+            // label_gen_buff_len
             // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(8, 120);
-            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(56, 17);
-            this.label47.TabIndex = 1;
-            this.label47.Text = "-- bytes";
+            this.label_gen_buff_len.AutoSize = true;
+            this.label_gen_buff_len.Location = new System.Drawing.Point(19, 120);
+            this.label_gen_buff_len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_gen_buff_len.Name = "label_gen_buff_len";
+            this.label_gen_buff_len.Size = new System.Drawing.Size(56, 17);
+            this.label_gen_buff_len.TabIndex = 1;
+            this.label_gen_buff_len.Text = "-- bytes";
             // 
             // btn_connect
             // 
             this.btn_connect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_connect.Enabled = false;
-            this.btn_connect.Location = new System.Drawing.Point(534, 351);
+            this.btn_connect.Location = new System.Drawing.Point(547, 351);
             this.btn_connect.Name = "btn_connect";
             this.btn_connect.Size = new System.Drawing.Size(136, 25);
             this.btn_connect.TabIndex = 1;
@@ -576,7 +575,7 @@
             // btn_scan
             // 
             this.btn_scan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_scan.Location = new System.Drawing.Point(676, 351);
+            this.btn_scan.Location = new System.Drawing.Point(689, 351);
             this.btn_scan.Name = "btn_scan";
             this.btn_scan.Size = new System.Drawing.Size(101, 25);
             this.btn_scan.TabIndex = 1;
@@ -590,7 +589,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_devices.FormattingEnabled = true;
             this.listBox_devices.ItemHeight = 16;
-            this.listBox_devices.Location = new System.Drawing.Point(534, 10);
+            this.listBox_devices.Location = new System.Drawing.Point(547, 10);
             this.listBox_devices.Name = "listBox_devices";
             this.listBox_devices.Size = new System.Drawing.Size(240, 340);
             this.listBox_devices.TabIndex = 0;
@@ -603,7 +602,7 @@
             this.toolStripProgressBar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 410);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(789, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(802, 25);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -636,7 +635,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(789, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(802, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -702,12 +701,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 435);
+            this.ClientSize = new System.Drawing.Size(802, 435);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(750, 480);
+            this.MinimumSize = new System.Drawing.Size(820, 480);
             this.Name = "Instrulab";
             this.Text = "Instrulab";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Instrulab_FormClosing);
@@ -742,39 +741,37 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.GroupBox groupBox_general;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label_MCU;
+        private System.Windows.Forms.Label label_con2;
+        private System.Windows.Forms.Label label_con1;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label_Freq;
         private System.Windows.Forms.GroupBox groupBox_scope;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label_scope_smpl;
+        private System.Windows.Forms.Label label_scope_pins;
+        private System.Windows.Forms.Label label_scope_vref;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label_scope_buff_len;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.GroupBox groupBox_generator;
         private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label label_gen_smpl;
+        private System.Windows.Forms.Label label_gen_data_depth;
+        private System.Windows.Forms.Label label_gen_channs;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label_gen_vref;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label_gen_buff_len;
         private System.Windows.Forms.GroupBox groupBox_device_info;
         private System.Windows.Forms.Label label_device;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_scope_channs;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label_gen_pins;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_gen_open;
         private System.Windows.Forms.Button btn_scope_open;
@@ -787,6 +784,8 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Label label_con4;
+        private System.Windows.Forms.Label label_con3;
 
 
     }

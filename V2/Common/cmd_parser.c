@@ -487,7 +487,7 @@ void printErrResponse(command cmd){
   if(cmd == CMD_END){
 		xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
 	}else{
-		err[0]='E';
+		err[0]=ERROR_PREFIX;
 		err[1]=(cmd/100)%10+48;
 		err[2]=(cmd/10)%10+48;
 		err[3]=cmd%10+48;

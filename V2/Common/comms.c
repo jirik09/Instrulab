@@ -25,6 +25,11 @@ static xSemaphoreHandle commsMutex ;
 static uint8_t commBuffMem[COMM_BUFFER_SIZE];
 static commBuffer comm;
 
+void sendSystConf(void);
+void sendCommsConf(void);
+void sendScopeConf(void);
+void sendGenConf(void);
+
 // Function definitions =======================================================
 /**
   * @brief  Communication task function.
@@ -42,6 +47,8 @@ void CommTask(void const *argument){
 	uint8_t *pointer;
 	uint8_t i;
 	uint32_t j;
+	uint8_t k;
+	uint32_t tmpToSend;
 	uint32_t dataLength;
 	uint32_t dataLenFirst;
 	uint32_t dataLenSecond;
@@ -60,12 +67,11 @@ void CommTask(void const *argument){
 			dataLength = getSamples();
 			adcRes = getADCRes();
 			
-			j = (getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ));
 			if(adcRes>8){
-				j=(j*2+(oneChanMemSize)) % (oneChanMemSize);
+				j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))*2+oneChanMemSize)%oneChanMemSize;
 				dataLength*=2;
 			}else{
-				j=(j+(oneChanMemSize)) % (oneChanMemSize);
+				j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))+oneChanMemSize)%oneChanMemSize;
 			} 
 			
 			header[8]=(uint8_t)adcRes;
@@ -91,12 +97,35 @@ void CommTask(void const *argument){
 				
 				commsSendBuff(header,16);
 				
-				if(dataLenFirst>65535 || dataLenSecond>65535){
-					while(1){} //TODO data is to long -> split it
+				if(dataLenFirst>16384 ){
+					tmpToSend=dataLenFirst;
+					k=0;
+					while(tmpToSend>16384){
+						commsSendBuff(pointer + j+k*16384, 16384);
+						k++;
+						tmpToSend-=16384;
+					}
+					if(tmpToSend>0){
+					commsSendBuff(pointer + j+k*16384, tmpToSend);
+					}
+				}
+				if(dataLenFirst>0){
+					commsSendBuff(pointer + j, dataLenFirst);
 				}
 				
-				commsSendBuff(pointer + j, dataLenFirst);
-				if(dataLenSecond!=0){
+				if(dataLenSecond>16384 ){
+					tmpToSend=dataLenSecond;
+					k=0;
+					while(tmpToSend>16384){
+						commsSendBuff(pointer+k*16384, 16384);
+						k++;
+						tmpToSend-=16384;
+					}
+					if(tmpToSend>0){
+					commsSendBuff(pointer+k*16384, tmpToSend);
+					}
+				}
+				if(dataLenSecond>0){
 					commsSendBuff(pointer, dataLenSecond);
 				}
 			}	
@@ -105,7 +134,7 @@ void CommTask(void const *argument){
 			
 		//send generating frequency	
 		}else if(message[0]=='2'){
-			for(uint8_t i = 0;i<MAX_DAC_CHANNELS;i++){
+			for(i = 0;i<MAX_DAC_CHANNELS;i++){
 				header_gen[7]=i+1;
 				j=getRealSmplFreq(i+1);
 				header_gen[9]=(uint8_t)(j>>16);
@@ -115,46 +144,19 @@ void CommTask(void const *argument){
 			}
 		// send system config
 		}else if(message[0]=='3'){
-			commsSendString("CCLK");
-			commsSendUint32(HAL_RCC_GetHCLKFreq());
-			commsSendString("PCLK");
-			commsSendUint32(HAL_RCC_GetPCLK2Freq());
-			commsSendString("MCU_");
-			commsSendString(MCU);
+			sendSystConf();
 			
 		// send comms config
 		}else if(message[0]=='4'){
-			commsSendString("BUFF");
-			commsSendUint32(COMM_BUFFER_SIZE);
-			commsSendString("UART");
-			commsSendUint32(UART_SPEED);
-			commsSendString(USART_CFG_STR);
-			#ifdef USE_USB
-			commsSendString("!USB");
-			commsSendString(USB_CFG_STR);
-			#endif
+			sendCommsConf();
 			
 		// send scope config
 		}else if(message[0]=='5'){
-			commsSendString("SMPL");
-			commsSendUint32(MAX_SAMPLING_FREQ);
-			commsSendString("BUFF");
-			commsSendUint32(MAX_SCOPE_BUFF_SIZE);
-			commsSendString("CHAN");
-			commsSendUint32(MAX_ADC_CHANNELS);
-			commsSendString(SCOPE_CFG_STR);
+			sendScopeConf();
 			
 		// send gen config
 		}else if(message[0]=='6'){
-			commsSendString("GEN_");
-			commsSendUint32(MAX_GENERATING_FREQ);
-			commsSendString("BUFF");
-			commsSendUint32(MAX_GENERATOR_BUFF_SIZE);
-			commsSendString("DATA");
-			commsSendUint32(DAC_DATA_DEPTH);
-			commsSendString("CHAN");
-			commsSendUint32(MAX_DAC_CHANNELS);
-			commsSendString(GEN_CFG_STR);
+			sendGenConf();
 			
 		// send IDN string
 		}else if (message[0] == 'I'){
@@ -298,6 +300,75 @@ uint16_t getBytesAvailable(){
 		return result;
 	}
 }
+
+
+void sendSystConf(){
+	commsSendString("SYST");
+	commsSendUint32(HAL_RCC_GetHCLKFreq());  //CCLK
+	commsSendUint32(HAL_RCC_GetPCLK2Freq()); //PCLK
+	commsSendString(MCU);
+}
+
+void sendCommsConf(){
+	commsSendString("COMM");
+	commsSendUint32(COMM_BUFFER_SIZE);
+	commsSendUint32(UART_SPEED);
+	commsSendString(USART_TX_PIN_STR);
+	commsSendString(USART_RX_PIN_STR);
+	#ifdef USE_USB
+	commsSendString("USB_");
+	commsSendString(USB_DP_PIN_STR);
+	commsSendString(USB_DM_PIN_STR);
+	#endif
+}
+
+void sendScopeConf(){
+	uint8_t i;
+	commsSendString("OSCP");
+	commsSendUint32(MAX_SAMPLING_FREQ);
+	commsSendUint32(MAX_SCOPE_BUFF_SIZE);
+	commsSendUint32(MAX_ADC_CHANNELS);
+	for (i=0;i<MAX_ADC_CHANNELS;i++){
+		switch(i){
+			case 0:
+				commsSendString(SCOPE_CH1_PIN_STR);
+				break;
+			case 1:
+				commsSendString(SCOPE_CH2_PIN_STR);
+				break;
+			case 2:
+				commsSendString(SCOPE_CH3_PIN_STR);
+				break;
+			case 3:
+				commsSendString(SCOPE_CH4_PIN_STR);
+				break;
+		}
+	}
+	commsSendUint32(SCOPE_VREF);
+	commsSendBuff((uint8_t*)scopeGetRanges(&i),i);
+
+}
+
+void sendGenConf(){
+	uint8_t i;
+	commsSendString("GEN_");
+	commsSendUint32(MAX_GENERATING_FREQ);
+	commsSendUint32(MAX_GENERATOR_BUFF_SIZE);
+	commsSendUint32(DAC_DATA_DEPTH);
+	commsSendUint32(MAX_DAC_CHANNELS);
+	for (i=0;i<MAX_DAC_CHANNELS;i++){
+		switch(i){
+			case 0:
+				commsSendString(GEN_CH1_PIN_STR);
+				break;
+			case 1:
+				commsSendString(GEN_CH2_PIN_STR);
+				break;
+		}
+	}
+	commsSendUint32(GEN_VREF);
+}
+	
 
 
 

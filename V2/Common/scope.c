@@ -15,8 +15,9 @@
 #include "adc.h"
 #include "tim.h"
 
-
 // External variables definitions =============================================
+const int16_t RANGES[8] = {RANGE_1_LOW,RANGE_1_HI,RANGE_2_LOW,RANGE_2_HI,RANGE_3_LOW,RANGE_3_HI,RANGE_4_LOW,RANGE_4_HI,};
+
 xQueueHandle scopeMessageQueue;
 
 uint8_t scopeBuffer[MAX_SCOPE_BUFF_SIZE+MAX_ADC_CHANNELS*SCOPE_BUFFER_MARGIN]; 
@@ -55,13 +56,13 @@ void ScopeTask(void const *argument){
 		xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
 		///commsSendString("SCP_Run\r\n");
 		if(message[0] == '2' && scope.state != SCOPE_IDLE){ //data was send. Actualisation of scope State and/or rerun
-			if(scope.settings.triggerMode == TRIG_SINGLE){
-				scope.state = SCOPE_DONE;
-			}else{  //TRIG_NORMAL || TRIG_AUTO (rerun)
+			//if(scope.settings.triggerMode == TRIG_SINGLE){
+			//	scope.state = SCOPE_DONE;
+			//}else{  //TRIG_NORMAL || TRIG_AUTO (rerun)
 				///commsSendString("SCP_ScopeWaitRes\r\n");
 				//scopeInit();
 				scope.state = SCOPE_WAIT_FOR_RESTART;
-			}
+			//}
 		}else if(message[0] == '3'){  //settings has been changed
 			if(scope.state == SCOPE_DONE || scope.state == SCOPE_IDLE){
 			}else{
@@ -83,7 +84,7 @@ void ScopeTask(void const *argument){
 			samplingDisable();
 			scope.state = SCOPE_IDLE;
 			///commsSendString("SCP_ScopeStop\r\n");
-		}else if (message[0] == '6' && scope.state==SCOPE_WAIT_FOR_RESTART){
+		}else if (message[0] == '6' && scope.state==SCOPE_WAIT_FOR_RESTART ){
 			samplingEnable();
 			scope.state=SCOPE_SAMPLING_WAITING;
 			///commsSendString("SCP_ScopeRestart\r\n");
@@ -187,10 +188,11 @@ void ScopeTriggerTask(void const *argument) {
 						}
 						triggerIndex++;
 					}
+					
 					scope.triggerIndex = triggerIndex;
 					scope.state = SCOPE_DATA_SENDING;
 					samplesTaken = totalSmpTaken;
-					samplesTaken = 0 ;
+					samplesTaken = 0;
 					totalSmpTaken = 0;
 					//give message that data is ready
 					/////commsSendString("TRIG_Sampled\r\n");
@@ -210,11 +212,13 @@ void ScopeTriggerTask(void const *argument) {
   * @retval None
   */
 uint16_t samplesPassed(uint16_t index, uint16_t lastIndex){
+	uint16_t result=0;
 	if(index < lastIndex){
-		return index + scope.oneChanSamples - lastIndex;
+		result= index + scope.oneChanSamples - lastIndex;
 	}else{
-		return index - lastIndex;
+		result= index - lastIndex;
 	}	
+	return result;
 }
 
 /**
@@ -410,6 +414,11 @@ uint8_t scopeSetDataDepth(uint16_t res){
 		scope.settings.adcRes = resTmp;
 	}else{
 		scope.settings.adcLevels=pow(2,scope.settings.adcRes);
+		if(scope.settings.adcRes>8){
+			scope.oneChanSamples=scope.oneChanMemSize/2;
+		}else{
+			scope.oneChanSamples=scope.oneChanMemSize;
+		}
 		adcSetResolution(res);
 		result=0;
 	}
@@ -467,10 +476,8 @@ uint8_t scopeSetNumOfSamples(uint32_t smp){
 	uint8_t result=BUFFER_SIZE_ERR;
 	uint32_t smpTmp=scope.settings.samplesToSend;
 	xSemaphoreTakeRecursive(scopeMutex, portMAX_DELAY);
-	scope.settings.samplesToSend = smp;
-	if(validateBuffUsage()){
-		scope.settings.samplesToSend = smpTmp;
-	}else{
+	if(smp<scope.oneChanSamples){
+		scope.settings.samplesToSend = smp;
 		result=0;
 	}
 	xSemaphoreGiveRecursive(scopeMutex);
@@ -525,6 +532,18 @@ uint8_t scopeSetTrigChannel(uint8_t chan){
 	}
 	return result;
 }
+
+
+
+/**
+  * @brief  return pointer to dafinition of ranges
+  * @param  int16 pointer
+  * @retval None
+  */
+const int16_t* scopeGetRanges(uint8_t * len){
+	*len=sizeof(RANGES);
+	return RANGES;
+	}
 
 /**
   * @brief  Restart scope sampling

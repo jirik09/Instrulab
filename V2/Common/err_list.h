@@ -10,6 +10,8 @@
 #define ERR_LIST_H_
 
 // List of possible Errors ====================================================
+#define ERROR_PREFIX 'E'
+
 #define BUFFER_SIZE_ERR 58 // Buffer size exceeded located memory
 #define SCOPE_INVALID_FEATURE 52
 #define SCOPE_INVALID_FEATURE_PARAM 54
