@@ -349,6 +349,7 @@ command parseScopeCmd(void){
 			case CMD_END:break;
 			default:
 				error = SCOPE_INVALID_FEATURE;
+				commsSendUint32(cmdIn);
 				cmdIn = CMD_ERR;
 			break;
 		}
@@ -373,6 +374,7 @@ command parseGeneratorCmd(void){
 	uint8_t error=0;
 	uint16_t index;
 	uint8_t length,chan;
+	uint16_t watchDog=5000;
 
 		do{ 
 		cmdIn = giveNextCmd();
@@ -383,6 +385,10 @@ command parseGeneratorCmd(void){
 				index=SWAP_UINT16(cmdIn);
 				length=cmdIn>>16;
 				chan=cmdIn>>24;
+				while(watchDog>0 && getBytesAvailable()<length*2+1){
+					watchDog--;
+					osDelay(1);
+				}
 				if(getBytesAvailable()<length*2+1){
 					error=GEN_MISSING_DATA;
 					while(commBufferReadByte(&chan)==0);
@@ -390,6 +396,8 @@ command parseGeneratorCmd(void){
 					error=genSetData(index,length*2,chan);
 					if (error){
 						while(commBufferReadByte(&chan)==0);
+					}else{
+						genDataOKSendNext();
 					}
 				}
 			break;
@@ -397,7 +405,7 @@ command parseGeneratorCmd(void){
 			case CMD_GEN_SAMPLING_FREQ: //set sampling freq
 				cmdIn = giveNextCmd();
 				if(cmdIn != CMD_END && cmdIn != CMD_ERR){
-					error=genSetFrequency(SWAP_UINT32(cmdIn)&0xffffff,(uint8_t)(cmdIn));
+					error=genSetFrequency(((cmdIn)&0xffffff00)>>8,(uint8_t)(cmdIn));
 				}else{
 					cmdIn = CMD_ERR;
 				}
@@ -407,10 +415,19 @@ command parseGeneratorCmd(void){
 				genSendRealSamplingFreq();
 			break;	
 				
-			case CMD_GEN_DATA_LENGTH: //set data length
+			case CMD_GEN_DATA_LENGTH_CH1: //set data length
 				cmdIn = giveNextCmd();
 				if(cmdIn != CMD_END && cmdIn != CMD_ERR){
-					error=genSetLength(SWAP_UINT32(cmdIn));
+					error=genSetLength(cmdIn,1);
+				}else{
+					cmdIn = CMD_ERR;
+				}
+			break;	
+				
+			case CMD_GEN_DATA_LENGTH_CH2: //set data length
+				cmdIn = giveNextCmd();
+				if(cmdIn != CMD_END && cmdIn != CMD_ERR){
+					error=genSetLength(cmdIn,2);
 				}else{
 					cmdIn = CMD_ERR;
 				}
@@ -436,6 +453,7 @@ command parseGeneratorCmd(void){
 				
 			case CMD_GEN_START: //start sampling
 				genStart();
+				genStatusOK();
 			break;	
 			
 			case CMD_GEN_STOP: //stop sampling
@@ -445,10 +463,14 @@ command parseGeneratorCmd(void){
 			case CMD_GET_CONFIG:
 				xQueueSendToBack(messageQueue, "6SendGenConfig", portMAX_DELAY);
 			break;
+			
+			case CMD_GENERATOR:
+			break;	
 				
 			case CMD_END:break;
 			default:
 				error = GEN_INVALID_FEATURE;
+				commsSendUint32(cmdIn);
 				cmdIn = CMD_ERR;
 			break;
 		}

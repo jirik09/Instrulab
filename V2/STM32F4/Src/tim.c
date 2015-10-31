@@ -198,7 +198,7 @@ uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t
 	
 
 
-	clkDiv = HAL_RCC_GetPCLK2Freq() / samplingFreq;
+	clkDiv = ((2*HAL_RCC_GetPCLK2Freq() / samplingFreq)+1)/2; //to minimize rounding error
 	
 	if(clkDiv == 0){ //error
 		result = GEN_FREQ_MISMATCH;

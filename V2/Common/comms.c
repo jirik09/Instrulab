@@ -16,6 +16,7 @@
 #include "cmd_parser.h"
 #include "scope.h"
 #include "generator.h"
+#include "commands.h"
 
 
 
@@ -43,7 +44,7 @@ void CommTask(void const *argument){
 	commsMutex = xSemaphoreCreateRecursiveMutex();
 	char message[30];
 	uint8_t header[16]="OSC_DATAxxxxCH0x";
-	uint8_t header_gen[12]="GEN_CH0xFxxx";
+	uint8_t header_gen[12]="GEN_xCH_Fxxx";
 	uint8_t *pointer;
 	uint8_t i;
 	uint32_t j;
@@ -108,8 +109,7 @@ void CommTask(void const *argument){
 					if(tmpToSend>0){
 					commsSendBuff(pointer + j+k*16384, tmpToSend);
 					}
-				}
-				if(dataLenFirst>0){
+				}else if(dataLenFirst>0){
 					commsSendBuff(pointer + j, dataLenFirst);
 				}
 				
@@ -124,18 +124,18 @@ void CommTask(void const *argument){
 					if(tmpToSend>0){
 					commsSendBuff(pointer+k*16384, tmpToSend);
 					}
-				}
-				if(dataLenSecond>0){
+				}else if(dataLenSecond>0){
 					commsSendBuff(pointer, dataLenSecond);
 				}
 			}	
 			///commsSendString("COMMS_DataSending\r\n");
+			commsSendString(STR_SCOPE_OK);
 			xQueueSendToBack(scopeMessageQueue, "2DataSent", portMAX_DELAY);
 			
 		//send generating frequency	
 		}else if(message[0]=='2'){
 			for(i = 0;i<MAX_DAC_CHANNELS;i++){
-				header_gen[7]=i+1;
+				header_gen[4]=i+1+48;
 				j=getRealSmplFreq(i+1);
 				header_gen[9]=(uint8_t)(j>>16);
 				header_gen[10]=(uint8_t)(j>>8);
@@ -157,6 +157,14 @@ void CommTask(void const *argument){
 		// send gen config
 		}else if(message[0]=='6'){
 			sendGenConf();
+			
+		// send gen next data block
+		}else if(message[0]=='7'){
+			commsSendString(STR_GEN_NEXT);
+			
+		// send gen ok status
+		}else if(message[0]=='8'){
+			commsSendString(STR_GEN_OK);
 			
 		// send IDN string
 		}else if (message[0] == 'I'){

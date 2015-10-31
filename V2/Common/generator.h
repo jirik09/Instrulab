@@ -24,7 +24,8 @@ typedef struct{
 	generatorState state;	
 	uint8_t numOfChannles;
 	uint16_t *pChanMem[MAX_DAC_CHANNELS];
-	uint32_t oneChanSamples;
+	uint16_t oneChanSamples[MAX_DAC_CHANNELS];
+	uint32_t maxOneChanSamples;
 	uint16_t DAC_res;
 }generatorTypeDef;
 
@@ -35,8 +36,10 @@ void genInit(void);
 uint8_t genSetData(uint16_t index,uint8_t length,uint8_t chan);
 uint8_t genSetFrequency(uint32_t freq,uint8_t chan);
 void genSendRealSamplingFreq(void);
+void genDataOKSendNext(void);
+void genStatusOK(void);
 uint32_t getRealSmplFreq(uint8_t chan);
-uint8_t genSetLength(uint32_t length);
+uint8_t genSetLength(uint32_t length,uint8_t chan);
 uint8_t genSetNumOfChannels(uint8_t chan);
 void genStart(void);
 void genStop(void);

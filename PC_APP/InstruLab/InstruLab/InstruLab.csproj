@@ -66,6 +66,7 @@
     <Compile Include="Generator.Designer.cs">
       <DependentUpon>Generator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Measurements.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

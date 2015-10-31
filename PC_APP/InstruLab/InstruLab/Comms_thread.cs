@@ -22,7 +22,7 @@ namespace InstruLab
         private bool newDevices = false;
         private bool run_th = true;
         SerialPort serialPort;
-        public enum CommsStates {IDLE,FINDING,FOUND_DEVS,NO_DEV_FOUND,DEVICES_READ,CONNECTING,CONNECTED,ERROR}
+        public enum CommsStates {IDLE,FINDING,FOUND_DEVS,NO_DEV_FOUND,DEVICES_READ,CONNECTING,CONNECTED,ERROR,DISCONNECTED}
         private CommsStates commState = CommsStates.IDLE;
 
 
@@ -38,7 +38,7 @@ namespace InstruLab
                         case Message.MsgRequest.FIND_DEVICES:
                             find_devices();
                             break;
-                        case Message.MsgRequest.CONNECT_DEVICES:
+                        case Message.MsgRequest.CONNECT_DEVICE:
                             connect_device(messg.GetMessage());
                             break;
                     }
@@ -82,6 +82,8 @@ namespace InstruLab
                     {
                         Thread.Yield();
                         serialPort.PortName = serial;
+                        serialPort.ReadTimeout = 5000;
+                        serialPort.WriteTimeout = 1000;
                         serialPort.Open();
                         serialPort.Write(Commands.IDNRequest+";");
                         Thread.Sleep(250);
@@ -135,6 +137,7 @@ namespace InstruLab
         }
 
 
+
         public string[] get_dev_names()
         {
             string[] result = new string[devices.Count()];
@@ -178,6 +181,13 @@ namespace InstruLab
                 this.commState = CommsStates.ERROR;
             }
 
+        }
+
+        public void disconnect_device() {
+            
+            connectedDevice.close_scope();
+            connectedDevice.close_port();
+            this.commState = CommsStates.DISCONNECTED;
         }
 
         public void add_message(Message msg) {

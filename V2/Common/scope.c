@@ -105,6 +105,9 @@ void ScopeTriggerTask(void const *argument) {
 	uint16_t data = 0;
 	uint32_t samplesTaken = 0;
 	uint32_t totalSmpTaken = 0;
+	uint32_t SmpBeforeTrig=0;
+	uint32_t SmpAfterTrig=0;
+	
 
 	while(1){
 		if(scope.state==SCOPE_SAMPLING_WAITING || scope.state==SCOPE_SAMPLING_TRIGGER_WAIT || scope.state==SCOPE_SAMPLING){
@@ -191,12 +194,16 @@ void ScopeTriggerTask(void const *argument) {
 					
 					scope.triggerIndex = triggerIndex;
 					scope.state = SCOPE_DATA_SENDING;
-					samplesTaken = totalSmpTaken;
+					SmpBeforeTrig = totalSmpTaken;
+					SmpAfterTrig=samplesTaken;
+					if(SmpBeforeTrig+SmpAfterTrig>0xfffff){
+						samplesTaken=0;
+					}
 					samplesTaken = 0;
 					totalSmpTaken = 0;
 					//give message that data is ready
 					/////commsSendString("TRIG_Sampled\r\n");
-					xQueueSendToBack (messageQueue, "1DataReady", portMAX_DELAY);
+					xQueueSendToBack (messageQueue, "1DataReady__", portMAX_DELAY);
 				}
 			}
 			xSemaphoreGiveRecursive(scopeMutex);

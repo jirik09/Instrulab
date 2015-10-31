@@ -102,15 +102,25 @@ disp(str)
 
 %% Yours settings
 flushinput(s);
-fwrite(s,'OSCP:DATA 12B_;');
-fwrite(s,'OSCP:CHAN 1CH_;');
-fwrite(s,'OSCP:LENG 100_;');
-fwrite(s,'OSCP:FREQ 1K__;');
+fwrite(s,'OSCP:DATA 8B__;');
+fwrite(s,'OSCP:CHAN 2CH_;');
+fwrite(s,'OSCP:LENG 20K_;');
+fwrite(s,'OSCP:FREQ 2M__;');
 fwrite(s,'OSCP:TRCH 1CH_;');
 pause(0.1);
 data = fread(s,s.BytesAvailable);
 str=char(data');
 disp(str)
+
+%%
+flushinput(s);
+fwrite(s,'OSCP:STRT;');
+pause(1)
+s.BytesAvailable
+data = fread(s,s.BytesAvailable);
+data8=uint8(data(29:end-4));
+datasmp = typecast(data8,'uint8');
+plot(datasmp)
 
 
 %% (Optional) Settings of prettriger

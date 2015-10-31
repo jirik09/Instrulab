@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace InstruLab
 {
@@ -51,7 +52,7 @@ namespace InstruLab
 
         public struct GeneratorConfig_def
         {
-            public int samplingFrequency;
+            public int maxSamplingFrequency;
             public int BufferLength;
             public int dataDepth;
             public int numChannels;
@@ -64,18 +65,27 @@ namespace InstruLab
         private string name;
         private string mcu;
         private int speed;
-        private bool opened = false;
-        private bool configured = false;
-        private SystemConfig_def systemCfg;
+
+        public SystemConfig_def systemCfg;
         public CommsConfig_def commsCfg;
         public ScopeConfig_def scopeCfg;
         public GeneratorConfig_def genCfg;
 
+
+        private StreamWriter logWriter;
+        private const bool writeLog = true;
+
         Scope Scope_form;
+        Generator Gen_form;
+        SynchronizationContext syncContext;
+
+        static Semaphore commsSemaphore = new Semaphore(1,1);  // Dostupná kapacita=1; Celková=1
+        static Semaphore logSemaphore = new Semaphore(1, 1);  // Dostupná kapacita=1; Celková=1
 
 
         public Device(string portName, string name, int speed)
         {
+            syncContext= SynchronizationContext.Current;
             this.portName = portName;
             this.name = name;
             this.speed = speed;
@@ -96,32 +106,68 @@ namespace InstruLab
             return this.portName;
         }
 
+        public void close_port() {
+            if (port.IsOpen)
+            {
+                logTextNL("PORT zavřen: " + this.portName);
+                logWriter.Close();
+
+                port.Close();
+                port.Dispose();
+            }
+        }
+
         public bool open_port()
         {
+            bool result = false;
             try
             {
                 this.port = new SerialPort();
                 this.port.PortName = portName;
-                this.port.ReadBufferSize = 512*1024;
+                this.port.ReadBufferSize = 128*1024;
                 this.port.BaudRate = speed;
                 port.Open();
-                opened = true;
-                configured = false;
                 load_config();
-                configured = true;
                 port.Close();
-                port.ReadTimeout = 2000;
+                port.ReadTimeout = 5000;
+                port.WriteTimeout = 5000;
                 port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
                 port.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort_ErrorReceived);
                 port.Open();
-                return true;
+                result= true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Fatal error during connecting to device \r\n" + ex, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
             }
 
+            if(writeLog)
+            {
+                try
+                {
+                    bool logOpened = false;
+                    int index = 1;
+                    while (!logOpened)
+                    {
+                        try
+                        {
+                            logWriter = File.AppendText("logfile" + index + ".txt");
+                            logOpened = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            index++;
+                        }
+                    }
+                    if (writeLog) { Log("PORT otevřen: " + portName + "  Baudrate:" + speed + "  Zařízení:" + name); }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fatal error during opening log file\r\n" + ex, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            return result;
         }
 
         public void load_config()
@@ -131,7 +177,7 @@ namespace InstruLab
                 port.Write(Commands.SYSTEM + ":" + Commands.CONFIGRequest + ";");
                 char[] msg_char = new char[256];
                 byte[] msg_byte = new byte[256];
-                Thread.Sleep(250);                
+                Thread.Sleep(50);                
                 int toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -145,7 +191,7 @@ namespace InstruLab
 
 
                 port.Write(Commands.COMMS + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(250);
+                Thread.Sleep(50);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -167,7 +213,7 @@ namespace InstruLab
                 }
 
                 port.Write(Commands.SCOPE + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(250);
+                Thread.Sleep(50);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -196,14 +242,14 @@ namespace InstruLab
                 }
 
                 port.Write(Commands.GENERATOR + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(250);
+                Thread.Sleep(50);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
 
                 if (new string(msg_char, 0, 4).Equals("GEN_"))
                 {
-                    genCfg.samplingFrequency = BitConverter.ToInt32(msg_byte, 4);
+                    genCfg.maxSamplingFrequency = BitConverter.ToInt32(msg_byte, 4);
                     genCfg.BufferLength = BitConverter.ToInt32(msg_byte, 8);
                     genCfg.dataDepth = BitConverter.ToInt32(msg_byte, 12);
                     genCfg.numChannels = BitConverter.ToInt32(msg_byte, 16);
@@ -217,142 +263,192 @@ namespace InstruLab
             }
         }
 
+        public void wait_for_data(int watch) 
+        {
+            Thread.Sleep(1);
+            if (watch <= 0) { 
+               // throw (new Exception("Reading timeout")); 
+            } 
+        } 
+
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             char[] inputMsg = new char[4];
             byte[] inputData = new byte[4];
+            int watchDog = 250;
+            if (writeLog) { logTextNL("Příjem dat: " + port.BytesToRead.ToString()); }
             
             while (port.IsOpen && port.BytesToRead > 0)
             {
+                
               /* inputMsg[0] = inputMsg[1]; //safe for un aligned messages
                 inputMsg[1] = inputMsg[2];
                 inputMsg[2] = inputMsg[3];
                 inputMsg[3] = (char)port.ReadChar();*/
-                while (port.BytesToRead < 4) { Thread.Yield(); }
-                port.Read(inputMsg, 0, 4);
-                switch (new string(inputMsg, 0, 4)) {
-                    case Commands.SCOPE_INCOME:
-                        int res;
-                        int leng;
-                        int currChan;
-                        int numChan;
-                        int i = 0;
-                        int partsLen = 4096;
-                        while (port.BytesToRead < 12)
-                        {
-                            Thread.Yield();
-                        }
-                        port.Read(inputData, 0, 4);
-                        res = port.ReadByte();
-                        leng = port.ReadByte() * 65536 + port.ReadByte() * 256 + port.ReadByte();
-                        port.Read(inputData, 0, 2);
-                        currChan = port.ReadByte();
-                        numChan = port.ReadByte();
-                        scopeCfg.buffer = new Byte[leng];
 
-                        if (leng > partsLen)
+                try
+                {
+                    while (port.BytesToRead < 4)
+                    {
+                        wait_for_data(watchDog--);
+                        if (watchDog < 0)
                         {
-                            int toRead = leng;
-                            i = 0;
-                            while (toRead > partsLen)
+                            port.Read(inputMsg, 0, 2);
+                        }
+                    }
+                    port.Read(inputMsg, 0, 4);
+                    switch (new string(inputMsg, 0, 4))
+                    {
+                        case Commands.SCOPE_INCOME:
+                            int res;
+                            int leng;
+                            int currChan;
+                            int numChan;
+                            int i = 0;
+                            int partsLen = 4096;
+                            while (port.BytesToRead < 12)
                             {
-                                while (port.BytesToRead < partsLen)
+                                wait_for_data(watchDog--);
+                            }
+                            port.Read(inputData, 0, 4);
+                            res = port.ReadByte();
+                            leng = port.ReadByte() * 65536 + port.ReadByte() * 256 + port.ReadByte();
+                            port.Read(inputData, 0, 2);
+                            currChan = port.ReadByte();
+                            numChan = port.ReadByte();
+                            scopeCfg.buffer = new Byte[leng];
+                            int wasRead = 0;
+                            int toRead = (leng - wasRead) > partsLen ? partsLen : (leng - wasRead);
+
+                            while (toRead > 0)
+                            {
+                                wasRead += port.Read(scopeCfg.buffer, wasRead, toRead);
+                                toRead = (leng - wasRead) > partsLen ? partsLen : (leng - wasRead);
+                            }
+
+
+                            if (res > 8) //resolution >8 bits
+                            {
+                                if (currChan == 1)
                                 {
-                                    Thread.Yield();
+                                    scopeCfg.samples = new UInt16[numChan, leng / 2];
                                 }
-                                port.Read(scopeCfg.buffer, i * partsLen, partsLen);
-                                i++;
-                                toRead -= partsLen;
+                                for (i = 0; i < leng / 2; i++)
+                                {
+                                    scopeCfg.samples[currChan - 1, i] = BitConverter.ToUInt16(scopeCfg.buffer, i * 2);
+                                }
                             }
-                            while (port.BytesToRead < toRead)
+                            else  //resolution <=8 bits
                             {
-                                Thread.Yield();
+                                if (currChan == 1)
+                                {
+                                    scopeCfg.samples = new UInt16[numChan, leng];
+                                }
+                                for (i = 0; i < leng; i++)
+                                {
+                                    scopeCfg.samples[currChan - 1, i] = scopeCfg.buffer[i];
+                                }
                             }
-                            port.Read(scopeCfg.buffer, i * partsLen, toRead);
-                        }
-                        else
-                        {
-                            while (port.BytesToRead < leng)
-                            {
-                                Thread.Yield();
-                            }
-                            port.Read(scopeCfg.buffer, 0, leng);
-                        }
-
-                        
-                        
 
 
-                        if (res > 8) //resolution >8 bits
-                        {
-                            if (currChan == 1)
+                            if (currChan == numChan)
                             {
-                                scopeCfg.samples = new UInt16[numChan, leng / 2];
+                                if (res > 8)
+                                {
+                                    scopeCfg.timeBase = new double[leng / 2];
+                                    generate_time_base(scopeCfg.sampligFreq, leng / 2);
+                                }
+                                else
+                                {
+                                    scopeCfg.timeBase = new double[leng];
+                                    generate_time_base(scopeCfg.sampligFreq, leng);
+                                }
+                                scopeCfg.actualChannels = numChan;
+                                scopeCfg.actualRes = res;
+                                if (writeLog) { logRecieved("SCOPE DATA RECIEVED: Leng " + leng + ", Res " + res + ", Chan " + currChan + " of " + numChan); }
+                                Scope_form.add_message(new Message(Message.MsgRequest.SCOPE_NEW_DATA));
                             }
-                            for (i = 0; i < leng / 2; i++)
-                            {
-                                scopeCfg.samples[currChan-1, i] = BitConverter.ToUInt16(scopeCfg.buffer, i * 2);
-                            }
-                        }
-                        else  //resolution <=8 bits
-                        {
-                            if (currChan == 1)
-                            {
-                                scopeCfg.samples = new UInt16[numChan, leng];
-                            }
-                            for (i = 0; i < leng; i++)
-                            {
-                                scopeCfg.samples[currChan-1, i] = scopeCfg.buffer[i];
-                            }
-                        }
+                            //Console.WriteLine("SCOPE DATA RECIEVED: Leng "+leng+", Res "+res+", Chan "+currChan+" of "+numChan);
+                            break;
 
-
-                        if (currChan == numChan) {
-                            if (res > 8)
+                        case Commands.ACKNOWLEDGE:
+                            if (writeLog) { logRecieved("ACK"); }
+                            //Console.WriteLine(Commands.ACKNOWLEDGE);
+                            break;
+                        case Commands.SCOPE_OK:
+                            if (writeLog) { logRecieved("S_OK"); }
+                            //Console.WriteLine(Commands.ACKNOWLEDGE);
+                            break;
+                        case Commands.SAMPLING:
+                            if (writeLog) { logRecieved("SMPL"); }
+                            //Console.WriteLine(Commands.ACKNOWLEDGE);
+                            break;
+                        case Commands.TRIGGERED:
+                            //Console.WriteLine(Commands.TRIGGERED);
+                            if (writeLog) { logRecieved("TRIG"); }
+                            Scope_form.add_message(new Message(Message.MsgRequest.SCOPE_TRIGGERED));
+                            break;
+                        case Commands.GEN_OK:
+                            //Console.WriteLine(Commands.TRIGGERED);
+                            if (writeLog) { logRecieved("OK"); }
+                            Gen_form.add_message(new Message(Message.MsgRequest.GEN_OK));
+                            break;
+                        case Commands.GEN_NEXT:
+                            //Console.WriteLine(Commands.TRIGGERED);
+                            if (writeLog) { logRecieved("NEXT"); }
+                            Gen_form.add_message(new Message(Message.MsgRequest.GEN_NEXT));
+                            break;
+                        case Commands.GENERATOR:
+                            while (port.BytesToRead < 8)
                             {
-                                scopeCfg.timeBase = new double[leng / 2];
-                                generate_time_base(scopeCfg.sampligFreq, leng/2);
+                                wait_for_data(watchDog--);
                             }
-                            else
+                            port.Read(inputMsg, 0, 4);
+                            port.Read(inputData, 0, 4);
+                            Gen_form.add_message(new Message(Message.MsgRequest.GEN_FRQ,new string(inputMsg,0,4),inputData[1]*256*256+inputData[2]*256+inputData[3]));
+                            //Console.WriteLine(Commands.TRIGGERED);
+                            if (writeLog) { logRecieved("FRQ?" + new string(inputMsg, 1, 3) + " CH" + inputData[3].ToString()); }
+                            break;
+                        default:
+                            if (inputMsg[0] == Commands.ERROR)
                             {
-                                scopeCfg.timeBase = new double[leng];
-                                generate_time_base(scopeCfg.sampligFreq, leng);
+                                try
+                                {
+                                    int err = int.Parse(new string(inputMsg, 1, 3));
+                                    if (writeLog) { logRecieved("ERROR " + err); }
+                                    MessageBox.Show("Error recieved \r\n" + new string(inputMsg, 0, 4), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    //scopeCfg.mode = Scope.mode_def.IDLE;
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (writeLog) { logRecieved("Unknown message " + new string(inputMsg, 0, 4)); }
+                                    MessageBox.Show("Unknow Error recieved \r\n" + new string(inputMsg, 0, 4), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    //Console.WriteLine(new string(inputMsg, 0, 4));
+                                }
                             }
-                            scopeCfg.actualChannels = numChan;
-                            scopeCfg.actualRes = res;
-                            Scope_form.add_message(new Message(Message.MsgRequest.SCOPE_NEW_DATA));
-                            if (scopeCfg.mode == Scope.mode_def.AUTO || scopeCfg.mode == Scope.mode_def.NORMAL) {
-                                Thread.Sleep(100);
-                                send(Commands.SCOPE + ":" + Commands.SCOPE_NEXT + ";");
+                            else {
+                                if (writeLog) { logRecieved("Unknown message " + new string(inputMsg, 0, 4)); }
+                                    MessageBox.Show("Unknow message recieved \r\n" + new string(inputMsg, 0, 4), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    //Console.WriteLine(new string(inputMsg, 0, 4));
                             }
-                        }
-                        //Console.WriteLine("SCOPE DATA RECIEVED: Leng "+leng+", Res "+res+", Chan "+currChan+" of "+numChan);
-                        break;
-
-                    case Commands.ACKNOWLEDGE:
-                        //Console.WriteLine(Commands.ACKNOWLEDGE);
-                        break;
-                    case Commands.TRIGGERED:
-                        //Console.WriteLine(Commands.TRIGGERED);
-                        Scope_form.add_message(new Message(Message.MsgRequest.SCOPE_TRIGGERED));
-                        break;
-                    default:
-                        if (inputMsg[0] == Commands.ERROR) {
-                            MessageBox.Show("Error recieved \r\n" + new string(inputMsg, 0, 4), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            scopeCfg.mode = Scope.mode_def.IDLE;
-                        }
-                        //Console.WriteLine(new string(inputMsg, 0, 4));
-                        break;
-                    
+                            break;
+                    }
                 }
-
+                catch (Exception ex)
+                {
+                    if (port.IsOpen)
+                    {
+                        port.DiscardInBuffer();
+                        MessageBox.Show("Error recieved \r\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
                 Thread.Yield();
             }
         }
 
         private void serialPort_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
         {
-            
+            if (writeLog) { logTextNL("Serial port error recieved:\r\n"); }
         }
 
 
@@ -384,6 +480,27 @@ namespace InstruLab
                 Scope_form.Close();
             }
         }
+
+        public void open_gen()
+        {
+            if (Gen_form == null || Gen_form.IsDisposed)
+            {
+                Gen_form = new Generator(this);
+                Gen_form.Show();
+            }
+            else
+            {
+                Gen_form.BringToFront();
+            }
+        }
+
+        public void close_gen()
+        {
+            if (Gen_form != null)
+            {
+                Gen_form.Close();
+            }
+        }
         
         public SystemConfig_def getSystemCfg() {
             return this.systemCfg;
@@ -403,8 +520,18 @@ namespace InstruLab
         }
 
         
+        public bool takeCommsSemaphore(int ms){
+            bool result = false;
+            result = commsSemaphore.WaitOne(ms);
+            if (!result) {
+                throw new Exception("Unable to take semaphore");
+            }
+            return result;
+        }
 
-
+        public void giveCommsSemaphore(){
+            commsSemaphore.Release();
+        }
 
 
         public void send(string s)
@@ -414,16 +541,28 @@ namespace InstruLab
                 port.Write(s);
 
                 //   if (!s.Equals("OSCP:SRAT")) {
-                //logUart(s);
+                logSend(s);
                 // }
-              //  Console.WriteLine(s);
+                //  Console.WriteLine(s);
             }
             catch (Exception ex)
             {
-                //Log("Data se nepodařilo odeslat:\r\n" + ex);
+                if (writeLog) { logTextNL("Data se nepodařilo odeslat:\r\n" + ex); }
                 Console.WriteLine(ex);
             }
         }
+
+        public void send_short_2byte(int l)
+        {
+            byte[] bt = BitConverter.GetBytes(l);
+            byte[] se = new byte[2];
+            se[0] = bt[0];
+            se[1] = bt[1];
+            logText(l.ToString("D4") + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
+            port.Write(bt, 0, 2);
+            // Console.WriteLine(l.ToString());
+        }
+
 
         public void send_short(int l)
         {
@@ -433,7 +572,7 @@ namespace InstruLab
             se[1] = 0;
             se[2] = bt[0];
             se[3] = bt[1];
-            //logText(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
+            logTextNL(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
             port.Write(bt, 0, 4);
            // Console.WriteLine(l.ToString());
         }
@@ -447,11 +586,57 @@ namespace InstruLab
             se[1] = bt[1];
             se[2] = bt[2];
             se[3] = bt[3];
-            //logText(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
+            logTextNL(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
             port.Write(se, 0, 4);
            // Console.WriteLine(l.ToString());
         }
 
+        public void Log(string logMessage)
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.Write("\r\nLog Entry : ");
+            logWriter.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+            DateTime.Now.ToLongDateString());
+            logWriter.WriteLine("  :{0}", logMessage);
+            logWriter.WriteLine("-------------------------------");
+            logSemaphore.Release();
+        }
+
+        public void LogEnd()
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.WriteLine("Konec logu");
+            logWriter.WriteLine("-------------------------------");
+            logWriter.WriteLine("\r\n\r\n\r\n");
+            logSemaphore.Release();
+        }
+
+        public void logSend(string s)
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.Write("Send (" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "." + DateTime.Now.Millisecond + "): " + s + "\r\n");
+            logSemaphore.Release();
+        }
+        public void logRecieved(string s)
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.Write("Recieved (" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "." + DateTime.Now.Millisecond + "): " + s + "\r\n");
+            logSemaphore.Release();
+        }
+
+        public void logTextNL(string s)
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.Write(s+"\r\n");
+            logSemaphore.Release();
+        }
+
+        public void logText(string s)
+        {
+            logSemaphore.WaitOne(1000);
+            logWriter.Write(s + ", ");
+            logSemaphore.Release();
+        }
 
         //end class
     }

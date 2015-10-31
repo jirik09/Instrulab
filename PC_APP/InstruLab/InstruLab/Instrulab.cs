@@ -17,8 +17,7 @@ namespace InstruLab
         Thread comm_th;
         Comms_thread comms;
 
-        
-        Form Generator_form;
+
         System.Timers.Timer GUITimer;
 
         public Instrulab()
@@ -96,10 +95,10 @@ namespace InstruLab
                         this.label_con4.Text = "";
                     }
 
-                    if (comms.get_connected_device().genCfg.samplingFrequency > 1000000) {
-                        this.label_gen_smpl.Text = (comms.get_connected_device().genCfg.samplingFrequency / 1000000).ToString() + " Msps";
+                    if (comms.get_connected_device().genCfg.maxSamplingFrequency > 1000000) {
+                        this.label_gen_smpl.Text = (comms.get_connected_device().genCfg.maxSamplingFrequency / 1000000).ToString() + " Msps";
                     } else {
-                        this.label_gen_smpl.Text = (comms.get_connected_device().genCfg.samplingFrequency / 1000).ToString() + " ksps";
+                        this.label_gen_smpl.Text = (comms.get_connected_device().genCfg.maxSamplingFrequency / 1000).ToString() + " ksps";
                     }
                     this.label_gen_data_depth.Text = comms.get_connected_device().genCfg.dataDepth.ToString()+" bits";
                     if (comms.get_connected_device().genCfg.BufferLength > 1000)
@@ -141,6 +140,32 @@ namespace InstruLab
                     tmpStr = tmpStr.Replace("_", "");
                     this.label_scope_pins.Text = tmpStr.Substring(0, tmpStr.Length - 1);
                     break;
+                case Comms_thread.CommsStates.DISCONNECTED:
+                    this.btn_connect.Text = "Connect";
+                    this.toolStripStatusLabel.Text = "Device was disconnected";
+                    this.label_device.Text = "No device connected";
+                    this.label_MCU.Text = "--";
+                    this.label_Freq.Text = "--";
+                    this.label_con1.Text = "--";
+                    this.label_con2.Text ="";
+                    this.label_con3.Text = "";
+                    this.label_con4.Text = "";
+                    this.label_gen_smpl.Text = "--";
+                    this.label_gen_data_depth.Text = "--";
+                    this.label_gen_buff_len.Text = "--";
+                    this.label_gen_vref.Text = "--";
+                    this.label_gen_channs.Text = "--";
+                    this.label_gen_pins.Text = "--";
+                    this.label_scope_smpl.Text = "--";
+                    this.label_scope_buff_len.Text = "--";
+                    this.label_scope_vref.Text = "--";
+                    this.label_scope_channs.Text = "--";
+                    this.label_scope_pins.Text = "--";
+
+                    this.btn_scope_open.Enabled = false;
+                    this.btn_gen_open.Enabled = false;
+
+                    break;
                 case Comms_thread.CommsStates.ERROR:
                     this.toolStripStatusLabel.Text = "Some error ocured";
                     break;
@@ -150,19 +175,11 @@ namespace InstruLab
         private void btn_scope_open_Click(object sender, EventArgs e)
         {
             comms.get_connected_device().open_scope();
-            
         }
 
         private void btn_gen_open_Click(object sender, EventArgs e)
         {
-            if (Generator_form == null || Generator_form.IsDisposed)
-            {
-                Generator_form = new Generator(comms.get_connected_device());
-                Generator_form.Show();
-            }
-            else {
-                Generator_form.BringToFront();
-            }
+            comms.get_connected_device().open_gen();
         }
 
         private void Instrulab_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,15 +189,16 @@ namespace InstruLab
                 comms.get_connected_device().close_scope();
             }
 
-            if (Generator_form != null)
-            {
-                Generator_form.Close();
-            }
+
             if (comm_th.IsAlive) {
                 comms.stop();
                 while (comm_th.IsAlive) {
                     Thread.Yield();
                 }
+            }
+            if (comms.get_comms_state() == Comms_thread.CommsStates.CONNECTED)
+            {
+                comms.get_connected_device().close_port();
             }
         }
 
@@ -215,11 +233,17 @@ namespace InstruLab
                     {
                         dev = dev.Substring(0, 5);
                     }
-                    comms.add_message(new Message(Message.MsgRequest.CONNECT_DEVICES, dev));
+                    comms.add_message(new Message(Message.MsgRequest.CONNECT_DEVICE, dev));
                   //  this.toolStripStatusLabel_status.Text = "Connecting to " + dev;
                    // this.mode = Paint_mode.Mode.CONNECTING;
 
                 }
+            }
+            else if (this.btn_connect.Text.Equals("Disconnect"))
+            {
+                comms.disconnect_device();
+                GUITimer.Start();
+                this.Invalidate();
             }
         }
     }

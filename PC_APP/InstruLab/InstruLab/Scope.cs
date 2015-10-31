@@ -20,12 +20,24 @@ namespace InstruLab
         Device device;
         InstruLab.Device.ScopeConfig_def ScopeDevice;
         System.Timers.Timer GUITimer;
+        System.Timers.Timer ZedTimer;
+
+        int semaphoreTimeout = 5000;
 
         private Queue<Message> scope_q = new Queue<Message>();
         Message messg;
+        Measurements meas = new Measurements();
+
+        Thread processSignal_th;
+        Thread calcSignal_th;
         
         public enum triggerEdge_def { RISE, FALL };
         public enum mode_def {IDLE, NORMAL, AUTO, SINGLE };
+
+        public enum math_def {NONE, SUM,DIFF_A,DIFF_B,MULT };
+
+        math_def math = math_def.NONE;
+        math_def last_math = math_def.NONE;
 
         public triggerEdge_def triggeredge = triggerEdge_def.RISE;
         public double triggerLevel;
@@ -34,22 +46,82 @@ namespace InstruLab
         public int numSamples;
         public int actualCahnnels;
         private int triggerChannel;
+        private int measChann = 1;
 
         private double[] signal_ch1;
         private double[] signal_ch2;
         private double[] signal_ch3;
         private double[] signal_ch4;
+        private double[] signal_math;
 
-        private int[] gain=new int[4] {1,1,1,1};
-        public int[] offset = new int[4] { 0, 0, 0, 0 };
+        private int[] gain = new int[5] { 1, 1, 1, 1, 1 };
+        public int[] offset = new int[5] { 0, 0, 0, 0, 0 };
+
+        private int[] last_gain = new int[5] { 1, 1, 1, 1, 1 };
+        public int[] last_offset = new int[5] { 0, 0, 0, 0, 0 };
+
         private int selectedRange = 0;
         private int selectedChannelVolt = 0;
 
 
+
+
+        //cursors
+        private int VerticalCursorSrc = 0;
+        private int last_ver_cur_src=0;
+        private double VerticalCursorA = 0;
+        private double VerticalCursorB = 0;
+        double tA = 0;
+        double tB = 0;
+        double last_tA = 0;
+        double last_tB = 0;
+
+        private string timeDif;
+        private string timeA;
+        private string timeB;
+        private string frequency;
+        private string UA;
+        private string UB;
+        private string DiffU;
+
+
+        private int HorizontalCursorSrc = 0;
+        private int last_hor_cur_src = 0;
+        private double HorizontalCursorA = 0;
+        private double HorizontalCursorB = 0;
+        double uA = 0;
+        double uB = 0;
+        double last_uA = 0;
+        double last_uB = 0;
+        private string voltDif;
+        private string voltA;
+        private string voltB;
+
+
+        //signal plot params
+        private bool last_interpolation = true;
+        private bool last_showPoints = false;
+        private bool last_antialiasing = true;
+        private float smoothing = 0.5F;
+
+        private bool XYplot = false;
+        private bool last_XYplot = false;
+        
         private bool interpolation = true;
         private bool showPoints = false;
-        private float smoothing = 0.5F;
-        
+        private bool antialiasing=true;
+
+        private double maxX = 0;
+        private double maxY = 0;
+        private double minX = 0;
+        private double minY = 0;
+        private double last_maxX = 0;
+        private double last_maxY = 0;
+        private double last_minX = 0;
+        private double last_minY = 0;
+
+        private bool measValid = false;
+        private bool last_measValid = false; 
 
 
         public GraphPane scopePane;
@@ -77,17 +149,407 @@ namespace InstruLab
             ScopeDevice=device.scopeCfg;
             set_scope_default();
 
+            label_meas1.Text = "";
+            label_meas2.Text = "";
+            label_meas3.Text = "";
+            label_meas4.Text = "";
+            label_meas5.Text = "";
+
+            this.toolStripMenuItem_XY_plot.Enabled = false;
+
+
             validate_radio_btns();
             validate_menu();
 
             scopePane = zedGraphControl_scope.GraphPane;
             
-            GUITimer = new System.Timers.Timer(20);
+            GUITimer = new System.Timers.Timer(5);
             GUITimer.Elapsed += new ElapsedEventHandler(Update_GUI);
             GUITimer.Start();
 
+            ZedTimer = new System.Timers.Timer(50);
+            ZedTimer.Elapsed += new ElapsedEventHandler(Zed_update);
+            ZedTimer.Start();
+
+            processSignal_th = new Thread(process_signals);
+            
             Thread.Sleep(10);
             scope_start();
+        }
+
+        private void Zed_update(object sender, ElapsedEventArgs e)
+        {
+            bool update = false;
+
+            if (last_XYplot != XYplot)
+            {
+                update = true;
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                horizontal_cursor_update();
+                update_X_axe();
+                last_XYplot = XYplot;
+            }
+
+            if (maxX != last_maxX || minX != last_minX)
+            {
+                scopePane.XAxis.Scale.MaxAuto = false;
+                scopePane.XAxis.Scale.MinAuto = false;
+
+                scopePane.XAxis.Scale.Max = maxX;
+                scopePane.XAxis.Scale.Min = minX;
+
+                if (XYplot)
+                {
+                    scopePane.XAxis.Scale.Max = maxY;
+                    scopePane.XAxis.Scale.Min = minY;
+                }
+
+                last_maxX = maxX;
+                last_minX = minX;
+
+                update = true;
+
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                horizontal_cursor_update();
+                paint_cursors();
+                try
+                {
+                    scopePane.AxisChange();
+                }
+                catch (Exception ex) { }
+            }
+            if (maxY != last_maxY || minY != last_minY)
+            {
+
+                scopePane.YAxis.Scale.MaxAuto = false;
+                scopePane.YAxis.Scale.MinAuto = false;
+
+                scopePane.YAxis.Scale.Max = maxY;
+                scopePane.YAxis.Scale.Min = minY;
+
+
+                last_maxY = maxY;
+                last_minY = minY;
+                update = true;
+                process_signals();
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                horizontal_cursor_update();
+                paint_cursors();
+                try
+                {
+                    scopePane.AxisChange();
+                }
+                catch (Exception ex) { }
+            }
+
+            if (gain[0] != last_gain[0] || gain[1] != last_gain[1] || gain[2] != last_gain[2] || gain[3] != last_gain[3] || gain[4] != last_gain[4] || offset[0] != last_offset[0] || offset[1] != last_offset[1] || offset[2] != last_offset[2] || offset[3] != last_offset[3] || offset[4] != last_offset[4])
+            {
+                update = true;
+                process_signals();
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                horizontal_cursor_update();
+                paint_cursors();
+                Array.Copy(gain, last_gain, 5);
+                Array.Copy(offset, last_offset, 5);
+            }
+
+            if (interpolation != last_interpolation || showPoints != last_showPoints || last_antialiasing != antialiasing)
+            {
+                update = true;
+                process_signals();
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                paint_cursors();
+                last_interpolation = interpolation;
+                last_showPoints = showPoints;
+                last_antialiasing = antialiasing;
+            }
+
+            if (last_tA != tA || last_tB != tB || last_ver_cur_src != VerticalCursorSrc)
+            {
+                update = true;
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                paint_cursors();
+                last_tA = tA;
+                last_tB = tB;
+                last_ver_cur_src = VerticalCursorSrc;
+            }
+
+            if (last_uA != uA || last_uB != uB || last_hor_cur_src != HorizontalCursorSrc)
+            {
+                update = true;
+                scopePane.CurveList.Clear();
+                paint_signals();
+                paint_markers();
+                horizontal_cursor_update();
+                paint_cursors();
+                last_uA = uA;
+                last_uB = uB;
+                last_hor_cur_src = HorizontalCursorSrc;
+            }
+
+            if (last_measValid != measValid)
+            {
+                update = true;
+                meas.calculateMeasurements(device.scopeCfg.samples, device.scopeCfg.ranges[1, selectedRange], device.scopeCfg.ranges[0, selectedRange], device.scopeCfg.actualChannels, device.scopeCfg.sampligFreq, device.scopeCfg.timeBase.Length, device.scopeCfg.actualRes);
+                last_measValid = measValid;
+            }
+
+            if (last_math != math) {
+                update = true;
+                scopePane.CurveList.Clear();
+                process_signals();
+                paint_signals();
+                paint_markers();
+                vertical_cursor_update();
+                horizontal_cursor_update();
+                paint_cursors();
+                last_math = math;
+            }
+
+
+
+            if (update)
+            {
+                this.Invalidate();
+            }
+        }
+
+        public void update_Y_axe() {
+            maxY = device.scopeCfg.ranges[1, selectedRange] / 1000;
+            minY = device.scopeCfg.ranges[0, selectedRange] / 1000;
+        }
+
+        public void update_X_axe()
+        {
+            if (XYplot)
+            {
+                maxX = device.scopeCfg.ranges[1, selectedRange] / 1000;
+                minY = device.scopeCfg.ranges[0, selectedRange] / 1000;
+            }
+            else
+            {
+                double maxTime = device.scopeCfg.maxTime;
+                double interval = scale * maxTime;
+                double posmin = (interval / 2);
+                double posScale = (maxTime - interval) / maxTime;
+                maxX = (maxTime) * horPosition * posScale + posmin + interval / 2;
+                minX = (maxTime) * horPosition * posScale + posmin - interval / 2;
+            }
+        }
+
+        public void vertical_cursor_update() {
+            if (VerticalCursorSrc != 0)
+            {
+                if (!XYplot)
+                {
+                    double scale = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
+                    double off = device.scopeCfg.ranges[0, selectedRange] / 1000;
+
+                    //vypocet casu
+                    tA = VerticalCursorA * maxX + (1 - VerticalCursorA) * minX;
+                    tB = VerticalCursorB * maxX + (1 - VerticalCursorB) * minX;
+                    int indexUA = (int)(tA / device.scopeCfg.maxTime * signal_ch1.Length);
+                    int indexUB = (int)(tB / device.scopeCfg.maxTime * signal_ch1.Length);
+                    double VA = 0;
+                    double VB = 0;
+                    if (indexUA >= signal_ch1.Length)
+                    {
+                        indexUA = signal_ch1.Length - 1;
+                    }
+                    if (indexUB >= signal_ch1.Length)
+                    {
+                        indexUB = signal_ch1.Length - 1;
+                    }
+                    //vypocet linearni interpolace napeti kurzoru
+                    if (VerticalCursorSrc <= device.scopeCfg.actualChannels)
+                    {
+                        if (indexUA < signal_ch1.Length - 1)
+                        {
+
+                            VA = (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUA] * scale + off) + (tA - device.scopeCfg.timeBase[indexUA]) / (device.scopeCfg.timeBase[indexUA + 1] - device.scopeCfg.timeBase[indexUA]) * ((device.scopeCfg.samples[VerticalCursorSrc - 1, indexUA + 1] * scale + off) - (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUA] * scale + off));
+                        }
+                        else
+                        {
+                            VA = (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUA - 1] * scale + off);
+                        }
+
+                        if (indexUB < signal_ch1.Length - 1)
+                        {
+                            VB = (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUB] * scale + off) + (tB - device.scopeCfg.timeBase[indexUB]) / (device.scopeCfg.timeBase[indexUB + 1] - device.scopeCfg.timeBase[indexUB]) * ((device.scopeCfg.samples[VerticalCursorSrc - 1, indexUB + 1] * scale + off) - (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUB] * scale + off));
+                        }
+                        else
+                        {
+                            VB = (device.scopeCfg.samples[VerticalCursorSrc - 1, indexUB - 1] * scale + off);
+                        }
+                    }
+                    double td = tA - tB;
+                    double ud = VA - VB;
+                    double f = Math.Abs(1 / td);
+
+                    //formatovani stringu
+                    if (td >= 1 || td <= -1)
+                    {
+                        this.timeDif = "dt " + (Math.Round(td, 3)).ToString() + " s";
+                    }
+                    else
+                    {
+                        this.timeDif = "dt " + (Math.Round(td * 1000, 3)).ToString() + " ms";
+                    }
+
+                    if (tA >= 1 || tA <= -1)
+                    {
+                        this.timeA = "t " + (Math.Round(tA, 3)).ToString() + " s";
+                    }
+                    else
+                    {
+                        this.timeA = "t " + (Math.Round(tA * 1000, 3)).ToString() + " ms";
+                    }
+                    if (tB >= 1 || tB <= -1)
+                    {
+                        this.timeB = "t " + (Math.Round(tB, 3)).ToString() + " s";
+                    }
+                    else
+                    {
+                        this.timeB = "t " + (Math.Round(tB * 1000, 3)).ToString() + " ms";
+                    }
+                    if (Double.IsInfinity(f))
+                    {
+                        this.frequency = "f Inf";
+                    }
+                    else if (f >= 1000000)
+                    {
+                        this.frequency = "f " + (Math.Round(f / 1000000, 3)).ToString() + " MHz";
+                    }
+                    else if (f >= 1000)
+                    {
+                        this.frequency = "f " + (Math.Round(f / 1000, 3)).ToString() + " kHz";
+                    }
+                    else
+                    {
+                        this.frequency = "f " + (Math.Round(f, 3)).ToString() + " Hz";
+                    }
+
+                    if (VA >= 1 || VA <= -1)
+                    {
+                        this.UA = "U " + (Math.Round(VA, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.UA = "U " + (Math.Round(VA * 1000, 2)).ToString() + " mV";
+                    }
+
+                    if (VB >= 1 || VB <= -1)
+                    {
+                        this.UB = "U " + (Math.Round(VB, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.UB = "U " + (Math.Round(VB * 1000, 2)).ToString() + " mV";
+                    }
+
+                    if (ud >= 1 || ud <= -1)
+                    {
+                        this.DiffU = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.DiffU = "dU " + (Math.Round(ud * 1000, 2)).ToString() + " mV";
+                    }
+                }
+                else
+                {
+
+                    double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[VerticalCursorSrc - 1] / 1000 * gain[VerticalCursorSrc - 1] * 2;
+
+                    tA = ((VerticalCursorA * maxX + (1 - VerticalCursorA) * minX));
+                    tB = ((VerticalCursorB * maxX + (1 - VerticalCursorB) * minX));
+                    double ud = (tA - tB) / gain[VerticalCursorSrc - 1];
+                    double tmpA = (tA - off) / gain[VerticalCursorSrc - 1];
+                    double tmpB = (tB - off) / gain[VerticalCursorSrc - 1];
+                    if (ud >= 1 || ud <= -1)
+                    {
+                        this.DiffU = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.DiffU = "dU " + (Math.Round(ud * 1000, 2)).ToString() + " mV";
+                    }
+                    if (tmpA >= 1 || tmpA <= -1)
+                    {
+                        this.UA = "UA " + (Math.Round(tmpA, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.UA = "UA " + (Math.Round(tmpA * 1000, 2)).ToString() + " mV";
+                    }
+                    if (tmpB >= 1 || tmpB <= -1)
+                    {
+                        this.UB = "UB " + (Math.Round(tmpB, 2)).ToString() + " V";
+                    }
+                    else
+                    {
+                        this.UB = "UB " + (Math.Round(tmpB * 1000, 2)).ToString() + " mV";
+                    }
+                    this.timeDif = "";
+                    this.frequency = "";
+                    this.timeA = "";
+                    this.timeB = "";
+
+                }
+            }
+        }
+
+        public void horizontal_cursor_update() {
+            if (HorizontalCursorSrc!=0)
+            {
+                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[HorizontalCursorSrc - 1] / 1000 * gain[HorizontalCursorSrc - 1] * 2;
+
+                uA = ((HorizontalCursorA * maxY + (1 - HorizontalCursorA) * minY));
+                uB = ((HorizontalCursorB * maxY + (1 - HorizontalCursorB) * minY));
+                double ud = (uA - uB) / gain[HorizontalCursorSrc - 1];
+                double tmpA = (uA - off) / gain[HorizontalCursorSrc - 1];
+                double tmpB = (uB - off) / gain[HorizontalCursorSrc - 1];
+                if (ud >= 1 || ud <= -1)
+                {
+                    this.voltDif = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                }
+                else
+                {
+                    this.voltDif = "dU " + (Math.Round(ud * 1000, 2)).ToString() + " mV";
+                }
+                if (tmpA >= 1 || tmpA <= -1)
+                {
+                    this.voltA = "U " + (Math.Round(tmpA, 2)).ToString() + " V";
+                }
+                else
+                {
+                    this.voltA = "U " + (Math.Round(tmpA * 1000, 2)).ToString() + " mV";
+                }
+                if (tmpB >= 1 || tmpB <= -1)
+                {
+                    this.voltB = "U " + (Math.Round(tmpB, 2)).ToString() + " V";
+                }
+                else
+                {
+                    this.voltB = "U " + (Math.Round(tmpB * 1000, 2)).ToString() + " mV";
+                }
+            }
         }
 
         private void Update_GUI(object sender, ElapsedEventArgs e)
@@ -95,31 +557,50 @@ namespace InstruLab
             if (scope_q.Count > 0)
             {
                 messg = scope_q.Dequeue();
+                if (messg == null) {
+                    return;
+                }
                 switch (messg.GetRequest())
                 {
                     case Message.MsgRequest.SCOPE_NEW_DATA:
                         status_text = "";
-                        process_signals();
-                        paint_signals();                     
+                        //meas.calculateMeasurements(device.scopeCfg.samples, device.scopeCfg.ranges[1, selectedRange], device.scopeCfg.ranges[0, selectedRange], device.scopeCfg.actualChannels, device.scopeCfg.sampligFreq, device.scopeCfg.timeBase.Length,device.scopeCfg.actualRes);
+                        calcSignal_th = new Thread(() => meas.calculateMeasurements(device.scopeCfg.samples, device.scopeCfg.ranges[1, selectedRange], device.scopeCfg.ranges[0, selectedRange], device.scopeCfg.actualChannels, device.scopeCfg.sampligFreq, device.scopeCfg.timeBase.Length,device.scopeCfg.actualRes));
+                        calcSignal_th.Start();
+                        processSignal_th = new Thread(process_signals);
+                        processSignal_th.Start();
+                        processSignal_th.Join();
+                        calcSignal_th.Join();
+                        scopePane.CurveList.Clear();
+                        //process_signals();
+                        paint_signals();
+                        update_Y_axe();
+                        update_X_axe();
+                        paint_markers();
+                        vertical_cursor_update();
+                        paint_cursors();
+                        this.Invalidate();
+
+                        if (device.scopeCfg.mode == Scope.mode_def.AUTO || device.scopeCfg.mode == Scope.mode_def.NORMAL)
+                        {
+                            Thread.Sleep(50);
+                            device.takeCommsSemaphore(semaphoreTimeout);
+                            device.send(Commands.SCOPE + ":" + Commands.SCOPE_NEXT + ";");
+                            device.giveCommsSemaphore();
+                        }
                         break;
 
                     case Message.MsgRequest.SCOPE_TRIGGERED:
                         status_text = "Trig";
-                        break;
-
-                    case Message.MsgRequest.CHANGE_ZOOM:
-                        process_signals();
-                        paint_signals(); 
-                        break;
-                    case Message.MsgRequest.CHANGE_GAIN:
-                        paint_signals();
+                        this.Invalidate();
                         break;
                     case Message.MsgRequest.SCOPE_WAIT:
                         scopePane.CurveList.Clear();
                         status_text = "Wait";
+                        this.Invalidate();
                         break;
                 }
-                this.Invalidate();
+                
             }
             
         }
@@ -127,6 +608,47 @@ namespace InstruLab
         protected override void OnPaint(PaintEventArgs e)
         {
             zedGraphControl_scope.Refresh();
+            if (VerticalCursorSrc != 0) {
+                this.label_cur_freq.Text = this.frequency;
+                this.label_cur_time_a.Text = this.timeA;
+                this.label_cur_time_b.Text = this.timeB;
+                this.label_cur_ua.Text = this.UA;
+                this.label_cur_ub.Text = this.UB;
+                this.label_time_diff.Text = this.timeDif;
+                this.label_ver_cur_du.Text = this.DiffU;
+            }
+            if (HorizontalCursorSrc != 0) {
+                this.label_hor_cur_volt_diff.Text = voltDif;
+                this.label_cur_u_a.Text = voltA;
+                this.label_cur_u_b.Text = voltB;
+            }
+            if (meas.getMeasCount() > 0) {
+                for (int i = 0; i < meas.getMeasCount(); i++)
+                {
+                    switch (i) { 
+                        case 0:
+                            this.label_meas1.Text = meas.getMeas(0);
+                            this.label_meas1.ForeColor = meas.getColor(0);
+                            break;
+                        case 1:
+                            this.label_meas2.Text = meas.getMeas(1);
+                            this.label_meas2.ForeColor = meas.getColor(1);
+                            break;
+                        case 2:
+                            this.label_meas3.Text = meas.getMeas(2);
+                            this.label_meas3.ForeColor = meas.getColor(2);
+                            break;
+                        case 3:
+                            this.label_meas4.Text = meas.getMeas(3);
+                            this.label_meas4.ForeColor = meas.getColor(3);
+                            break;
+                        case 4:
+                            this.label_meas5.Text = meas.getMeas(4);
+                            this.label_meas5.ForeColor = meas.getColor(4);
+                            break;
+                    }
+                }
+            }
             this.label_scope_status.Text = status_text;
             base.OnPaint(e);
         }
@@ -152,44 +674,61 @@ namespace InstruLab
 
         public void scope_start()
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.START + ";");
+            device.giveCommsSemaphore();
         }
 
         public void scope_stop()
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.STOP + ";");
+            device.giveCommsSemaphore();
         }
         public void scope_next()
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_NEXT + ";");
+            device.giveCommsSemaphore();
         }
 
 
         public void set_data_depth(string dataDepth) {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_DATA_DEPTH + " " + dataDepth + ";");
+            device.giveCommsSemaphore();
         }
 
         public void set_num_of_samples(string numSmp) {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.DATA_LENGTH + " " + numSmp + ";");
+            device.giveCommsSemaphore();
         }
 
 
         public void set_sampling_freq(string smpFreq)
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SAMPLING_FREQ + " " + smpFreq+ ";");
+            device.giveCommsSemaphore();
         }
 
         public void set_num_of_channels(string chann) {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.CHANNELS + " " + chann + ";");
+            device.giveCommsSemaphore();
         }
 
         public void set_trigger_channel(string chann)
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_CHANNEL + " " + chann + ";");
+            device.giveCommsSemaphore();
         }
 
         public void set_trigger_mode(mode_def mod)
         {
+            device.takeCommsSemaphore(semaphoreTimeout);
             switch (mod)
             {
                 case mode_def.AUTO:
@@ -202,43 +741,36 @@ namespace InstruLab
                     device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_MODE + " " + Commands.MODE_SINGLE + ";");
                     break;
             }
-            if (device.get_scope_mode() == mode_def.SINGLE)
-            {
-                Thread.Sleep(20);
-                scope_next();
-            }
-            device.set_scope_mode(mod);           
+            device.set_scope_mode(mod);
+            device.giveCommsSemaphore();
         }
 
         public void set_trigger_edge_fall() {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_EDGE + " " + Commands.EDGE_FALLING + ";");
+            device.giveCommsSemaphore();
         }
         public void set_trigger_edge_rise() {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_EDGE + " " + Commands.EDGE_RISING + ";");
+            device.giveCommsSemaphore();
         }
 
         public void set_prettriger(double pre) {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_PRETRIGGER + " ");
             device.send_short((int)(pre*65536));
             device.send(";");
+            device.giveCommsSemaphore();
         }
 
         public void set_trigger_level(double level) {
+            device.takeCommsSemaphore(semaphoreTimeout);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_LEVEL + " ");
             device.send_short((int)(level * 65536));
             device.send(";");
+            device.giveCommsSemaphore();
         }
-
-
-
-        
-
-
-
-
-
-
-
 
 
         public bool validate_buffer_usage() {
@@ -267,6 +799,7 @@ namespace InstruLab
             device.scopeCfg.sampligFreq = 1000;
 
             triggeredge = triggerEdge_def.RISE;
+            set_trigger_edge_rise();
 
             triggerLevel = 0.5;
             set_trigger_level(triggerLevel);
@@ -274,14 +807,15 @@ namespace InstruLab
             pretrigger = 0.5;
             set_prettriger(pretrigger);
 
-            adcRes = 12;
-            set_data_depth(Commands.DATA_DEPTH_12B);
+            actualCahnnels = 1;
+            set_num_of_channels(Commands.CHANNELS_1);
 
             numSamples=100;
             set_num_of_samples(Commands.SAMPLES_100);
 
-            actualCahnnels = 1;
-            set_num_of_channels(Commands.CHANNELS_1);
+            adcRes = 12;
+            set_data_depth(Commands.DATA_DEPTH_12B);
+
 
             triggerChannel = 1;
             set_trigger_channel(Commands.CHANNELS_1);
@@ -341,8 +875,11 @@ namespace InstruLab
             if (this.checkBox_trig_normal.Checked)
             {
                 set_trigger_mode(mode_def.NORMAL);
+                scope_next();
                 this.checkBox_trig_auto.Checked = false;
                 this.checkBox_trig_single.Checked = false;
+                this.checkBox_trig_single.Text = "Stop";
+                
             }
         }
 
@@ -351,24 +888,29 @@ namespace InstruLab
             if (this.checkBox_trig_auto.Checked)
             {
                 set_trigger_mode(mode_def.AUTO);
+                scope_next();
                 this.checkBox_trig_normal.Checked = false;
                 this.checkBox_trig_single.Checked = false;
+                this.checkBox_trig_single.Text = "Stop";
+                
             }
         }
         private void checkBox_trig_single_Click(object sender, EventArgs e)
         {
             this.checkBox_trig_single.Checked = true;
-            if (device.get_scope_mode() == mode_def.SINGLE)
+            if (this.checkBox_trig_single.Text.Equals("Stop"))
             {
-                scope_next();
+                this.checkBox_trig_single.Text = "Single";
+                device.set_scope_mode(mode_def.SINGLE);
             }
-            else
+            else if (this.checkBox_trig_single.Text.Equals("Single"))
             {
                 set_trigger_mode(mode_def.SINGLE);
-                this.checkBox_trig_auto.Checked = false;
-                this.checkBox_trig_normal.Checked = false;
-            }
-            add_message(new Message(Message.MsgRequest.SCOPE_WAIT));
+                scope_next();
+                add_message(new Message(Message.MsgRequest.SCOPE_WAIT));
+            }          
+            this.checkBox_trig_auto.Checked = false;
+            this.checkBox_trig_normal.Checked = false;
         }
 
         private void checkBox_trig_rise_Click(object sender, EventArgs e)
@@ -394,12 +936,12 @@ namespace InstruLab
         private void trackBar_zoom_ValueChanged(object sender, EventArgs e)
         {
             scale = 1.0 - (double)(this.trackBar_zoom.Value) / (this.trackBar_zoom.Maximum - this.trackBar_zoom.Minimum + 10);
-            add_message(new Message(Message.MsgRequest.CHANGE_ZOOM));
+            update_X_axe();
         }
         private void trackBar_position_ValueChanged(object sender, EventArgs e)
         {
             horPosition = (double)(this.trackBar_position.Value) / (this.trackBar_position.Maximum - this.trackBar_position.Minimum);
-            add_message(new Message(Message.MsgRequest.CHANGE_ZOOM));
+            update_X_axe();
         }
 
         private void radioButton_1k_CheckedChanged(object sender, EventArgs e)
@@ -515,7 +1057,7 @@ namespace InstruLab
             if (radioButton_1x.Checked)
             {
                 this.gain[selectedChannelVolt] = 1;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -524,7 +1066,7 @@ namespace InstruLab
             if (radioButton_2x.Checked)
             {
                 this.gain[selectedChannelVolt] = 2;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -533,7 +1075,7 @@ namespace InstruLab
             if (radioButton_5x.Checked)
             {
                 this.gain[selectedChannelVolt] = 5;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -542,7 +1084,7 @@ namespace InstruLab
             if (radioButton_10x.Checked)
             {
                 this.gain[selectedChannelVolt] = 10;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -551,7 +1093,7 @@ namespace InstruLab
             if (radioButton_20x.Checked)
             {
                 this.gain[selectedChannelVolt] = 20;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -560,7 +1102,7 @@ namespace InstruLab
             if (radioButton_50x.Checked)
             {
                 this.gain[selectedChannelVolt] = 50;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -569,7 +1111,7 @@ namespace InstruLab
             if (radioButton_100x.Checked)
             {
                 this.gain[selectedChannelVolt] = 100;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -578,7 +1120,7 @@ namespace InstruLab
             if (radioButton_200x.Checked)
             {
                 this.gain[selectedChannelVolt] = 200;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
@@ -587,14 +1129,14 @@ namespace InstruLab
             if (radioButton_500x.Checked)
             {
                 this.gain[selectedChannelVolt] = 500;
-                add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
             }
         }
 
         private void trackBar_vol_level_ValueChanged(object sender, EventArgs e)
         {
             offset[selectedChannelVolt] = trackBar_vol_level.Value - 500;
-            add_message(new Message(Message.MsgRequest.CHANGE_ZOOM));
+            //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
         }
 
         private void channelToolStripMenuItem_1ch_Click(object sender, EventArgs e)
@@ -618,12 +1160,8 @@ namespace InstruLab
                     actualCahnnels = tmpActualCahnnels;
                     show_buffer_err_message();
                 }
-                update_channels_menu();
             }
-            else
-            {
-                this.channelToolStripMenuItem_1ch.Checked = true;
-            }
+            update_channels_menu();
         }
 
         private void channelToolStripMenuItem_2ch_Click(object sender, EventArgs e)
@@ -648,12 +1186,8 @@ namespace InstruLab
                     actualCahnnels = tmpActualCahnnels;
                     show_buffer_err_message();
                 }
-                update_channels_menu();
             }
-            else
-            {
-                this.channelToolStripMenuItem_2ch.Checked = true;
-            }
+            update_channels_menu();
         }
 
         private void channelToolStripMenuItem_3ch_Click(object sender, EventArgs e)
@@ -678,12 +1212,8 @@ namespace InstruLab
                     actualCahnnels = tmpActualCahnnels;
                     show_buffer_err_message();
                 }
-                update_channels_menu();
             }
-            else
-            {
-                this.channelToolStripMenuItem_3ch.Checked = true;
-            }
+            update_channels_menu();
         }
 
         private void channelToolStripMenuItem_4ch_Click(object sender, EventArgs e)
@@ -708,12 +1238,8 @@ namespace InstruLab
                     actualCahnnels = tmpActualCahnnels;
                     show_buffer_err_message();
                 }
-                update_channels_menu();
             }
-            else
-            {
-                this.channelToolStripMenuItem_4ch.Checked = true;
-            }
+            update_channels_menu();
         }
 
         private void radioButton_volt_ch1_CheckedChanged(object sender, EventArgs e)
@@ -752,19 +1278,23 @@ namespace InstruLab
             }
         }
 
+        private void radioButton_volt_math_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_volt_math.Checked)
+            {
+                this.selectedChannelVolt = 4;
+                redrawVolt();
+            }
+        }
+
         private void range0ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.range0ToolStripMenuItem.Checked)
             {
                 selectedRange = 0;
-                this.range1ToolStripMenuItem.Checked = false;
-                this.range2ToolStripMenuItem.Checked = false;
-                this.range3ToolStripMenuItem.Checked = false;
+                update_Y_axe();
             }
-            else
-            {
-                this.range0ToolStripMenuItem.Checked = true;
-            }
+            update_ranges_menu();
         }
 
         private void range1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -772,14 +1302,9 @@ namespace InstruLab
             if (this.range1ToolStripMenuItem.Checked)
             {
                 selectedRange = 1;
-                this.range0ToolStripMenuItem.Checked = false;
-                this.range2ToolStripMenuItem.Checked = false;
-                this.range3ToolStripMenuItem.Checked = false;
+                update_Y_axe();
             }
-            else
-            {
-                this.range1ToolStripMenuItem.Checked = true;
-            }
+            update_ranges_menu();
         }
 
         private void range2ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -787,14 +1312,9 @@ namespace InstruLab
             if (this.range2ToolStripMenuItem.Checked)
             {
                 selectedRange = 2;
-                this.range0ToolStripMenuItem.Checked = false;
-                this.range1ToolStripMenuItem.Checked = false;
-                this.range3ToolStripMenuItem.Checked = false;
+                update_Y_axe();
             }
-            else
-            {
-                this.range2ToolStripMenuItem.Checked = true;
-            }
+            update_ranges_menu();
         }
 
         private void range3ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -802,14 +1322,9 @@ namespace InstruLab
             if (this.range3ToolStripMenuItem.Checked)
             {
                 selectedRange = 3;
-                this.range0ToolStripMenuItem.Checked = false;
-                this.range1ToolStripMenuItem.Checked = false;
-                this.range2ToolStripMenuItem.Checked = false;
+                update_Y_axe();
             }
-            else
-            {
-                this.range3ToolStripMenuItem.Checked = true;
-            }
+            update_ranges_menu();
         }
 
         private void radioButton_trig_ch1_CheckedChanged(object sender, EventArgs e)
@@ -916,12 +1431,9 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
+               
             }
-            else
-            {
-                this.ToolStripMenuItem_100smp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_200smp_Click(object sender, EventArgs e)
@@ -939,12 +1451,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_200smp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_500smp_Click(object sender, EventArgs e)
@@ -962,12 +1470,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_500smp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_1ksmp_Click(object sender, EventArgs e)
@@ -985,12 +1489,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_1ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_2ksmp_Click(object sender, EventArgs e)
@@ -1008,12 +1508,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_2ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_5ksmp_Click(object sender, EventArgs e)
@@ -1031,12 +1527,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_5ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_10ksmp_Click(object sender, EventArgs e)
@@ -1054,12 +1546,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_10ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_20ksmp_Click(object sender, EventArgs e)
@@ -1077,12 +1565,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_20ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_50ksmp_Click(object sender, EventArgs e)
@@ -1100,12 +1584,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_50ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void ToolStripMenuItem_100ksmp_Click(object sender, EventArgs e)
@@ -1123,12 +1603,8 @@ namespace InstruLab
                     numSamples = tmpNumSamples;
                     show_buffer_err_message();
                 }
-                update_data_len_menu();
             }
-            else
-            {
-                this.ToolStripMenuItem_100ksmp.Checked = true;
-            }
+            update_data_len_menu();
         }
 
         private void button_volt_reset_chan_Click(object sender, EventArgs e)
@@ -1141,10 +1617,152 @@ namespace InstruLab
 
         private void button_volt_reset_all_Click(object sender, EventArgs e)
         {
-            gain = new int[4] { 1, 1, 1, 1 };
-            offset = new int[4] { 0, 0, 0, 0 };
+            gain = new int[5] { 1, 1, 1, 1, 1 };
+            offset = new int[5] { 0, 0, 0, 0, 0 };
             this.trackBar_vol_level.Value = 500;
             redrawVolt();
+        }
+
+        private void radioButton_ver_cur_off_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_off.Checked)
+            {
+                VerticalCursorSrc = 0;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void radioButton_ver_cur_ch1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_ch1.Checked)
+            {
+                VerticalCursorSrc = 1;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void radioButton_ver_cur_ch2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_ch2.Checked)
+            {
+                VerticalCursorSrc = 2;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void radioButton_ver_cur_ch3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_ch3.Checked)
+            {
+                VerticalCursorSrc = 3;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void radioButton_ver_cur_ch4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_ch4.Checked)
+            {
+                VerticalCursorSrc = 4;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void radioButton_ver_cur_math_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_ver_cur_math.Checked)
+            {
+                VerticalCursorSrc = 5;
+                vertical_cursor_update();
+                validate_vertical_curr();
+            }
+        }
+        private void trackBar_ver_cur_a_ValueChanged(object sender, EventArgs e)
+        {
+            VerticalCursorA = (double)(this.trackBar_ver_cur_a.Value) / (this.trackBar_ver_cur_a.Maximum - this.trackBar_ver_cur_a.Minimum);
+            vertical_cursor_update();
+        }
+        private void trackBar_ver_cur_b_ValueChanged(object sender, EventArgs e)
+        {
+            VerticalCursorB = (double)(this.trackBar_ver_cur_b.Value) / (this.trackBar_ver_cur_b.Maximum - this.trackBar_ver_cur_b.Minimum);
+            vertical_cursor_update();
+        }
+
+        private void radioButton_hor_cur_off_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_off.Checked)
+            {
+                HorizontalCursorSrc = 0;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void radioButton_hor_cur_math_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_math.Checked)
+            {
+                HorizontalCursorSrc = 5;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void radioButton_hor_cur_ch1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_ch1.Checked)
+            {
+                HorizontalCursorSrc = 1;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void radioButton_hor_cur_ch2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_ch2.Checked)
+            {
+                HorizontalCursorSrc = 2;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void radioButton_hor_cur_ch3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_ch3.Checked)
+            {
+                HorizontalCursorSrc = 3;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void radioButton_hor_cur_ch4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_hor_cur_ch4.Checked)
+            {
+                HorizontalCursorSrc = 4;
+                horizontal_cursor_update();
+                validate_horizontal_curr();
+            }
+        }
+
+        private void trackBar_hor_cur_a_ValueChanged(object sender, EventArgs e)
+        {
+            HorizontalCursorA = (double)(this.trackBar_hor_cur_a.Value) / (this.trackBar_hor_cur_a.Maximum - this.trackBar_hor_cur_a.Minimum);
+            horizontal_cursor_update();
+        }
+
+        private void trackBar_hor_cur_b_ValueChanged(object sender, EventArgs e)
+        {
+            HorizontalCursorB = (double)(this.trackBar_hor_cur_b.Value) / (this.trackBar_hor_cur_b.Maximum - this.trackBar_hor_cur_b.Minimum);
+            horizontal_cursor_update();
+        }
+
+        private void antiAliasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            antialiasing = this.antiAliasToolStripMenuItem.Checked;
         }
 
 
@@ -1167,7 +1785,6 @@ namespace InstruLab
             this.radioButton_100x.Checked = gain[selectedChannelVolt] == 100 ? true : false;
             this.radioButton_200x.Checked = gain[selectedChannelVolt] == 200 ? true : false;
             this.radioButton_500x.Checked = gain[selectedChannelVolt] == 500 ? true : false;
-
         }
 
 
@@ -1218,6 +1835,15 @@ namespace InstruLab
             this.channelToolStripMenuItem_2ch.Checked = this.actualCahnnels == 2 ? true : false;
             this.channelToolStripMenuItem_3ch.Checked = this.actualCahnnels == 3 ? true : false;
             this.channelToolStripMenuItem_4ch.Checked = this.actualCahnnels == 4 ? true : false;
+            this.toolStripMenuItem_XY_plot.Enabled = this.actualCahnnels >= 2 ? true : false;
+            this.XYplot = measChann >= 2 ? XYplot : false;
+        }
+
+        public void update_ranges_menu() {
+            this.range0ToolStripMenuItem.Checked = this.selectedRange == 0 ? true : false;
+            this.range1ToolStripMenuItem.Checked = this.selectedRange == 1 ? true : false;
+            this.range2ToolStripMenuItem.Checked = this.selectedRange == 2 ? true : false;
+            this.range3ToolStripMenuItem.Checked = this.selectedRange == 3 ? true : false;
         }
 
 
@@ -1332,6 +1958,48 @@ namespace InstruLab
 
         }
 
+        public void validate_vertical_curr()
+        {
+            this.trackBar_ver_cur_a.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.trackBar_ver_cur_b.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_cur_freq.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_cur_time_a.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_cur_time_b.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_cur_ua.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_cur_ub.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_time_diff.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label_ver_cur_du.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label5.Enabled = VerticalCursorSrc == 0 ? false : true;
+            this.label6.Enabled = VerticalCursorSrc == 0 ? false : true;
+            if (VerticalCursorSrc == 0) {
+                tA = 0;
+                tB = 0;
+            }
+        }
+
+        public void validate_horizontal_curr() {
+            this.trackBar_hor_cur_a.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.trackBar_hor_cur_b.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.label_hor_cur_volt_diff.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.label_cur_u_a.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.label_cur_u_b.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.label8.Enabled = HorizontalCursorSrc == 0 ? false : true;
+            this.label10.Enabled = HorizontalCursorSrc == 0 ? false : true;
+
+            if (HorizontalCursorSrc == 0)
+            {
+                uA = 0;
+                uB = 0;
+            }
+        }
+
+        public void validate_meas_chann() {
+            this.toolStripMenuItem_ch1_meas.Checked = measChann == 1 ? true : false;
+            this.toolStripMenuItem_ch2_meas.Checked = measChann == 2 ? true : false;
+            this.toolStripMenuItem_ch3_meas.Checked = measChann == 3 ? true : false;
+            this.toolStripMenuItem_ch4_meas.Checked = measChann == 4 ? true : false;
+        }
+
 
 
         //scope painting and data processing
@@ -1341,7 +2009,8 @@ namespace InstruLab
             for (int i = 0; i < device.scopeCfg.actualChannels; i++)
             {
                 double scale = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes) * gain[i];
-                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[i] / 1000 * gain[i] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000;
+                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[i] / 1000 * gain[i] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[i];
+                
                 switch (i)
                 {
                     case 0:
@@ -1374,72 +2043,113 @@ namespace InstruLab
                         break;
                 }
             }
+
+            if (math != math_def.NONE)
+            {
+                this.signal_math = new double[device.scopeCfg.timeBase.Length];
+                double scale_ch1 = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
+                double scale_ch2 = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
+                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[4] / 1000 * gain[4] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[4];
+
+                switch (math)
+                {
+                    case math_def.SUM:
+                        for (int j = 0; j < device.scopeCfg.timeBase.Length; j++)
+                        {
+                            signal_math[j] = (device.scopeCfg.samples[0, j] * scale_ch1 + device.scopeCfg.samples[1, j] * scale_ch2 + off)*gain[4];
+                        }
+                        break;
+                    case math_def.DIFF_A:
+                        for (int j = 0; j < device.scopeCfg.timeBase.Length; j++)
+                        {
+                            signal_math[j] = (device.scopeCfg.samples[0, j] * scale_ch1 - (device.scopeCfg.samples[1, j] * scale_ch2) + off)*gain[4];
+                        }
+                        break;
+                    case math_def.DIFF_B:
+                        for (int j = 0; j < device.scopeCfg.timeBase.Length; j++)
+                        {
+                            signal_math[j] = (-(device.scopeCfg.samples[0, j] * scale_ch1) + device.scopeCfg.samples[1, j] * scale_ch2 + off)*gain[4];
+                        }
+                        break;
+                    case math_def.MULT:
+                        for (int j = 0; j < device.scopeCfg.timeBase.Length; j++)
+                        {
+                            signal_math[j] = ((device.scopeCfg.samples[0, j] * scale_ch1) * (device.scopeCfg.samples[1, j] * scale_ch2) + off)*gain[4];
+                        }
+                        break;
+                }
+            }
         }
 
 
         public void paint_signals()
         {
-            scopePane.CurveList.Clear();
             LineItem curve;
-            if (device.scopeCfg.actualChannels >= 1)
+
+            if (XYplot && device.scopeCfg.actualChannels >= 2)
             {
-                curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch1, Color.Red, SymbolType.Diamond);
+                curve = scopePane.AddCurve("", signal_ch2, signal_ch1, Color.Red, SymbolType.Diamond);
                 curve.Line.IsSmooth = interpolation;
                 curve.Line.SmoothTension = smoothing;
+                curve.Line.IsAntiAlias = antialiasing;
                 curve.Line.IsOptimizedDraw = true;
-                curve.Symbol.Size = showPoints ? 4 : 0;
+                curve.Symbol.Size = showPoints ? 5 : 0;
             }
-            if (device.scopeCfg.actualChannels >= 2)
+            else
             {
-                curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch2, Color.Blue, SymbolType.Diamond);
-                curve.Line.IsSmooth = interpolation;
-                curve.Line.SmoothTension = smoothing;
-                curve.Line.IsOptimizedDraw = true;
-                curve.Symbol.Size = showPoints ? 4 : 0;
+                if (device.scopeCfg.actualChannels >= 1)
+                {
+                    curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch1, Color.Red, SymbolType.Diamond);
+                    curve.Line.IsSmooth = interpolation;
+                    curve.Line.SmoothTension = smoothing;
+                    curve.Line.IsAntiAlias = antialiasing;
+                    curve.Line.IsOptimizedDraw = true;
+                    curve.Symbol.Size = showPoints ? 5 : 0;
+                }
+                if (device.scopeCfg.actualChannels >= 2)
+                {
+                    curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch2, Color.Blue, SymbolType.Diamond);
+                    curve.Line.IsSmooth = interpolation;
+                    curve.Line.SmoothTension = smoothing;
+                    curve.Line.IsAntiAlias = antialiasing;
+                    curve.Line.IsOptimizedDraw = true;
+                    curve.Symbol.Size = showPoints ? 5 : 0;
+                }
+                if (device.scopeCfg.actualChannels >= 3)
+                {
+                    curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch3, Color.DarkGreen, SymbolType.Diamond);
+                    curve.Line.IsSmooth = interpolation;
+                    curve.Line.SmoothTension = smoothing;
+                    curve.Line.IsAntiAlias = antialiasing;
+                    curve.Line.IsOptimizedDraw = true;
+                    curve.Symbol.Size = showPoints ? 5 : 0;
+                }
+                if (device.scopeCfg.actualChannels >= 4)
+                {
+                    curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch4, Color.Magenta, SymbolType.Diamond);
+                    curve.Line.IsSmooth = interpolation;
+                    curve.Line.SmoothTension = smoothing;
+                    curve.Line.IsAntiAlias = antialiasing;
+                    curve.Line.IsOptimizedDraw = true;
+                    curve.Symbol.Size = showPoints ? 5 : 0;
+                }
+                if (math != math_def.NONE) {
+                    curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_math, Color.Purple, SymbolType.Diamond);
+                    curve.Line.IsSmooth = interpolation;
+                    curve.Line.SmoothTension = smoothing;
+                    curve.Line.IsAntiAlias = antialiasing;
+                    curve.Line.IsOptimizedDraw = true;
+                    curve.Symbol.Size = showPoints ? 5 : 0;
+                }
+
             }
-            if (device.scopeCfg.actualChannels >= 3)
-            {
-                curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch3, Color.DarkGreen, SymbolType.Diamond);
-                curve.Line.IsSmooth = interpolation;
-                curve.Line.SmoothTension = smoothing;
-                curve.Line.IsOptimizedDraw = true;
-                curve.Symbol.Size = showPoints ? 4 : 0;
-            }
-            if (device.scopeCfg.actualChannels >= 4)
-            {
-                curve = scopePane.AddCurve("", device.scopeCfg.timeBase, signal_ch4, Color.Blue, SymbolType.Diamond);
-                curve.Line.IsSmooth = interpolation;
-                curve.Line.SmoothTension = smoothing;
-                curve.Line.IsOptimizedDraw = true;
-                curve.Symbol.Size = showPoints ? 4 : 0;
-            }
+
+        }
+
+        public void paint_markers() {
+            LineItem curve;
 
 
-            scopePane.XAxis.Scale.MaxAuto = false;
-            scopePane.XAxis.Scale.MinAuto = false;
-
-            scopePane.YAxis.Scale.MaxAuto = false;
-            scopePane.YAxis.Scale.MinAuto = false;
-
-            double maxTime = device.scopeCfg.maxTime;
-            double interval = scale * maxTime;
-            double posmin = (interval / 2);
-            double posScale = (maxTime - interval) / maxTime;
-
-            double maxX = (maxTime) * horPosition * posScale + posmin + interval / 2;
-            double minX = (maxTime) * horPosition * posScale + posmin - interval / 2;
-
-            double maxY = device.scopeCfg.ranges[1, selectedRange] / 1000;
-            double minY = device.scopeCfg.ranges[0, selectedRange] / 1000;
-
-            scopePane.XAxis.Scale.Max = maxX;
-            scopePane.XAxis.Scale.Min = minX;
-
-            scopePane.YAxis.Scale.Max = maxY;
-            scopePane.YAxis.Scale.Min = minY;
-
-            scopePane.AxisChange();
-            
             //zoom position
             PointPairList list1 = new PointPairList();
             list1.Add((device.scopeCfg.maxTime) * horPosition, maxY);
@@ -1447,7 +2157,7 @@ namespace InstruLab
             curve.Symbol.Size = 15;
             curve.Symbol.Fill.Color = Color.Red;
             curve.Symbol.Fill.IsVisible = true;
-            
+
             //trigger time
             list1 = new PointPairList();
             list1.Add(((device.scopeCfg.maxTime) * pretrigger - (device.scopeCfg.maxTime / device.scopeCfg.timeBase.Length)), maxY);
@@ -1458,31 +2168,271 @@ namespace InstruLab
 
             //triggerlevel
             list1 = new PointPairList();
-            list1.Add(minX, triggerLevel*(maxY-minY));
+            double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[triggerChannel - 1] / 1000 * gain[triggerChannel - 1] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[triggerChannel-1];
+                
+            list1.Add(minX, triggerLevel * (maxY - minY)*gain[triggerChannel-1]+off);
             curve = scopePane.AddCurve("", list1, Color.Green, SymbolType.Diamond);
             curve.Symbol.Size = 15;
             curve.Symbol.Fill.Color = Color.Green;
             curve.Symbol.Fill.IsVisible = true;
         }
 
+        public void paint_cursors() {
 
-        
+            if (VerticalCursorSrc != 0)
+            {
+                Color col;
+                switch (VerticalCursorSrc) { 
+                    case 1:
+                        col = Color.Red;
+                        break;
+                    case 2:
+                        col = Color.Blue;
+                        break;
+                    case 3:
+                        col = Color.DarkGreen;
+                        break;
+                    case 4:
+                        col = Color.Magenta;
+                        break;
+                    default:
+                        col=Color.Black;
+                        break;
+                }
+                LineItem curve;
+                PointPairList list1 = new PointPairList();
+
+                list1 = new PointPairList();
+                list1.Add(tA, minY);
+                list1.Add(tA, maxY);
+                curve = scopePane.AddCurve("", list1, col, SymbolType.HDash);
+                curve.Symbol.Size = 0;
+                curve.Line.IsSmooth = true;
+                
+
+                list1 = new PointPairList();
+                list1.Add(tB, minY);
+                list1.Add(tB, maxY);
+                curve = scopePane.AddCurve("", list1, col, SymbolType.HDash);
+                curve.Symbol.Size = 0;
+                curve.Line.IsSmooth = true;
+            }
+
+            if (HorizontalCursorSrc != 0)
+            {
+                Color col;
+                switch (HorizontalCursorSrc)
+                {
+                    case 1:
+                        col = Color.Red;
+                        break;
+                    case 2:
+                        col = Color.Blue;
+                        break;
+                    case 3:
+                        col = Color.DarkGreen;
+                        break;
+                    case 4:
+                        col = Color.Magenta;
+                        break;
+                    default:
+                        col = Color.Black;
+                        break;
+                }
+                LineItem curve;
+                PointPairList list1 = new PointPairList();
+                list1 = new PointPairList();
+                list1.Add(minX, uA);
+                list1.Add(maxX, uA);
+                curve = scopePane.AddCurve("", list1, col, SymbolType.HDash);
+                curve.Symbol.Size = 0;
+                curve.Line.IsSmooth = true;
 
 
-
-
+                list1 = new PointPairList();
+                list1.Add(minX, uB);
+                list1.Add(maxX, uB);
+                curve = scopePane.AddCurve("", list1, col, SymbolType.HDash);
+                curve.Symbol.Size = 0;
+                curve.Line.IsSmooth = true;
+            }
+        }
 
         public void show_buffer_err_message() {
             MessageBox.Show("Buffer usage error \r\nTry to decrease number of samples, data resolution or number of channels", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
- 
+        private void toolStripMenuItem_ch1_meas_Click(object sender, EventArgs e)
+        {
+            measChann = 1;
+            validate_meas_chann();
+        }
+
+        private void toolStripMenuItem_ch2_meas_Click(object sender, EventArgs e)
+        {
+            measChann = 2;
+            validate_meas_chann();
+        }
+
+        private void toolStripMenuItem_ch3_meas_Click(object sender, EventArgs e)
+        {
+            measChann = 3;
+            validate_meas_chann();
+        }
+
+        private void toolStripMenuItem_ch4_meas_Click(object sender, EventArgs e)
+        {
+            measChann = 4;
+            validate_meas_chann();
+        }
+
+        private void frequencyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.FREQUENCY);
+            measValid = !measValid;
+        }
+
+        private void periodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.PERIOD);
+            measValid = !measValid;
+        }
+
+        private void dutyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.DUTY);
+            measValid = !measValid;
+        }
+
+        private void highToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.HIGH);
+            measValid = !measValid;
+        }
+
+        private void lowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.LOW);
+            measValid = !measValid;
+        }
+
+        private void rMSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.RMS);
+            measValid = !measValid;
+        }
+
+        private void meanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.MEAN);
+            measValid = !measValid;
+        }
+
+        private void peakPeakToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.PKPK);
+            measValid = !measValid;
+        }
+
+        private void minToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.MIN);
+            measValid = !measValid;
+        }
+
+        private void minToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            meas.addMeasurement(measChann - 1, Measurements.MeasurementTypes.MAX);
+            measValid = !measValid;
+        }
+
+        private void toolStripMenuItem_XY_plot_Click(object sender, EventArgs e)
+        {
+            if (this.toolStripMenuItem_XY_plot.Enabled)
+            {
+                this.toolStripMenuItem_XY_plot.Checked = true;
+                this.toolStripMenuItem_XT_plot.Checked = false;
+                XYplot = true;
+            }
+        }
+
+        private void toolStripMenuItem_XT_plot_Click(object sender, EventArgs e)
+        {
+            this.toolStripMenuItem_XY_plot.Checked = false;
+            this.toolStripMenuItem_XT_plot.Checked = true;
+            XYplot = false;
+        }
+
+        private void ch1Ch2ToolStripMenuItem_plus_Click(object sender, EventArgs e)
+        {
+            if (ch1Ch2ToolStripMenuItem_plus.Checked) {
+                math = math_def.SUM;
+            }
+            else
+            {
+                math = math_def.NONE;
+            }
+            validate_math(); 
+        }
+
+        private void ch1Ch2ToolStripMenuItem_minus_Click(object sender, EventArgs e)
+        {
+            if (ch1Ch2ToolStripMenuItem_minus.Checked)
+            {
+                math = math_def.DIFF_A;
+            }
+            else
+            {
+                math = math_def.NONE;
+            }
+            validate_math(); 
+        }
+
+        private void ch2Ch1ToolStripMenuItem_minus_Click(object sender, EventArgs e)
+        {
+            if (ch2Ch1ToolStripMenuItem_minus.Checked)
+            {
+                math = math_def.DIFF_B;
+            }
+            else
+            {
+                math = math_def.NONE;
+            }
+            validate_math(); 
+        }
+
+        private void ch1XCh2ToolStripMenuItem_mult_Click(object sender, EventArgs e)
+        {
+            if (ch1XCh2ToolStripMenuItem_mult.Checked)
+            {
+                math = math_def.MULT;
+            }
+            else {
+                math = math_def.NONE;
+            }
+            validate_math(); 
+        }
+
+        private void validate_math() {
+            ch1Ch2ToolStripMenuItem_minus.Checked = math == math_def.DIFF_A ? true : false;
+            ch1Ch2ToolStripMenuItem_plus.Checked = math == math_def.SUM ? true : false;
+            ch2Ch1ToolStripMenuItem_minus.Checked = math == math_def.DIFF_B ? true : false;
+            ch1XCh2ToolStripMenuItem_mult.Checked = math == math_def.MULT ? true : false;
+
+            radioButton_hor_cur_math.Enabled = math == math_def.NONE ? false : true;
+            radioButton_ver_cur_math.Enabled = math == math_def.NONE ? false : true;
+            radioButton_volt_math.Enabled = math == math_def.NONE ? false : true;
+            if (math == math_def.NONE) {
+                radioButton_volt_ch1.Checked = true;
+                radioButton_ver_cur_off.Checked = true;
+                radioButton_hor_cur_off.Checked = true;
+            }
+        }
 
 
 
-        /*
 
-         */
+
 
 
 

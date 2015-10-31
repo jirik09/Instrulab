@@ -7,7 +7,7 @@ namespace InstruLab
 {
     public class Message
     {
-        public enum MsgRequest { FIND_DEVICES, CONNECT_DEVICES, SCOPE_NEW_DATA, SCOPE_TRIGGERED, SCOPE_WAIT, CHANGE_ZOOM, CHANGE_GAIN }
+        public enum MsgRequest { FIND_DEVICES, CONNECT_DEVICE, DISCONNECT,SCOPE_NEW_DATA, SCOPE_TRIGGERED, SCOPE_WAIT,GEN_OK,GEN_NEXT,GEN_FRQ}
         private MsgRequest type;
         private int num;
         private string msg;
@@ -43,6 +43,10 @@ namespace InstruLab
 
         public string GetMessage() {
             return this.msg;
+        }
+
+        public int GetNum() {
+            return this.num;
         }
     }
 }

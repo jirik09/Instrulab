@@ -29,9 +29,15 @@ namespace InstruLab
 
         public const string CHANNELS = "CHAN";
         public const string DATA_LENGTH = "LENG";  //number of samples
+
+        public const string DATA_LENGTH_CH1 = "LCH1"; 
+        public const string DATA_LENGTH_CH2 = "LCH2";
+
         public const string SAMPLING_FREQ = "FREQ";
 
         public const string TRIGGERED = "TRIG";
+        public const string SAMPLING = "SMPL";
+        public const string SCOPE_OK = "S_OK";
         //Scope specific commands flags
         public const string SCOPE_TRIG_MODE = "TRIG";
         public const string SCOPE_TRIG_EDGE = "EDGE";
@@ -44,6 +50,8 @@ namespace InstruLab
 
         public const string GEN_DATA = "DATA";
         public const string GEN_GET_REAL_SMP_FREQ = "FRQ?";
+        public const string GEN_OK = "G_OK";
+        public const string GEN_NEXT = "G_NX";
 
 
         //scope modes

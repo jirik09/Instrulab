@@ -31,7 +31,7 @@ void commHalInit(void){
 void commsSend(uint8_t chr){
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS(&chr,1)!=USBD_OK){
-		//////taskYIELD();
+			taskYIELD();
 		}
 	}else{
 		UARTsendChar(chr);
@@ -50,7 +50,7 @@ void commsSendUint32(uint32_t num){
 void commsSendBuff(uint8_t *buff, uint16_t len){
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS(buff,len)!=USBD_OK){
-		//////taskYIELD();
+			taskYIELD();
 		}
 	}else{
 		UARTsendBuff((char *)buff,len);
@@ -62,7 +62,7 @@ void commsSendString(char *chr){
 	while(*(tmp++)){i++;}
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS((uint8_t*)chr,i)!=USBD_OK){
-			/////taskYIELD();
+			taskYIELD();
 		}
 	}else{
 		UARTsendBuff(chr,i);
