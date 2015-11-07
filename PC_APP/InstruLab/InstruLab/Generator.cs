@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Timers;
 using ZedGraph;
+using System.IO;
 
 namespace InstruLab
 {
@@ -18,6 +19,8 @@ namespace InstruLab
         Device device;
         System.Timers.Timer signalTimer;
         System.Timers.Timer dataSendingTimer;
+
+        static Semaphore genSemaphore = new Semaphore(1, 1);  // Dostupná kapacita=1; Celková=1
 
         int semaphoreTimeout = 5000;
 
@@ -45,7 +48,7 @@ namespace InstruLab
         private int signal_leng_ch1 = 0;
         private int signal_leng_ch2 = 0;
 
-        private int signal_leng = 0;
+        //private int signal_leng = 0;
 
         private double last_sum = 0;
         private int divider_ch1 = 0;
@@ -56,6 +59,9 @@ namespace InstruLab
         private double[] signal_ch1; 
         private double[] signal_ch2;
 
+        private double[] arb_signal_ch1 = new double[468] { 0.467352832186278, 0.468329915210844, 0.471482988167838, 0.476615160619296, 0.483392527677368, 0.491365799742661, 0.500000000000000, 0.508710272506303, 0.516901409885865, 0.524008435097523, 0.529535476540453, 0.533090267963558, 0.534411879587437, 0.533389727402142, 0.530072485204825, 0.524666200442660, 0.517521645111034, 0.509111667552676, 0.500000000000000, 0.490803572749159, 0.482150847503713, 0.474638977009659, 0.468792704032729, 0.465027821062211, 0.463621727293281, 0.464693159062807, 0.468192563725666, 0.473903874893997, 0.481457676532983, 0.490354966541801, 0.500000000000000, 0.509740058418378, 0.518909498189136, 0.526875113915138, 0.533079733725308, 0.537081054049615, 0.538583016507126, 0.537457511451134, 0.533754830331946, 0.527702040497142, 0.519689271310338, 0.510244724657672, 0.500000000000000, 0.489648000738582, 0.479896217714708, 0.471418529645806, 0.464808793909247, 0.460539413070196, 0.458927756621446, 0.460112812130414, 0.464043767689883, 0.470481432257144, 0.479012534976893, 0.489076067077731, 0.500000000000000, 0.511045988038719, 0.521459093450593, 0.530519197157868, 0.537590606506031, 0.542166455747848, 0.543904811887420, 0.542653929224702, 0.538464806657334, 0.531590046180951, 0.522468933142385, 0.511699596798407, 0.500000000000000, 0.488160288269876, 0.476989646781895, 0.467261224867014, 0.459658861310601, 0.454729265301390, 0.452842979824624, 0.454166895926252, 0.458650332843366, 0.466025799390298, 0.475824565606294, 0.487406166503626, 0.500000000000000, 0.512756334573747, 0.524803367754581, 0.535306522202239, 0.543525965428036, 0.548868408979294, 0.550929581789407, 0.549524360777674, 0.544702342872037, 0.536747604741106, 0.526162456398668, 0.513636081785729, 0.500000000000000, 0.486173203783701, 0.473100572998553, 0.461688667397570, 0.452743237535275, 0.446912735569256, 0.444641758924558, 0.446137739008224, 0.451353332756901, 0.459985941504129, 0.471494637058168, 0.485133595045633, 0.500000000000000, 0.515093372968937, 0.529382451032350, 0.541875177495680, 0.551687083945793, 0.558103383904515, 0.560630454511198, 0.559033038046987, 0.553354409234367, 0.543917869080835, 0.531309169132832, 0.516340759164717, 0.500000000000000, 0.483384606227473, 0.467629503099953, 0.453829932504764, 0.442965976335677, 0.435833654296753, 0.432987392382360, 0.434697966762183, 0.440929046919094, 0.451334253180697, 0.465275285143587, 0.481860258174947, 0.500000000000000, 0.518478802419913, 0.536035081454769, 0.551446646637549, 0.563614872548668, 0.571642036464790, 0.574896443807951, 0.573060690652212, 0.566159467450615, 0.554564625221643, 0.538976720757199, 0.520383833597224, 0.500000000000000, 0.479187033063887, 0.459364695380793, 0.441915076376961, 0.428087535379766, 0.418910662023369, 0.415117363684323, 0.417088429709288, 0.424818786987937, 0.437909219575372, 0.455584667044122, 0.476738448718462, 0.500000000000000, 0.523822070589527, 0.546581934563482, 0.566690097493119, 0.582699334313269, 0.593406705770549, 0.597941503441166, 0.595832853972382, 0.587051930856073, 0.572025305292569, 0.551617819381155, 0.527085367930558, 0.500000000000000, 0.472151663958723, 0.445432590939922, 0.421711624681991, 0.402706665513801, 0.389863734986965, 0.384250950478622, 0.386474926832717, 0.396625832108414, 0.414255588937418, 0.438391634932169, 0.467586362968348, 0.500000000000000, 0.533512404388656, 0.565857217831129, 0.594770138542853, 0.618141906161812, 0.634165995561334, 0.641471060526129, 0.639228863318366, 0.627229745097337, 0.605919566606719, 0.576394372684110, 0.540351670590423, 0.500000000000000, 0.457931237044028, 0.416962638386838, 0.379957824512386, 0.349637573975875, 0.328392331258759, 0.318108636466405, 0.320021225466503, 0.334601331373462, 0.361489797514291, 0.399481088573539, 0.446561301109979, 0.499999999999999, 0.556492338826592, 0.612344665711926, 0.663693875664927, 0.706748335783171, 0.738036443737851, 0.754647908947033, 0.754452750202530, 0.736283812323626, 0.700070292479358, 0.646912255161750, 0.579089274357230, 0.500000000000002, 0.414033397437796, 0.326376425717934, 0.242766766812256, 0.169202662746925, 0.111624749690876, 0.0755868184216129, 0.0659335437721544, 0.0865033284336557, 0.139873473537157, 0.227162954699605, 0.347905241620710, 0.499999999999998, 0.679748350811884, 0.881971863420543, 1.10021087743807, 1.32699334313268, 1.55416139369619, 1.77323954473516, 1.97582595117467, 2.15398668626537, 2.30063263231421, 2.40985931710274, 2.47723185893074, 2.5, 2.47723185893074, 2.40985931710274, 2.30063263231421, 2.15398668626537, 1.97582595117467, 1.77323954473516, 1.55416139369619, 1.32699334313268, 1.10021087743807, 0.881971863420543, 0.679748350811884, 0.499999999999998, 0.347905241620710, 0.227162954699605, 0.139873473537157, 0.0865033284336557, 0.0659335437721544, 0.0755868184216129, 0.111624749690876, 0.169202662746925, 0.242766766812256, 0.326376425717934, 0.414033397437796, 0.500000000000002, 0.579089274357230, 0.646912255161750, 0.700070292479358, 0.736283812323626, 0.754452750202530, 0.754647908947033, 0.738036443737851, 0.706748335783171, 0.663693875664927, 0.612344665711926, 0.556492338826592, 0.499999999999999, 0.446561301109979, 0.399481088573539, 0.361489797514291, 0.334601331373462, 0.320021225466503, 0.318108636466405, 0.328392331258759, 0.349637573975875, 0.379957824512386, 0.416962638386838, 0.457931237044028, 0.500000000000000, 0.540351670590423, 0.576394372684110, 0.605919566606719, 0.627229745097337, 0.639228863318366, 0.641471060526129, 0.634165995561334, 0.618141906161812, 0.594770138542853, 0.565857217831129, 0.533512404388656, 0.500000000000000, 0.467586362968348, 0.438391634932169, 0.414255588937418, 0.396625832108414, 0.386474926832717, 0.384250950478622, 0.389863734986965, 0.402706665513801, 0.421711624681991, 0.445432590939922, 0.472151663958723, 0.500000000000000, 0.527085367930558, 0.551617819381155, 0.572025305292569, 0.587051930856073, 0.595832853972382, 0.597941503441166, 0.593406705770549, 0.582699334313269, 0.566690097493119, 0.546581934563482, 0.523822070589527, 0.500000000000000, 0.476738448718462, 0.455584667044122, 0.437909219575372, 0.424818786987937, 0.417088429709288, 0.415117363684323, 0.418910662023369, 0.428087535379766, 0.441915076376961, 0.459364695380793, 0.479187033063887, 0.500000000000000, 0.520383833597224, 0.538976720757199, 0.554564625221643, 0.566159467450615, 0.573060690652212, 0.574896443807951, 0.571642036464790, 0.563614872548668, 0.551446646637549, 0.536035081454769, 0.518478802419913, 0.500000000000000, 0.481860258174947, 0.465275285143587, 0.451334253180697, 0.440929046919094, 0.434697966762183, 0.432987392382360, 0.435833654296753, 0.442965976335677, 0.453829932504764, 0.467629503099953, 0.483384606227473, 0.500000000000000, 0.516340759164717, 0.531309169132832, 0.543917869080835, 0.553354409234367, 0.559033038046987, 0.560630454511198, 0.558103383904515, 0.551687083945793, 0.541875177495680, 0.529382451032350, 0.515093372968937, 0.500000000000000, 0.485133595045633, 0.471494637058168, 0.459985941504129, 0.451353332756901, 0.446137739008224, 0.444641758924558, 0.446912735569256, 0.452743237535275, 0.461688667397570, 0.473100572998553, 0.486173203783701, 0.500000000000000, 0.513636081785729, 0.526162456398668, 0.536747604741106, 0.544702342872037, 0.549524360777674, 0.550929581789407, 0.548868408979294, 0.543525965428036, 0.535306522202239, 0.524803367754581, 0.512756334573747, 0.500000000000000, 0.487406166503626, 0.475824565606294, 0.466025799390298, 0.458650332843366, 0.454166895926252, 0.452842979824624, 0.454729265301390, 0.459658861310601, 0.467261224867014, 0.476989646781895, 0.488160288269876, 0.500000000000000, 0.511699596798407, 0.522468933142385, 0.531590046180951, 0.538464806657334, 0.542653929224702, 0.543904811887420, 0.542166455747848, 0.537590606506031, 0.530519197157868, 0.521459093450593, 0.511045988038719, 0.500000000000000, 0.489076067077731, 0.479012534976893, 0.470481432257144, 0.464043767689883, 0.460112812130414, 0.458927756621446, 0.460539413070196, 0.464808793909247, 0.471418529645806, 0.479896217714708, 0.489648000738582, 0.500000000000000, 0.510244724657672, 0.519689271310338, 0.527702040497142, 0.533754830331946, 0.537457511451134, 0.538583016507126, 0.537081054049615, 0.533079733725308, 0.526875113915138, 0.518909498189136, 0.509740058418378, 0.500000000000000, 0.490354966541801, 0.481457676532983, 0.473903874893997, 0.468192563725666, 0.464693159062807, 0.463621727293281, 0.465027821062211, 0.468792704032729, 0.474638977009659, 0.482150847503713, 0.490803572749159, 0.500000000000000, 0.509111667552676, 0.517521645111034, 0.524666200442660, 0.530072485204825, 0.533389727402142, 0.534411879587437, 0.533090267963558, 0.529535476540453, 0.524008435097523, 0.516901409885865, 0.508710272506303, 0.500000000000000, 0.491365799742661, 0.483392527677368, 0.476615160619296, 0.471482988167838, 0.468329915210844 };
+        private double[] arb_signal_ch2 = new double[468] { 0.467352832186278, 0.468329915210844, 0.471482988167838, 0.476615160619296, 0.483392527677368, 0.491365799742661, 0.500000000000000, 0.508710272506303, 0.516901409885865, 0.524008435097523, 0.529535476540453, 0.533090267963558, 0.534411879587437, 0.533389727402142, 0.530072485204825, 0.524666200442660, 0.517521645111034, 0.509111667552676, 0.500000000000000, 0.490803572749159, 0.482150847503713, 0.474638977009659, 0.468792704032729, 0.465027821062211, 0.463621727293281, 0.464693159062807, 0.468192563725666, 0.473903874893997, 0.481457676532983, 0.490354966541801, 0.500000000000000, 0.509740058418378, 0.518909498189136, 0.526875113915138, 0.533079733725308, 0.537081054049615, 0.538583016507126, 0.537457511451134, 0.533754830331946, 0.527702040497142, 0.519689271310338, 0.510244724657672, 0.500000000000000, 0.489648000738582, 0.479896217714708, 0.471418529645806, 0.464808793909247, 0.460539413070196, 0.458927756621446, 0.460112812130414, 0.464043767689883, 0.470481432257144, 0.479012534976893, 0.489076067077731, 0.500000000000000, 0.511045988038719, 0.521459093450593, 0.530519197157868, 0.537590606506031, 0.542166455747848, 0.543904811887420, 0.542653929224702, 0.538464806657334, 0.531590046180951, 0.522468933142385, 0.511699596798407, 0.500000000000000, 0.488160288269876, 0.476989646781895, 0.467261224867014, 0.459658861310601, 0.454729265301390, 0.452842979824624, 0.454166895926252, 0.458650332843366, 0.466025799390298, 0.475824565606294, 0.487406166503626, 0.500000000000000, 0.512756334573747, 0.524803367754581, 0.535306522202239, 0.543525965428036, 0.548868408979294, 0.550929581789407, 0.549524360777674, 0.544702342872037, 0.536747604741106, 0.526162456398668, 0.513636081785729, 0.500000000000000, 0.486173203783701, 0.473100572998553, 0.461688667397570, 0.452743237535275, 0.446912735569256, 0.444641758924558, 0.446137739008224, 0.451353332756901, 0.459985941504129, 0.471494637058168, 0.485133595045633, 0.500000000000000, 0.515093372968937, 0.529382451032350, 0.541875177495680, 0.551687083945793, 0.558103383904515, 0.560630454511198, 0.559033038046987, 0.553354409234367, 0.543917869080835, 0.531309169132832, 0.516340759164717, 0.500000000000000, 0.483384606227473, 0.467629503099953, 0.453829932504764, 0.442965976335677, 0.435833654296753, 0.432987392382360, 0.434697966762183, 0.440929046919094, 0.451334253180697, 0.465275285143587, 0.481860258174947, 0.500000000000000, 0.518478802419913, 0.536035081454769, 0.551446646637549, 0.563614872548668, 0.571642036464790, 0.574896443807951, 0.573060690652212, 0.566159467450615, 0.554564625221643, 0.538976720757199, 0.520383833597224, 0.500000000000000, 0.479187033063887, 0.459364695380793, 0.441915076376961, 0.428087535379766, 0.418910662023369, 0.415117363684323, 0.417088429709288, 0.424818786987937, 0.437909219575372, 0.455584667044122, 0.476738448718462, 0.500000000000000, 0.523822070589527, 0.546581934563482, 0.566690097493119, 0.582699334313269, 0.593406705770549, 0.597941503441166, 0.595832853972382, 0.587051930856073, 0.572025305292569, 0.551617819381155, 0.527085367930558, 0.500000000000000, 0.472151663958723, 0.445432590939922, 0.421711624681991, 0.402706665513801, 0.389863734986965, 0.384250950478622, 0.386474926832717, 0.396625832108414, 0.414255588937418, 0.438391634932169, 0.467586362968348, 0.500000000000000, 0.533512404388656, 0.565857217831129, 0.594770138542853, 0.618141906161812, 0.634165995561334, 0.641471060526129, 0.639228863318366, 0.627229745097337, 0.605919566606719, 0.576394372684110, 0.540351670590423, 0.500000000000000, 0.457931237044028, 0.416962638386838, 0.379957824512386, 0.349637573975875, 0.328392331258759, 0.318108636466405, 0.320021225466503, 0.334601331373462, 0.361489797514291, 0.399481088573539, 0.446561301109979, 0.499999999999999, 0.556492338826592, 0.612344665711926, 0.663693875664927, 0.706748335783171, 0.738036443737851, 0.754647908947033, 0.754452750202530, 0.736283812323626, 0.700070292479358, 0.646912255161750, 0.579089274357230, 0.500000000000002, 0.414033397437796, 0.326376425717934, 0.242766766812256, 0.169202662746925, 0.111624749690876, 0.0755868184216129, 0.0659335437721544, 0.0865033284336557, 0.139873473537157, 0.227162954699605, 0.347905241620710, 0.499999999999998, 0.679748350811884, 0.881971863420543, 1.10021087743807, 1.32699334313268, 1.55416139369619, 1.77323954473516, 1.97582595117467, 2.15398668626537, 2.30063263231421, 2.40985931710274, 2.47723185893074, 2.5, 2.47723185893074, 2.40985931710274, 2.30063263231421, 2.15398668626537, 1.97582595117467, 1.77323954473516, 1.55416139369619, 1.32699334313268, 1.10021087743807, 0.881971863420543, 0.679748350811884, 0.499999999999998, 0.347905241620710, 0.227162954699605, 0.139873473537157, 0.0865033284336557, 0.0659335437721544, 0.0755868184216129, 0.111624749690876, 0.169202662746925, 0.242766766812256, 0.326376425717934, 0.414033397437796, 0.500000000000002, 0.579089274357230, 0.646912255161750, 0.700070292479358, 0.736283812323626, 0.754452750202530, 0.754647908947033, 0.738036443737851, 0.706748335783171, 0.663693875664927, 0.612344665711926, 0.556492338826592, 0.499999999999999, 0.446561301109979, 0.399481088573539, 0.361489797514291, 0.334601331373462, 0.320021225466503, 0.318108636466405, 0.328392331258759, 0.349637573975875, 0.379957824512386, 0.416962638386838, 0.457931237044028, 0.500000000000000, 0.540351670590423, 0.576394372684110, 0.605919566606719, 0.627229745097337, 0.639228863318366, 0.641471060526129, 0.634165995561334, 0.618141906161812, 0.594770138542853, 0.565857217831129, 0.533512404388656, 0.500000000000000, 0.467586362968348, 0.438391634932169, 0.414255588937418, 0.396625832108414, 0.386474926832717, 0.384250950478622, 0.389863734986965, 0.402706665513801, 0.421711624681991, 0.445432590939922, 0.472151663958723, 0.500000000000000, 0.527085367930558, 0.551617819381155, 0.572025305292569, 0.587051930856073, 0.595832853972382, 0.597941503441166, 0.593406705770549, 0.582699334313269, 0.566690097493119, 0.546581934563482, 0.523822070589527, 0.500000000000000, 0.476738448718462, 0.455584667044122, 0.437909219575372, 0.424818786987937, 0.417088429709288, 0.415117363684323, 0.418910662023369, 0.428087535379766, 0.441915076376961, 0.459364695380793, 0.479187033063887, 0.500000000000000, 0.520383833597224, 0.538976720757199, 0.554564625221643, 0.566159467450615, 0.573060690652212, 0.574896443807951, 0.571642036464790, 0.563614872548668, 0.551446646637549, 0.536035081454769, 0.518478802419913, 0.500000000000000, 0.481860258174947, 0.465275285143587, 0.451334253180697, 0.440929046919094, 0.434697966762183, 0.432987392382360, 0.435833654296753, 0.442965976335677, 0.453829932504764, 0.467629503099953, 0.483384606227473, 0.500000000000000, 0.516340759164717, 0.531309169132832, 0.543917869080835, 0.553354409234367, 0.559033038046987, 0.560630454511198, 0.558103383904515, 0.551687083945793, 0.541875177495680, 0.529382451032350, 0.515093372968937, 0.500000000000000, 0.485133595045633, 0.471494637058168, 0.459985941504129, 0.451353332756901, 0.446137739008224, 0.444641758924558, 0.446912735569256, 0.452743237535275, 0.461688667397570, 0.473100572998553, 0.486173203783701, 0.500000000000000, 0.513636081785729, 0.526162456398668, 0.536747604741106, 0.544702342872037, 0.549524360777674, 0.550929581789407, 0.548868408979294, 0.543525965428036, 0.535306522202239, 0.524803367754581, 0.512756334573747, 0.500000000000000, 0.487406166503626, 0.475824565606294, 0.466025799390298, 0.458650332843366, 0.454166895926252, 0.452842979824624, 0.454729265301390, 0.459658861310601, 0.467261224867014, 0.476989646781895, 0.488160288269876, 0.500000000000000, 0.511699596798407, 0.522468933142385, 0.531590046180951, 0.538464806657334, 0.542653929224702, 0.543904811887420, 0.542166455747848, 0.537590606506031, 0.530519197157868, 0.521459093450593, 0.511045988038719, 0.500000000000000, 0.489076067077731, 0.479012534976893, 0.470481432257144, 0.464043767689883, 0.460112812130414, 0.458927756621446, 0.460539413070196, 0.464808793909247, 0.471418529645806, 0.479896217714708, 0.489648000738582, 0.500000000000000, 0.510244724657672, 0.519689271310338, 0.527702040497142, 0.533754830331946, 0.537457511451134, 0.538583016507126, 0.537081054049615, 0.533079733725308, 0.526875113915138, 0.518909498189136, 0.509740058418378, 0.500000000000000, 0.490354966541801, 0.481457676532983, 0.473903874893997, 0.468192563725666, 0.464693159062807, 0.463621727293281, 0.465027821062211, 0.468792704032729, 0.474638977009659, 0.482150847503713, 0.490803572749159, 0.500000000000000, 0.509111667552676, 0.517521645111034, 0.524666200442660, 0.530072485204825, 0.533389727402142, 0.534411879587437, 0.533090267963558, 0.529535476540453, 0.524008435097523, 0.516901409885865, 0.508710272506303, 0.500000000000000, 0.491365799742661, 0.483392527677368, 0.476615160619296, 0.471482988167838, 0.468329915210844 };
+ 
         private double[] time_ch1;
         private double[] time_ch2;
 
@@ -197,7 +203,7 @@ namespace InstruLab
 
         private void Update_signal(object sender, ElapsedEventArgs e)
         {
-            double sum = signalType_ch1.GetHashCode() + signalType_ch2.GetHashCode() + freq_ch1 + freq_ch2 + ampl_ch1 + ampl_ch2 + phase_ch1 + phase_ch2 + duty_ch1 + duty_ch2 + offset_ch1 + offset_ch2 + signal_leng + actual_channels;
+            double sum = signalType_ch1.GetHashCode() + signalType_ch2.GetHashCode() + freq_ch1 + freq_ch2 + ampl_ch1 + ampl_ch2 + phase_ch1 + phase_ch2 + duty_ch1 + duty_ch2 + offset_ch1 + offset_ch2 + signal_leng_ch1 + signal_leng_ch2 + actual_channels;
             sum = bestFreqFit ? sum+1 : sum;
             sum = customLeng ? sum+2 : sum;
             sum = khz_ch1 ? sum+4 : sum;
@@ -210,9 +216,11 @@ namespace InstruLab
 
                 if (!generating)
                 {
+                    takeGenSemaphore(4852);
                     calculate_signal_lengths();
                     generate_signals();
                     paint_signals();
+                    giveGenSemaphore();
                 }
                 else {
                     double tmpFreq = freq_ch1*signal_leng_ch1;
@@ -286,6 +294,7 @@ namespace InstruLab
             {
                 SIGNAL_TYPE tmpSigType;
                 double[] tmpSignal;
+                double[] tmpSrcSignal;
                 double[] tmpTime;
                 double tmpAmpl;
                 double tmpPhase;
@@ -296,6 +305,7 @@ namespace InstruLab
                 if (i == 1)
                 {
                     tmpSignal = new double[signal_leng_ch1];
+                    tmpSrcSignal = arb_signal_ch1;
                     tmpSigType = signalType_ch1;
                     tmpAmpl = ampl_ch1;
                     tmpPhase = phase_ch1;
@@ -307,6 +317,7 @@ namespace InstruLab
                 else
                 {
                     tmpSignal = new double[signal_leng_ch2];
+                    tmpSrcSignal = arb_signal_ch2;
                     tmpSigType = signalType_ch2;
                     tmpAmpl = ampl_ch2;
                     tmpPhase = phase_ch2;
@@ -333,10 +344,12 @@ namespace InstruLab
                         shift = (int)(tmpPhase / 360 * tmpSignal.Length);
                         for (int j = 0; j < tmpSignal.Length; j++)
                         {
-                            if (j < tmpDuty / 100  * tmpSignal.Length )
+                            if (j < tmpDuty / 100 * tmpSignal.Length)
                             {
                                 tmpSignal[(j + shift) % tmpSignal.Length] = tmpOffset / 1000 - tmpAmpl / 1000;
-                            }else{
+                            }
+                            else
+                            {
                                 tmpSignal[(j + shift) % tmpSignal.Length] = tmpOffset / 1000 + tmpAmpl / 1000;
                             }
                         }
@@ -355,7 +368,14 @@ namespace InstruLab
                             }
                         }
                         break;
-
+                    case SIGNAL_TYPE.ARB:
+                        shift = (int)(tmpPhase / 360 * tmpSignal.Length);
+                        tmpSignal = new double[tmpSrcSignal.Length];
+                        for (int j = 0; j < tmpSignal.Length; j++)
+                        {
+                            tmpSignal[(j + shift) % tmpSignal.Length]=tmpSrcSignal[j]*tmpAmpl/1500+(tmpOffset-1500)/1000;
+                        }
+                        break;
 
                 }
 
@@ -398,6 +418,11 @@ namespace InstruLab
 
                 for (int i = 1; i <= actual_channels; i++)
                 {
+                    if ((i == 0 && signalType_ch1 == SIGNAL_TYPE.ARB) || (i == 1 && signalType_ch2 == SIGNAL_TYPE.ARB))
+                    { 
+                        break;
+                    }
+
                     error = double.MaxValue;
                     minimalError = double.MaxValue;
                     if (i == 2)
@@ -455,10 +480,19 @@ namespace InstruLab
             { //isn't best frequency fit 
                 double tmp_freq_ch1 = checkBox_khz_ch1.Checked ? freq_ch1 * 1000 : freq_ch1;
                 double tmp_freq_ch2 = checkBox_khz_ch2.Checked ? freq_ch2 * 1000 : freq_ch2;
-                if (customLeng)
+                if (customLeng)  //custom length
                 {
-                    int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch1);
-                    int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch2);
+                    if (signalType_ch1 != SIGNAL_TYPE.ARB)
+                    {
+                        int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch1);
+                        signal_leng_ch1 = signal_leng_ch1 / actual_channels;
+                    }
+
+                    if (signalType_ch2 != SIGNAL_TYPE.ARB)
+                    {
+                        int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch2);
+                        signal_leng_ch2 = signal_leng_ch2 / actual_channels;
+                    }
 
                     int divA = tclk / device.genCfg.maxSamplingFrequency;
                     int divB = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
@@ -468,31 +502,37 @@ namespace InstruLab
                     divB = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
                     divider_ch2 = divA > divB ? divA : divB;
                 }
-                else
+                else //maximum possible
                 {
                     int div = tclk / device.genCfg.maxSamplingFrequency;
                     double leng = (double)tclk / tmp_freq_ch1 / div;
-                    if (leng > device.genCfg.BufferLength / 2 / actual_channels)
+                    if (signalType_ch1 != SIGNAL_TYPE.ARB)
                     {
-                        signal_leng_ch1 = device.genCfg.BufferLength / 2 / actual_channels;
-                        divider_ch1 = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
-                    }
-                    else
-                    {
-                        signal_leng_ch1 = (int)leng;
-                        divider_ch1 = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
+                        if (leng > device.genCfg.BufferLength / 2 / actual_channels)
+                        {
+                            signal_leng_ch1 = device.genCfg.BufferLength / 2 / actual_channels;
+                            divider_ch1 = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
+                        }
+                        else
+                        {
+                            signal_leng_ch1 = (int)leng;
+                            divider_ch1 = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
+                        }
                     }
 
                     leng = (double)tclk / tmp_freq_ch2 / div;
-                    if (leng > device.genCfg.BufferLength / 2 / actual_channels)
+                    if (signalType_ch1 != SIGNAL_TYPE.ARB)
                     {
-                        signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
-                        divider_ch2 = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
-                    }
-                    else
-                    {
-                        signal_leng_ch2 = (int)leng;
-                        divider_ch2 = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
+                        if (leng > device.genCfg.BufferLength / 2 / actual_channels)
+                        {
+                            signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
+                            divider_ch2 = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
+                        }
+                        else
+                        {
+                            signal_leng_ch2 = (int)leng;
+                            divider_ch2 = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
+                        }
                     }
                 }
             }
@@ -537,20 +577,20 @@ namespace InstruLab
         //communication with device
         public void gen_start()
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout+101);
             device.send(Commands.GENERATOR + ":" + Commands.START + ";");
             device.giveCommsSemaphore();
         }
 
         public void gen_stop()
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout+102);
             device.send(Commands.GENERATOR + ":" + Commands.STOP + ";");
             device.giveCommsSemaphore();
         }
         
         public void set_data_length(string chan,int len) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 103);
             device.send(Commands.GENERATOR + ":" + chan + " ");
             device.send_short((int)(len));
             device.send(";");
@@ -559,13 +599,13 @@ namespace InstruLab
 
         public void set_num_of_channels(string chann)
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 104);
             device.send(Commands.GENERATOR + ":" + Commands.CHANNELS + " " + chann + ";");
             device.giveCommsSemaphore();
         }
 
         public void set_frequency(int freq, int chann) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 105);
             device.send(Commands.GENERATOR + ":" + Commands.SAMPLING_FREQ + " ");
             device.send_int(freq*256 + chann);
             device.send(";");
@@ -573,14 +613,14 @@ namespace InstruLab
         }
 
         public void gen_get_freq() {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 106);
             device.send(Commands.GENERATOR + ":" + Commands.GEN_GET_REAL_SMP_FREQ + ";");
             device.giveCommsSemaphore();
         }
 
         public void send_next(double[] data, int chann)
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout+107);
             int tmpData;
             device.send(Commands.GENERATOR + ":" + Commands.GEN_DATA + " ");
             if (toSend > DATA_BLOCK)
@@ -660,7 +700,8 @@ namespace InstruLab
 
             if (!bestFreqFit && !customLeng)
             {
-                signal_leng = device.genCfg.BufferLength / 2 / actual_channels;
+                signal_leng_ch1 = device.genCfg.BufferLength / 2 / actual_channels;
+                signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
             }
         }
 
@@ -1169,22 +1210,25 @@ namespace InstruLab
                 {
                     throw new System.ArgumentException("Parameter cannot be greather then ", "original");
                 }
-                signal_leng = val;
+                signal_leng_ch1 = val;
+                signal_leng_ch2 = val;
             }
             catch (Exception ex)
             {
             }
-            toolStripTextBox_signal_leng.Text = signal_leng.ToString();
+            toolStripTextBox_signal_leng.Text = signal_leng_ch1.ToString();
         }
 
         private void checkBox_enable_ch2_CheckedChanged(object sender, EventArgs e)
         {
+            takeGenSemaphore(5100);
             actual_channels = checkBox_enable_ch2.Checked ? 2 : 1;
             validate_control_ch2();
             if (!bestFreqFit && !customLeng)
             {
-                signal_leng = device.genCfg.BufferLength / 2 / actual_channels;
+                signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
             }
+            giveGenSemaphore();
         }
 
         private void validate_control_ch2() {
@@ -1207,6 +1251,11 @@ namespace InstruLab
             label_sig_leng_ch2.Enabled = actual_channels == 2 ? true : false;
             label9.Enabled = actual_channels == 2 ? true : false;
 
+            radioButton_arb_ch2.Enabled = actual_channels == 2 ? true : false;
+            radioButton_saw_ch2.Enabled = actual_channels == 2 ? true : false;
+            radioButton_sine_ch2.Enabled = actual_channels == 2 ? true : false;
+            radioButton_square_ch2.Enabled = actual_channels == 2 ? true : false;
+
         }
 
         private void checkBox_join_frequencies_CheckedChanged(object sender, EventArgs e)
@@ -1221,7 +1270,10 @@ namespace InstruLab
         {
             if (radioButton_sine_ch1.Checked)
             {
+                takeGenSemaphore(5001);
                 signalType_ch1 = SIGNAL_TYPE.SINE;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1229,7 +1281,10 @@ namespace InstruLab
         {
             if (radioButton_square_ch1.Checked)
             {
+                takeGenSemaphore(5002);
                 signalType_ch1 = SIGNAL_TYPE.SQUARE;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1237,7 +1292,10 @@ namespace InstruLab
         {
             if (radioButton_saw_ch1.Checked)
             {
+                takeGenSemaphore(5003);
                 signalType_ch1 = SIGNAL_TYPE.SAW;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1245,7 +1303,22 @@ namespace InstruLab
         {
             if (radioButton_arb_ch1.Checked)
             {
+                takeGenSemaphore(5004);
+                signal_leng_ch1 = arb_signal_ch1.Length;
                 signalType_ch1 = SIGNAL_TYPE.ARB;
+                validateArbLength();
+                giveGenSemaphore();
+            }
+        }
+        private void radioButton_arb_ch2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_arb_ch2.Checked)
+            {
+                takeGenSemaphore(5005);
+                signal_leng_ch2 = arb_signal_ch2.Length;
+                signalType_ch2 = SIGNAL_TYPE.ARB;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1253,7 +1326,10 @@ namespace InstruLab
         {
             if (radioButton_sine_ch2.Checked)
             {
+                takeGenSemaphore(5006);
                 signalType_ch2 = SIGNAL_TYPE.SINE;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1261,7 +1337,11 @@ namespace InstruLab
         {
             if (radioButton_square_ch2.Checked)
             {
+
+                takeGenSemaphore(5007); 
                 signalType_ch2 = SIGNAL_TYPE.SQUARE;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
@@ -1269,16 +1349,27 @@ namespace InstruLab
         {
             if (radioButton_saw_ch2.Checked)
             {
+                takeGenSemaphore(5008);
                 signalType_ch2 = SIGNAL_TYPE.SAW;
+                validateArbLength();
+                giveGenSemaphore();
             }
         }
 
-        private void radioButton_arb_ch2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_arb_ch2.Checked)
-            {
-                signalType_ch2 = SIGNAL_TYPE.ARB;
-            }
+
+        private void validateArbLength() {
+            
+            button_load_ch1.Enabled = signalType_ch1 == SIGNAL_TYPE.ARB ? true : false;
+            //radioButton_arb_ch2.Checked = signalType_ch1 == SIGNAL_TYPE.ARB ? true : false;
+            //maximumPossibleToolStripMenuItem.Enabled = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //maximumPossibleToolStripMenuItem.Checked = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //bestFreqFitToolStripMenuItem.Enabled = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //bestFreqFitToolStripMenuItem.Checked = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //customToolStripMenuItem.Enabled = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //customToolStripMenuItem.Checked = signalType_ch1 == SIGNAL_TYPE.ARB ? true : false;
+            //toolStripTextBox_signal_leng.Enabled = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
+            //customLeng = signalType_ch1 == SIGNAL_TYPE.ARB ? true : false;
+            //bestFreqFit = signalType_ch1 == SIGNAL_TYPE.ARB ? false : true;
         }
 
 
@@ -1343,23 +1434,136 @@ namespace InstruLab
             }
         }
 
+        private void button_load_ch1_Click(object sender, EventArgs e)
+        {
+            // Create an instance of the open file dialog box.
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            ArbDialog ArbSignalDialog = new ArbDialog(device.genCfg.VRef, device.genCfg.dataDepth);
 
- 
+            // Set filter options and filter index.
+            openFileDialog.Filter = "CSV Files (.csv)|*.csv|Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+
+            openFileDialog.Multiselect = false;
+
+            // Call the ShowDialog method to show the dialog box.
+            DialogResult userClickedOK = openFileDialog.ShowDialog();
+            DialogResult ArbDialogOK = DialogResult.Cancel;
+            if (userClickedOK.Equals(DialogResult.OK))
+            {
+                ArbDialogOK = ArbSignalDialog.ShowDialog();
+            }
+
+            // Process input if the user clicked OK.
+            if (userClickedOK.Equals(DialogResult.OK) && ArbDialogOK.Equals(DialogResult.OK))
+            {
+                // Open the selected file to read.
+                StreamReader fileStream=null;
+                string input;
+                string[] values;
+                List<double> ch1 = new List<double>();
+                List<double> ch2 = new List<double>();
+                int numOfCh = 0;
+
+                try
+                {
+                    fileStream = new StreamReader(openFileDialog.FileName);
+                    do
+                    {
+                        input = fileStream.ReadLine();
+                        Console.WriteLine(input);
+
+                        if (input != null)
+                        {
+                            values = input.Split(ArbSignalDialog.GetSeparator());
+                            if (numOfCh == 0)
+                            {
+                                numOfCh = values.Length;
+                            }
+                            for (int i = 0; i < values.Length; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    ch1.Add(double.Parse(values[i]));
+                                }
+                                else
+                                {
+                                    ch2.Add(double.Parse(values[i]));
+                                }
+                            }
+                        }
+                    }
+                    while (input != null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error during opening file\r\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (fileStream != null)
+                {
+                    fileStream.Close();
+                }
 
 
+                if (ch1.Count > 0)
+                {
+                    arb_signal_ch1 = new double[ch1.Count];
+                    signal_leng_ch1 = ch1.Count;
+                    if (signal_leng_ch1 > device.genCfg.BufferLength / numOfCh) {
+                        signal_leng_ch1 = device.genCfg.BufferLength / numOfCh;
+                        MessageBox.Show("Signal for ch1 is too long \r\nIt will be truncated\r\n", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    
+                        //throw new Exception("Signal je prilis dlouhy");
+                    }
+                    int i = 0;
+                    foreach (var item in ch1)
+                    {
+                        arb_signal_ch1[i] = item * device.genCfg.VRef / 1000 / ArbSignalDialog.GetMaxValue();
+                        i++;
+                    }
+                }
+
+                if (ch2.Count > 0)
+                {
+                    arb_signal_ch2 = new double[ch2.Count];
+                    signal_leng_ch2 = ch2.Count;
+                    if (signal_leng_ch2 > device.genCfg.BufferLength / numOfCh)
+                    {
+                        signal_leng_ch2 = device.genCfg.BufferLength / numOfCh;
+                        MessageBox.Show("Signal for ch2 is too long \r\nIt will be truncated\r\n", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        //throw new Exception("Signal je prilis dlouhy");
+                    }
+                    int i = 0;
+                    foreach (var item in ch2)
+                    {
+                        arb_signal_ch2[i] = item * device.genCfg.VRef / 1000 / ArbSignalDialog.GetMaxValue();
+                        i++;
+                    }
+                }
+                this.toolStripTextBox_signal_leng.Text = signal_leng_ch1.ToString();
+                openFileDialog.Dispose();
+                ArbSignalDialog.Dispose();                
+            }
+        }
+
+        public bool takeGenSemaphore(int ms)
+        {
+            bool result = false;
+            result = genSemaphore.WaitOne(ms);
+            if (!result)
+            {
+                throw new Exception("Unable to take semaphore");
+            }
+            return result;
+        }
+
+        public void giveGenSemaphore()
+        {
+            genSemaphore.Release();
+        }
 
 
-
-
-
-
-        
-
-
-
-     
-
- 
 
 
 

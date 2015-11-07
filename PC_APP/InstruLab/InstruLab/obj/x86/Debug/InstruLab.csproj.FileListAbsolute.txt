@@ -8,3 +8,4 @@ F:\Git\Instrulab\PC_APP\InstruLab\InstruLab\obj\x86\Debug\InstruLab.csproj.Gener
 F:\Git\Instrulab\PC_APP\InstruLab\InstruLab\obj\x86\Debug\InstruLab.exe
 F:\Git\Instrulab\PC_APP\InstruLab\InstruLab\obj\x86\Debug\InstruLab.pdb
 F:\Git\Instrulab\PC_APP\InstruLab\InstruLab\obj\x86\Debug\InstruLab.csprojResolveAssemblyReference.cache
+F:\Git\Instrulab\PC_APP\InstruLab\InstruLab\obj\x86\Debug\InstruLab.ArbDialog.resources

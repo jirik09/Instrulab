@@ -73,6 +73,11 @@
             this.range3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ch1Ch2ToolStripMenuItem_plus = new System.Windows.Forms.ToolStripMenuItem();
+            this.ch1Ch2ToolStripMenuItem_minus = new System.Windows.Forms.ToolStripMenuItem();
+            this.ch2Ch1ToolStripMenuItem_minus = new System.Windows.Forms.ToolStripMenuItem();
+            this.ch1XCh2ToolStripMenuItem_mult = new System.Windows.Forms.ToolStripMenuItem();
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.communicationDecodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uARTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -196,11 +201,6 @@
             this.label_meas1 = new System.Windows.Forms.Label();
             this.zedGraphControl_scope = new ZedGraph.ZedGraphControl();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ch1Ch2ToolStripMenuItem_plus = new System.Windows.Forms.ToolStripMenuItem();
-            this.ch1Ch2ToolStripMenuItem_minus = new System.Windows.Forms.ToolStripMenuItem();
-            this.ch2Ch1ToolStripMenuItem_minus = new System.Windows.Forms.ToolStripMenuItem();
-            this.ch1XCh2ToolStripMenuItem_mult = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -564,7 +564,7 @@
             this.range0ToolStripMenuItem.CheckOnClick = true;
             this.range0ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.range0ToolStripMenuItem.Name = "range0ToolStripMenuItem";
-            this.range0ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.range0ToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.range0ToolStripMenuItem.Text = "Default";
             this.range0ToolStripMenuItem.Click += new System.EventHandler(this.range0ToolStripMenuItem_Click);
             // 
@@ -572,7 +572,7 @@
             // 
             this.range1ToolStripMenuItem.CheckOnClick = true;
             this.range1ToolStripMenuItem.Name = "range1ToolStripMenuItem";
-            this.range1ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.range1ToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.range1ToolStripMenuItem.Text = "Range 1";
             this.range1ToolStripMenuItem.Click += new System.EventHandler(this.range1ToolStripMenuItem_Click);
             // 
@@ -580,7 +580,7 @@
             // 
             this.range2ToolStripMenuItem.CheckOnClick = true;
             this.range2ToolStripMenuItem.Name = "range2ToolStripMenuItem";
-            this.range2ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.range2ToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.range2ToolStripMenuItem.Text = "Range 2";
             this.range2ToolStripMenuItem.Click += new System.EventHandler(this.range2ToolStripMenuItem_Click);
             // 
@@ -588,21 +588,64 @@
             // 
             this.range3ToolStripMenuItem.CheckOnClick = true;
             this.range3ToolStripMenuItem.Name = "range3ToolStripMenuItem";
-            this.range3ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.range3ToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.range3ToolStripMenuItem.Text = "Range 3";
             this.range3ToolStripMenuItem.Click += new System.EventHandler(this.range3ToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(129, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Enabled = false;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ch1Ch2ToolStripMenuItem_plus,
+            this.ch1Ch2ToolStripMenuItem_minus,
+            this.ch2Ch1ToolStripMenuItem_minus,
+            this.ch1XCh2ToolStripMenuItem_mult});
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(55, 24);
+            this.toolStripMenuItem3.Text = "Math";
+            // 
+            // ch1Ch2ToolStripMenuItem_plus
+            // 
+            this.ch1Ch2ToolStripMenuItem_plus.CheckOnClick = true;
+            this.ch1Ch2ToolStripMenuItem_plus.Name = "ch1Ch2ToolStripMenuItem_plus";
+            this.ch1Ch2ToolStripMenuItem_plus.Size = new System.Drawing.Size(146, 24);
+            this.ch1Ch2ToolStripMenuItem_plus.Text = "Ch1 + Ch2";
+            this.ch1Ch2ToolStripMenuItem_plus.Click += new System.EventHandler(this.ch1Ch2ToolStripMenuItem_plus_Click);
+            // 
+            // ch1Ch2ToolStripMenuItem_minus
+            // 
+            this.ch1Ch2ToolStripMenuItem_minus.CheckOnClick = true;
+            this.ch1Ch2ToolStripMenuItem_minus.Name = "ch1Ch2ToolStripMenuItem_minus";
+            this.ch1Ch2ToolStripMenuItem_minus.Size = new System.Drawing.Size(146, 24);
+            this.ch1Ch2ToolStripMenuItem_minus.Text = "Ch1 - Ch2";
+            this.ch1Ch2ToolStripMenuItem_minus.Click += new System.EventHandler(this.ch1Ch2ToolStripMenuItem_minus_Click);
+            // 
+            // ch2Ch1ToolStripMenuItem_minus
+            // 
+            this.ch2Ch1ToolStripMenuItem_minus.CheckOnClick = true;
+            this.ch2Ch1ToolStripMenuItem_minus.Name = "ch2Ch1ToolStripMenuItem_minus";
+            this.ch2Ch1ToolStripMenuItem_minus.Size = new System.Drawing.Size(146, 24);
+            this.ch2Ch1ToolStripMenuItem_minus.Text = "Ch2 - Ch1";
+            this.ch2Ch1ToolStripMenuItem_minus.Click += new System.EventHandler(this.ch2Ch1ToolStripMenuItem_minus_Click);
+            // 
+            // ch1XCh2ToolStripMenuItem_mult
+            // 
+            this.ch1XCh2ToolStripMenuItem_mult.CheckOnClick = true;
+            this.ch1XCh2ToolStripMenuItem_mult.Name = "ch1XCh2ToolStripMenuItem_mult";
+            this.ch1XCh2ToolStripMenuItem_mult.Size = new System.Drawing.Size(146, 24);
+            this.ch1XCh2ToolStripMenuItem_mult.Text = "Ch1 x Ch2";
+            this.ch1XCh2ToolStripMenuItem_mult.Click += new System.EventHandler(this.ch1XCh2ToolStripMenuItem_mult_Click);
             // 
             // otherToolStripMenuItem
             // 
@@ -627,14 +670,14 @@
             // 
             this.uARTToolStripMenuItem.CheckOnClick = true;
             this.uARTToolStripMenuItem.Name = "uARTToolStripMenuItem";
-            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.uARTToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
             this.uARTToolStripMenuItem.Text = "UART";
             // 
             // sPIToolStripMenuItem
             // 
             this.sPIToolStripMenuItem.CheckOnClick = true;
             this.sPIToolStripMenuItem.Name = "sPIToolStripMenuItem";
-            this.sPIToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.sPIToolStripMenuItem.Size = new System.Drawing.Size(115, 24);
             this.sPIToolStripMenuItem.Text = "SPI";
             // 
             // fourierTransformToolStripMenuItem
@@ -2141,49 +2184,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(971, 575);
             this.panel5.TabIndex = 1;
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ch1Ch2ToolStripMenuItem_plus,
-            this.ch1Ch2ToolStripMenuItem_minus,
-            this.ch2Ch1ToolStripMenuItem_minus,
-            this.ch1XCh2ToolStripMenuItem_mult});
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(55, 24);
-            this.toolStripMenuItem3.Text = "Math";
-            // 
-            // ch1Ch2ToolStripMenuItem_plus
-            // 
-            this.ch1Ch2ToolStripMenuItem_plus.CheckOnClick = true;
-            this.ch1Ch2ToolStripMenuItem_plus.Name = "ch1Ch2ToolStripMenuItem_plus";
-            this.ch1Ch2ToolStripMenuItem_plus.Size = new System.Drawing.Size(152, 24);
-            this.ch1Ch2ToolStripMenuItem_plus.Text = "Ch1 + Ch2";
-            this.ch1Ch2ToolStripMenuItem_plus.Click += new System.EventHandler(this.ch1Ch2ToolStripMenuItem_plus_Click);
-            // 
-            // ch1Ch2ToolStripMenuItem_minus
-            // 
-            this.ch1Ch2ToolStripMenuItem_minus.CheckOnClick = true;
-            this.ch1Ch2ToolStripMenuItem_minus.Name = "ch1Ch2ToolStripMenuItem_minus";
-            this.ch1Ch2ToolStripMenuItem_minus.Size = new System.Drawing.Size(152, 24);
-            this.ch1Ch2ToolStripMenuItem_minus.Text = "Ch1 - Ch2";
-            this.ch1Ch2ToolStripMenuItem_minus.Click += new System.EventHandler(this.ch1Ch2ToolStripMenuItem_minus_Click);
-            // 
-            // ch2Ch1ToolStripMenuItem_minus
-            // 
-            this.ch2Ch1ToolStripMenuItem_minus.CheckOnClick = true;
-            this.ch2Ch1ToolStripMenuItem_minus.Name = "ch2Ch1ToolStripMenuItem_minus";
-            this.ch2Ch1ToolStripMenuItem_minus.Size = new System.Drawing.Size(152, 24);
-            this.ch2Ch1ToolStripMenuItem_minus.Text = "Ch2 - Ch1";
-            this.ch2Ch1ToolStripMenuItem_minus.Click += new System.EventHandler(this.ch2Ch1ToolStripMenuItem_minus_Click);
-            // 
-            // ch1XCh2ToolStripMenuItem_mult
-            // 
-            this.ch1XCh2ToolStripMenuItem_mult.CheckOnClick = true;
-            this.ch1XCh2ToolStripMenuItem_mult.Name = "ch1XCh2ToolStripMenuItem_mult";
-            this.ch1XCh2ToolStripMenuItem_mult.Size = new System.Drawing.Size(152, 24);
-            this.ch1XCh2ToolStripMenuItem_mult.Text = "Ch1 x Ch2";
-            this.ch1XCh2ToolStripMenuItem_mult.Click += new System.EventHandler(this.ch1XCh2ToolStripMenuItem_mult_Click);
             // 
             // Scope
             // 

@@ -55,7 +55,6 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.zedGraphControl_gen_ch2 = new ZedGraph.ZedGraphControl();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button_load_ch2 = new System.Windows.Forms.Button();
             this.radioButton_sine_ch2 = new System.Windows.Forms.RadioButton();
             this.radioButton_arb_ch2 = new System.Windows.Forms.RadioButton();
             this.radioButton_square_ch2 = new System.Windows.Forms.RadioButton();
@@ -516,7 +515,6 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.button_load_ch2);
             this.panel4.Controls.Add(this.radioButton_sine_ch2);
             this.panel4.Controls.Add(this.radioButton_arb_ch2);
             this.panel4.Controls.Add(this.radioButton_square_ch2);
@@ -526,15 +524,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(324, 24);
             this.panel4.TabIndex = 3;
-            // 
-            // button_load_ch2
-            // 
-            this.button_load_ch2.Location = new System.Drawing.Point(262, 1);
-            this.button_load_ch2.Name = "button_load_ch2";
-            this.button_load_ch2.Size = new System.Drawing.Size(55, 23);
-            this.button_load_ch2.TabIndex = 1;
-            this.button_load_ch2.Text = "Load";
-            this.button_load_ch2.UseVisualStyleBackColor = true;
             // 
             // radioButton_sine_ch2
             // 
@@ -636,12 +625,14 @@
             // 
             // button_load_ch1
             // 
+            this.button_load_ch1.Enabled = false;
             this.button_load_ch1.Location = new System.Drawing.Point(262, 1);
             this.button_load_ch1.Name = "button_load_ch1";
             this.button_load_ch1.Size = new System.Drawing.Size(55, 23);
             this.button_load_ch1.TabIndex = 1;
             this.button_load_ch1.Text = "Load";
             this.button_load_ch1.UseVisualStyleBackColor = true;
+            this.button_load_ch1.Click += new System.EventHandler(this.button_load_ch1_Click);
             // 
             // radioButton_sine_ch1
             // 
@@ -1477,9 +1468,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private ZedGraph.ZedGraphControl zedGraphControl_gen_ch2;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button button_load_ch2;
         private System.Windows.Forms.RadioButton radioButton_sine_ch2;
-        private System.Windows.Forms.RadioButton radioButton_arb_ch2;
         private System.Windows.Forms.RadioButton radioButton_square_ch2;
         private System.Windows.Forms.RadioButton radioButton_saw_ch2;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -1501,5 +1490,6 @@
         private System.Windows.Forms.Label label_status;
         private System.Windows.Forms.Label label_status_gen;
         private System.Windows.Forms.CheckBox checkBox_join_frequencies;
+        private System.Windows.Forms.RadioButton radioButton_arb_ch2;
     }
 }

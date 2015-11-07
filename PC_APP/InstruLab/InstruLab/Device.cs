@@ -164,6 +164,7 @@ namespace InstruLab
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fatal error during opening log file\r\n" + ex, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                     return false;
                 }
             }

@@ -584,7 +584,7 @@ namespace InstruLab
                         if (device.scopeCfg.mode == Scope.mode_def.AUTO || device.scopeCfg.mode == Scope.mode_def.NORMAL)
                         {
                             Thread.Sleep(50);
-                            device.takeCommsSemaphore(semaphoreTimeout);
+                            device.takeCommsSemaphore(semaphoreTimeout*2 + 108);
                             device.send(Commands.SCOPE + ":" + Commands.SCOPE_NEXT + ";");
                             device.giveCommsSemaphore();
                         }
@@ -674,33 +674,33 @@ namespace InstruLab
 
         public void scope_start()
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 109);
             device.send(Commands.SCOPE + ":" + Commands.START + ";");
             device.giveCommsSemaphore();
         }
 
         public void scope_stop()
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 110);
             device.send(Commands.SCOPE + ":" + Commands.STOP + ";");
             device.giveCommsSemaphore();
         }
         public void scope_next()
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout+99);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_NEXT + ";");
             device.giveCommsSemaphore();
         }
 
 
         public void set_data_depth(string dataDepth) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout+111);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_DATA_DEPTH + " " + dataDepth + ";");
             device.giveCommsSemaphore();
         }
 
         public void set_num_of_samples(string numSmp) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 112);
             device.send(Commands.SCOPE + ":" + Commands.DATA_LENGTH + " " + numSmp + ";");
             device.giveCommsSemaphore();
         }
@@ -708,27 +708,27 @@ namespace InstruLab
 
         public void set_sampling_freq(string smpFreq)
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 113);
             device.send(Commands.SCOPE + ":" + Commands.SAMPLING_FREQ + " " + smpFreq+ ";");
             device.giveCommsSemaphore();
         }
 
         public void set_num_of_channels(string chann) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 114);
             device.send(Commands.SCOPE + ":" + Commands.CHANNELS + " " + chann + ";");
             device.giveCommsSemaphore();
         }
 
         public void set_trigger_channel(string chann)
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 115);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_CHANNEL + " " + chann + ";");
             device.giveCommsSemaphore();
         }
 
         public void set_trigger_mode(mode_def mod)
         {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 116);
             switch (mod)
             {
                 case mode_def.AUTO:
@@ -746,18 +746,18 @@ namespace InstruLab
         }
 
         public void set_trigger_edge_fall() {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 117);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_EDGE + " " + Commands.EDGE_FALLING + ";");
             device.giveCommsSemaphore();
         }
         public void set_trigger_edge_rise() {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 118);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_EDGE + " " + Commands.EDGE_RISING + ";");
             device.giveCommsSemaphore();
         }
 
         public void set_prettriger(double pre) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 119);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_PRETRIGGER + " ");
             device.send_short((int)(pre*65536));
             device.send(";");
@@ -765,7 +765,7 @@ namespace InstruLab
         }
 
         public void set_trigger_level(double level) {
-            device.takeCommsSemaphore(semaphoreTimeout);
+            device.takeCommsSemaphore(semaphoreTimeout + 120);
             device.send(Commands.SCOPE + ":" + Commands.SCOPE_TRIG_LEVEL + " ");
             device.send_short((int)(level * 65536));
             device.send(";");
@@ -2044,7 +2044,7 @@ namespace InstruLab
                 }
             }
 
-            if (math != math_def.NONE)
+            if (math != math_def.NONE && actualCahnnels>=2)
             {
                 this.signal_math = new double[device.scopeCfg.timeBase.Length];
                 double scale_ch1 = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);

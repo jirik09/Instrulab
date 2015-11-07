@@ -164,6 +164,7 @@ namespace InstruLab
 
                     this.btn_scope_open.Enabled = false;
                     this.btn_gen_open.Enabled = false;
+                    this.btn_scan.Enabled = true;
 
                     break;
                 case Comms_thread.CommsStates.ERROR:
@@ -187,6 +188,7 @@ namespace InstruLab
             if (comms.get_connected_device() != null)
             {
                 comms.get_connected_device().close_scope();
+                comms.get_connected_device().close_gen();
             }
 
 
@@ -210,6 +212,7 @@ namespace InstruLab
         private void btn_scan_Click(object sender, EventArgs e)
         {
             comms.add_message(new Message(Message.MsgRequest.FIND_DEVICES));
+            this.btn_connect.Enabled = false;
             GUITimer.Start();
         }
 
