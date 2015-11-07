@@ -48,7 +48,7 @@ namespace InstruLab
         private int signal_leng_ch1 = 0;
         private int signal_leng_ch2 = 0;
 
-        //private int signal_leng = 0;
+        private int signal_leng = 0;
 
         private double last_sum = 0;
         private int divider_ch1 = 0;
@@ -125,6 +125,8 @@ namespace InstruLab
 
             freq_ch1 = trackBar_freq_ch1.Value/10;
             freq_ch2 = trackBar_freq_ch2.Value/10;
+
+            signal_leng = int.Parse(this.toolStripTextBox_signal_leng.Text);
 
             validate_control_ch2();
 
@@ -203,7 +205,7 @@ namespace InstruLab
 
         private void Update_signal(object sender, ElapsedEventArgs e)
         {
-            double sum = signalType_ch1.GetHashCode() + signalType_ch2.GetHashCode() + freq_ch1 + freq_ch2 + ampl_ch1 + ampl_ch2 + phase_ch1 + phase_ch2 + duty_ch1 + duty_ch2 + offset_ch1 + offset_ch2 + signal_leng_ch1 + signal_leng_ch2 + actual_channels;
+            double sum = signalType_ch1.GetHashCode() + signalType_ch2.GetHashCode() + freq_ch1 + freq_ch2 + ampl_ch1 + ampl_ch2 + phase_ch1 + phase_ch2 + duty_ch1 + duty_ch2 + offset_ch1 + offset_ch2 + signal_leng_ch1 + signal_leng_ch2 + signal_leng + actual_channels;
             sum = bestFreqFit ? sum+1 : sum;
             sum = customLeng ? sum+2 : sum;
             sum = khz_ch1 ? sum+4 : sum;
@@ -418,9 +420,11 @@ namespace InstruLab
 
                 for (int i = 1; i <= actual_channels; i++)
                 {
-                    if ((i == 0 && signalType_ch1 == SIGNAL_TYPE.ARB) || (i == 1 && signalType_ch2 == SIGNAL_TYPE.ARB))
-                    { 
-                        break;
+                    if ((i == 1 && signalType_ch1 == SIGNAL_TYPE.ARB) || (i == 2 && signalType_ch2 == SIGNAL_TYPE.ARB))
+                    {
+                        divider_ch1 = (int)(tclk / freq_ch1 / signal_leng_ch1);
+                        divider_ch2= (int)(tclk / freq_ch2 / signal_leng_ch2);
+                        continue;
                     }
 
                     error = double.MaxValue;
@@ -484,14 +488,14 @@ namespace InstruLab
                 {
                     if (signalType_ch1 != SIGNAL_TYPE.ARB)
                     {
-                        int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch1);
-                        signal_leng_ch1 = signal_leng_ch1 / actual_channels;
+                        //int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch1);
+                        signal_leng_ch1 = signal_leng / actual_channels;
                     }
 
                     if (signalType_ch2 != SIGNAL_TYPE.ARB)
                     {
-                        int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch2);
-                        signal_leng_ch2 = signal_leng_ch2 / actual_channels;
+                        //int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch2);
+                        signal_leng_ch2 = signal_leng / actual_channels;
                     }
 
                     int divA = tclk / device.genCfg.maxSamplingFrequency;
@@ -519,9 +523,12 @@ namespace InstruLab
                             divider_ch1 = (int)(tclk / tmp_freq_ch1 / signal_leng_ch1);
                         }
                     }
+                    else {
+                        divider_ch1 = (int)(tclk / freq_ch1 / signal_leng_ch1);
+                    }
 
                     leng = (double)tclk / tmp_freq_ch2 / div;
-                    if (signalType_ch1 != SIGNAL_TYPE.ARB)
+                    if (signalType_ch2 != SIGNAL_TYPE.ARB)
                     {
                         if (leng > device.genCfg.BufferLength / 2 / actual_channels)
                         {
@@ -533,6 +540,10 @@ namespace InstruLab
                             signal_leng_ch2 = (int)leng;
                             divider_ch2 = (int)(tclk / tmp_freq_ch2 / signal_leng_ch2);
                         }
+                    }
+                    else
+                    {
+                        divider_ch2 = (int)(tclk / freq_ch2 / signal_leng_ch2);
                     }
                 }
             }
@@ -698,11 +709,11 @@ namespace InstruLab
                 customToolStripMenuItem.Checked = true;
             }
 
-            if (!bestFreqFit && !customLeng)
-            {
-                signal_leng_ch1 = device.genCfg.BufferLength / 2 / actual_channels;
-                signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
-            }
+            //if (!bestFreqFit && !customLeng)
+            //{
+            //    signal_leng_ch1 = device.genCfg.BufferLength / 2 / actual_channels;
+            //    signal_leng_ch2 = device.genCfg.BufferLength / 2 / actual_channels;
+            //}
         }
 
 
@@ -1206,17 +1217,23 @@ namespace InstruLab
             try
             {
                 int val = int.Parse(this.toolStripTextBox_signal_leng.Text);
-                if ((actual_channels == 1 && val > device.genCfg.BufferLength / 2) || (actual_channels == 2 && val > device.genCfg.BufferLength / 2 / 2))
+                if(val>device.genCfg.BufferLength/2)
+                //if ((actual_channels == 1 && val > device.genCfg.BufferLength / 2) || (actual_channels == 2 && val > device.genCfg.BufferLength / 2 / 2))
                 {
                     throw new System.ArgumentException("Parameter cannot be greather then ", "original");
                 }
-                signal_leng_ch1 = val;
-                signal_leng_ch2 = val;
+                toolStripTextBox_signal_leng.Text = val.ToString();
+                signal_leng = val;
+                if (signal_leng == 0) {
+                    signal_leng = 100;
+                }
+                //signal_leng_ch2 = val;
             }
             catch (Exception ex)
             {
+                signal_leng = 100;
             }
-            toolStripTextBox_signal_leng.Text = signal_leng_ch1.ToString();
+            
         }
 
         private void checkBox_enable_ch2_CheckedChanged(object sender, EventArgs e)
@@ -1310,6 +1327,7 @@ namespace InstruLab
                 giveGenSemaphore();
             }
         }
+
         private void radioButton_arb_ch2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_arb_ch2.Checked)
