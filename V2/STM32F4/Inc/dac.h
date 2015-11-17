@@ -35,6 +35,7 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __dac_H
 #define __dac_H
+#ifdef USE_GEN
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -42,13 +43,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-extern DAC_HandleTypeDef hdac;
+//extern DAC_HandleTypeDef hdac;
 
-void MX_DAC_Init(void);
+//void MX_DAC_Init(void);
 	 
 void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len);
 void GeneratingEnable (void);
 void GeneratingDisable (void);
+void DACInit(void);
 
 #ifdef __cplusplus
 }
@@ -62,5 +64,5 @@ void GeneratingDisable (void);
 /**
   * @}
   */
-
+#endif //USE_GEN
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

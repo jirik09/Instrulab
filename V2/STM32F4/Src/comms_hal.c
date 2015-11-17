@@ -14,6 +14,7 @@
 #include "comms.h"
 #include "comms_hal.h"
 #include "adc.h"
+#include "usb_device.h"
 #include "usart.h"
 
 
@@ -21,14 +22,10 @@
 // External variables definitions =============================================
 
 // Function prototypes ========================================================
-void commHalInit(void){
-	/* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
-/////	USART2Init();
-/////	USART2RxIRQInit();
-}
+
 
 void commsSend(uint8_t chr){
+	#ifdef USE_USB
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS(&chr,1)!=USBD_OK){
 			taskYIELD();
@@ -36,6 +33,11 @@ void commsSend(uint8_t chr){
 	}else{
 		UARTsendChar(chr);
 	}
+	#else
+	UARTsendChar(chr);
+	#endif
+	
+	
 }
 
 void commsSendUint32(uint32_t num){
@@ -48,6 +50,7 @@ void commsSendUint32(uint32_t num){
 }
 
 void commsSendBuff(uint8_t *buff, uint16_t len){
+	#ifdef USE_USB
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS(buff,len)!=USBD_OK){
 			taskYIELD();
@@ -55,11 +58,15 @@ void commsSendBuff(uint8_t *buff, uint16_t len){
 	}else{
 		UARTsendBuff((char *)buff,len);
 	}
+	#else
+	UARTsendBuff((char *)buff,len);
+	#endif
 }
 void commsSendString(char *chr){
 	uint32_t i = 0;
 	char * tmp=chr;
 	while(*(tmp++)){i++;}
+	#ifdef USE_USB
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		while(CDC_Transmit_FS((uint8_t*)chr,i)!=USBD_OK){
 			taskYIELD();
@@ -67,17 +74,28 @@ void commsSendString(char *chr){
 	}else{
 		UARTsendBuff(chr,i);
 	}
+	#else
+	UARTsendBuff(chr,i);
+	#endif
 
 }
 
+
+#ifdef USE_USB
 void commsRecieveUSB(uint8_t chr){
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		commInputByte(chr);
 	}
 }
+#endif //USE_USB
 
 void commsRecieveUART(uint8_t chr){
+	#ifdef USE_USB
 	if (hUsbDeviceFS.dev_state != USBD_STATE_CONFIGURED){	
 		commInputByte(chr);
 	}
+	#else
+	commInputByte(chr);
+	#endif //USE_USB
+	
 }

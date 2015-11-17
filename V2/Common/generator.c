@@ -8,6 +8,7 @@
 */ 
 
 // Includes ===================================================================
+	#ifdef USE_GEN
 #include "cmsis_os.h"
 #include "mcu_config.h"
 #include "comms.h"
@@ -34,7 +35,8 @@ uint16_t generatorBuffer[MAX_GENERATOR_BUFF_SIZE/2];
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void GeneratorTask(void const *argument){
-	
+	DACInit();
+	TIMGenInit();
 	generatorMessageQueue = xQueueCreate(10, 20);
 	generatorSetDefault();
 	char message[20];
@@ -232,4 +234,5 @@ void genStop(void){
 	xQueueSendToBack(generatorMessageQueue, "5Stop", portMAX_DELAY);
 }
 
+	#endif //USE_GEN
 

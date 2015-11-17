@@ -17,6 +17,8 @@
 #include "scope.h"
 #include "generator.h"
 #include "commands.h"
+#include "usb_device.h"
+#include "usart.h"
 
 
 
@@ -44,7 +46,9 @@ void CommTask(void const *argument){
 	commsMutex = xSemaphoreCreateRecursiveMutex();
 	char message[30];
 	uint8_t header[16]="OSC_DATAxxxxCH0x";
+	#ifdef USE_GEN
 	uint8_t header_gen[12]="GEN_xCH_Fxxx";
+	#endif //USE_GEN
 	uint8_t *pointer;
 	uint8_t i;
 	uint32_t j;
@@ -60,7 +64,11 @@ void CommTask(void const *argument){
 		xQueueReceive (messageQueue, message, portMAX_DELAY);
 		///commsSendString("COMMS_Run\r\n");
 		xSemaphoreTakeRecursive(commsMutex, portMAX_DELAY);
-		GPIOD->ODR |= GPIO_PIN_14;
+		
+		#ifdef USE_STM32F4_DISCO
+		BSP_LED_On(LED6);
+		#endif
+		
 		//send data
 		if(message[0]=='1' && getScopeState() == SCOPE_DATA_SENDING){
 			/////TODO - j is pointer where to start send data. Do correct sending ;)
@@ -134,6 +142,7 @@ void CommTask(void const *argument){
 			
 		//send generating frequency	
 		}else if(message[0]=='2'){
+			#ifdef USE_GEN
 			for(i = 0;i<MAX_DAC_CHANNELS;i++){
 				header_gen[4]=i+1+48;
 				j=getRealSmplFreq(i+1);
@@ -141,7 +150,9 @@ void CommTask(void const *argument){
 				header_gen[10]=(uint8_t)(j>>8);
 				header_gen[11]=(uint8_t)(j);
 				commsSendBuff(header_gen,12);
+				
 			}
+			#endif //USE_GEN
 		// send system config
 		}else if(message[0]=='3'){
 			sendSystConf();
@@ -156,7 +167,9 @@ void CommTask(void const *argument){
 			
 		// send gen config
 		}else if(message[0]=='6'){
+			#ifdef USE_GEN
 			sendGenConf();
+			#endif //USE_GEN
 			
 		// send gen next data block
 		}else if(message[0]=='7'){
@@ -177,7 +190,9 @@ void CommTask(void const *argument){
 			commsSendString(message);
 			/////commsSendString("\r\n");
 		}
-		GPIOD->ODR &= ~GPIO_PIN_14;
+		#ifdef USE_STM32F4_DISCO
+		BSP_LED_Off(LED6);
+		#endif
 		xSemaphoreGiveRecursive(commsMutex);
 	}
 }
@@ -188,8 +203,10 @@ void CommTask(void const *argument){
   * @retval None
   */
 void commsInit(void){
-	//commHalInit();
+	#ifdef USE_USB
 	MX_USB_DEVICE_Init();
+	#endif //USE_USB
+	MX_USART2_UART_Init();
 	comm.memory = commBuffMem;
 	comm.bufferSize = COMM_BUFFER_SIZE;
 	comm.writePointer = 0;
@@ -357,6 +374,7 @@ void sendScopeConf(){
 
 }
 
+	#ifdef USE_GEN
 void sendGenConf(){
 	uint8_t i;
 	commsSendString("GEN_");
@@ -376,6 +394,7 @@ void sendGenConf(){
 	}
 	commsSendUint32(GEN_VREF);
 }
+	#endif //USE_GEN
 	
 
 

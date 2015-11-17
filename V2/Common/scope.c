@@ -32,6 +32,14 @@ static uint32_t writingIndex=0;
 static uint32_t lastWritingIndex=0;
 static volatile scopeTypeDef scope;
 
+
+uint32_t actualIndex = 0;
+uint16_t data = 0;
+uint32_t samplesTaken = 0;
+uint32_t totalSmpTaken = 0;
+uint32_t SmpBeforeTrig=0;
+uint32_t SmpAfterTrig=0;
+
 // Function prototypes ========================================================
 uint16_t samplesPassed(uint16_t dataRemain, uint16_t lastDataRemain);
 uint8_t validateBuffUsage(void);
@@ -45,7 +53,7 @@ uint8_t validateBuffUsage(void);
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void ScopeTask(void const *argument){
-	
+	TIMScopeInit();
 	scopeMessageQueue = xQueueCreate(10, 20);
 	scopeMutex = xSemaphoreCreateRecursiveMutex();
 	scopeSetDefault();
@@ -69,8 +77,9 @@ void ScopeTask(void const *argument){
 				///commsSendString("SCP_ScopeReinit\r\n");
 				samplingDisable();
 				scopeInit();
-				if(scope.state!=SCOPE_WAIT_FOR_RESTART){
+				if(scope.state!=SCOPE_WAIT_FOR_RESTART && scope.state!=SCOPE_DATA_SENDING){
 					scope.state=SCOPE_SAMPLING_WAITING;
+					samplesTaken=0;
 					samplingEnable();
 				}
 			}	
@@ -101,12 +110,12 @@ void ScopeTask(void const *argument){
   */
 //portTASK_FUNCTION(vScopeTriggerTask, pvParameters) {
 void ScopeTriggerTask(void const *argument) {
-	uint32_t actualIndex = 0;
-	uint16_t data = 0;
-	uint32_t samplesTaken = 0;
-	uint32_t totalSmpTaken = 0;
-	uint32_t SmpBeforeTrig=0;
-	uint32_t SmpAfterTrig=0;
+//	uint32_t actualIndex = 0;
+//	uint16_t data = 0;
+//	uint32_t samplesTaken = 0;
+//	uint32_t totalSmpTaken = 0;
+//	uint32_t SmpBeforeTrig=0;
+//	uint32_t SmpAfterTrig=0;
 	
 
 	while(1){
@@ -134,6 +143,7 @@ void ScopeTriggerTask(void const *argument) {
 					|| (scope.settings.triggerEdge == EDGE_FALLING && data - NOISE_REDUCTION > triggerLevel)
 					|| (scope.settings.triggerMode == TRIG_AUTO && samplesTaken > (scope.settings.samplesToSend * AUTO_TRIG_MAX_WAIT) )){ //skip waiting for trigger in case of TRIG_AUTO
 						scope.state = SCOPE_SAMPLING_TRIGGER_WAIT;
+						xQueueSendToBack(messageQueue, "SMPL", portMAX_DELAY);
 					}
 					
 			//finding for trigger
@@ -261,9 +271,7 @@ void scopeInit(void){
 			ADC_DMA_Reconfig(i,(uint32_t *)&blindBuffer[i], 1);
 		}
 	}
-	//TIM_Reconfig(scope.settings.samplingFrequency,&htim3,0);
 	TIM_Reconfig_scope(scope.settings.samplingFrequency);
-	//triggerInit(scope.settings.samplingFrequency);
 }
 
 /**

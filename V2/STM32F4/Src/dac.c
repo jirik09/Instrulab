@@ -34,6 +34,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+
+#ifdef USE_GEN
 #include "dac.h"
 
 #include "gpio.h"
@@ -184,8 +186,7 @@ void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
   * @retval None
   */
 void GeneratingEnable (void){
-	HAL_TIM_Base_Start(&htim6);
-	HAL_TIM_Base_Start(&htim7);
+	TIMGenEnable();
 	GPIOD->ODR |= GPIO_PIN_13;
 }
 
@@ -195,9 +196,12 @@ void GeneratingEnable (void){
   * @retval None
   */
 void GeneratingDisable (void){
-	HAL_TIM_Base_Stop(&htim6);
-	HAL_TIM_Base_Stop(&htim7);	
+	TIMGenDisable();	
 	GPIOD->ODR &= ~GPIO_PIN_13;
+}
+
+void DACInit(){
+MX_DAC_Init();
 }
 /* USER CODE END 1 */
 
@@ -208,5 +212,5 @@ void GeneratingDisable (void){
 /**
   * @}
   */
-
+#endif //USE_GEN
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

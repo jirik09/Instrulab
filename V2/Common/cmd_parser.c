@@ -16,6 +16,7 @@
 #include "scope.h"
 #include "generator.h"
 #include "adc.h"
+#include "firmware_version.h"
 
 // External variables definitions =============================================
 xQueueHandle cmdParserMessageQueue;
@@ -34,7 +35,7 @@ void printErrResponse(command cmd);
   */
 	//portTASK_FUNCTION(vCmdParserTask, pvParameters) {
 void CmdParserTask(void const *argument){
-	portBASE_TYPE xHigherPriorityTaskWoken;
+//	portBASE_TYPE xHigherPriorityTaskWoken;
 	cmdParserMessageQueue = xQueueCreate(10, 20);
 	uint8_t message[20];
 	uint8_t cmdIn[5];
@@ -59,6 +60,10 @@ void CmdParserTask(void const *argument){
 					case CMD_IDN: //send IDN
 						xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
 						xQueueSendToBack (messageQueue, IDN_STRING, portMAX_DELAY);
+						xQueueSendToBack (messageQueue, FW_VERSION, portMAX_DELAY);
+						xQueueSendToBack (messageQueue, " b", portMAX_DELAY);
+						xQueueSendToBack (messageQueue, BUILD, portMAX_DELAY);
+						
 					break;
 					case CMD_SYSTEM: 
 						tempCmd = parseSystemCmd();
@@ -72,19 +77,21 @@ void CmdParserTask(void const *argument){
 						tempCmd = parseScopeCmd();
 						printErrResponse(tempCmd);
 					break;
-						
+					#ifdef USE_GEN
 					case CMD_GENERATOR: //parse generator command
 						tempCmd = parseGeneratorCmd();
 						printErrResponse(tempCmd);
 					break;
+					#endif //USE_GEN
 					default:
-							xQueueSendToBack(messageQueue, UNSUPORTED_FUNCTION_ERR_STR, portMAX_DELAY);
+					xQueueSendToBack(messageQueue, UNSUPORTED_FUNCTION_ERR_STR, portMAX_DELAY);
+////					commsSendUint32(cmdIn);
 				}	
 			}
 		}
-		if (getBytesAvailable()>0){
+	/*	if (getBytesAvailable()>=15){
 			xQueueSendToBackFromISR(cmdParserMessageQueue, "1TryParseCmd", &xHigherPriorityTaskWoken);
-		}
+		}*/
 	}
 }
 
@@ -99,7 +106,7 @@ command parseSystemCmd(void){
 	uint8_t error=0;
 	//try to parse command while buffer is not empty 
 
-		do{ 
+	///////	do{ 
 		cmdIn = giveNextCmd();
 		switch(cmdIn){
 			case CMD_GET_CONFIG:
@@ -111,9 +118,11 @@ command parseSystemCmd(void){
 				cmdIn = CMD_ERR;
 			break;
 		}
-	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+///////	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
 	if(error>0){
 		cmdIn=error;
+	}else{
+		cmdIn=CMD_END;
 	}
 return cmdIn;
 }
@@ -128,7 +137,7 @@ command parseCommsCmd(void){
 	uint8_t error=0;
 	//try to parse command while buffer is not empty 
 
-		do{ 
+	///////	do{ 
 		cmdIn = giveNextCmd();
 		switch(cmdIn){
 			case CMD_GET_CONFIG:
@@ -140,9 +149,11 @@ command parseCommsCmd(void){
 				cmdIn = CMD_ERR;
 			break;
 		}
-	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+///////	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
 	if(error>0){
 		cmdIn=error;
+	}else{
+		cmdIn=CMD_END;
 	}
 return cmdIn;
 }
@@ -157,7 +168,7 @@ command parseScopeCmd(void){
 	uint8_t error=0;
 	//try to parse command while buffer is not empty 
 
-		do{ 
+///////		do{ 
 		cmdIn = giveNextCmd();
 		switch(cmdIn){
 			case CMD_SCOPE_TRIG_MODE://set trigger mode
@@ -349,13 +360,15 @@ command parseScopeCmd(void){
 			case CMD_END:break;
 			default:
 				error = SCOPE_INVALID_FEATURE;
-				commsSendUint32(cmdIn);
+////				commsSendUint32(cmdIn);
 				cmdIn = CMD_ERR;
 			break;
 		}
-	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+///////	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
 	if(error>0){
 		cmdIn=error;
+	}else{
+		cmdIn=CMD_END;
 	}
 return cmdIn;
 }
@@ -363,7 +376,7 @@ return cmdIn;
 
 
 
-
+	#ifdef USE_GEN
 /**
   * @brief  Scope command parse function 
   * @param  None
@@ -376,7 +389,7 @@ command parseGeneratorCmd(void){
 	uint8_t length,chan;
 	uint16_t watchDog=5000;
 
-		do{ 
+		///////do{ 
 		cmdIn = giveNextCmd();
 		switch(cmdIn){
 			case CMD_GEN_DATA://set data
@@ -470,16 +483,21 @@ command parseGeneratorCmd(void){
 			case CMD_END:break;
 			default:
 				error = GEN_INVALID_FEATURE;
-				commsSendUint32(cmdIn);
+////				commsSendUint32(cmdIn);
 				cmdIn = CMD_ERR;
 			break;
 		}
-	}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+	///////}while(cmdIn != CMD_END && cmdIn != CMD_ERR && error==0);
+	///////if(error>0){
 	if(error>0){
 		cmdIn=error;
+	}else{
+		cmdIn=CMD_END;
 	}
+	///////}
 return cmdIn;
 }
+	#endif //USE_GEN
 
 /**
   * @brief  Read command from input buffer 

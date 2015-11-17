@@ -40,7 +40,7 @@
 
 /* USER CODE END 0 */
 
-TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim_scope;
 TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim7;
 
@@ -49,16 +49,16 @@ void MX_TIM3_Init(void)
 {
   TIM_MasterConfigTypeDef sMasterConfig;
 
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 0;
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 2048;
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  HAL_TIM_Base_Init(&htim3);
+  htim_scope.Instance = TIM3;
+  htim_scope.Init.Prescaler = 0;
+  htim_scope.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim_scope.Init.Period = 2048;
+  htim_scope.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  HAL_TIM_Base_Init(&htim_scope);
 
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig);
+  HAL_TIMEx_MasterConfigSynchronization(&htim_scope, &sMasterConfig);
 
 }
 
@@ -69,6 +69,7 @@ void MX_TIM3_Init(void)
   * @param  None
   * @retval None
   */
+	#ifdef USE_GEN
 void MX_TIM6_Init(void)
 {
   TIM_MasterConfigTypeDef sMasterConfig;
@@ -92,7 +93,7 @@ void MX_TIM6_Init(void)
   /*##-2- Enable TIM peripheral counter ######################################*/
   //HAL_TIM_Base_Start(&htim6);
 }
-
+	#endif //USE_GEN
 
 
 /**             
@@ -102,6 +103,7 @@ void MX_TIM6_Init(void)
   * @param  None
   * @retval None
   */
+	#ifdef USE_GEN
 void MX_TIM7_Init(void)
 {
   TIM_MasterConfigTypeDef sMasterConfig;
@@ -125,7 +127,7 @@ void MX_TIM7_Init(void)
   /*##-2- Enable TIM peripheral counter ######################################*/
   //HAL_TIM_Base_Start(&htim6);
 }
-
+	#endif //USE_GEN
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
@@ -141,12 +143,14 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspInit 1 */
   }
+		#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_ENABLE();
 	}
 	if(htim_base->Instance==TIM7){
 		__TIM7_CLK_ENABLE();
 	}
+	#endif //USE_GEN
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
@@ -163,18 +167,20 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspDeInit 1 */
   }
+	#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_DISABLE();
 	}
 	if(htim_base->Instance==TIM7){
 		__TIM7_CLK_DISABLE();
 	}
+	#endif //USE_GEN
 	
 } 
 
 /* USER CODE BEGIN 1 */
 uint8_t TIM_Reconfig_scope(uint32_t samplingFreq){
-	return TIM_Reconfig(samplingFreq,&htim3,0);
+	return TIM_Reconfig(samplingFreq,&htim_scope,0);
 }
 
 uint8_t TIM_Reconfig_gen(uint32_t samplingFreq,uint8_t chan,uint32_t* realFreq){
@@ -251,6 +257,38 @@ uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t
 	return result;
 
 }
+
+
+
+void TIMScopeEnable(){
+	HAL_TIM_Base_Start(&htim_scope);
+}
+void TIMScopeDisable(){
+	HAL_TIM_Base_Stop(&htim_scope);
+}	
+
+void TIMScopeInit(void){
+	MX_TIM3_Init();
+}
+
+	#ifdef USE_GEN
+void TIMGenEnable(void){
+  HAL_TIM_Base_Start(&htim6);
+	HAL_TIM_Base_Start(&htim7);
+}
+void TIMGenDisable(void){
+  HAL_TIM_Base_Stop(&htim6);
+	HAL_TIM_Base_Stop(&htim7);
+}
+
+void TIMGenInit(){
+	MX_TIM6_Init();
+	MX_TIM7_Init();
+}
+	#endif //USE_GEN
+
+
+
 /* USER CODE END 1 */
 
 /**

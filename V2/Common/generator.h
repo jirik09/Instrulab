@@ -6,6 +6,7 @@
   * @brief   This file contains definitions and prototypes of oscilloscope functions
   ***************************************************************************** 
 */ 
+#ifdef USE_GEN
 #ifndef GENERATOR_H_
 #define GENERATOR_H_
 
@@ -44,10 +45,9 @@ uint8_t genSetNumOfChannels(uint8_t chan);
 void genStart(void);
 void genStop(void);
 
-
-
-
 #endif /* GENERATOR_H_ */
+
+#endif //USE_GEN
 
 
 

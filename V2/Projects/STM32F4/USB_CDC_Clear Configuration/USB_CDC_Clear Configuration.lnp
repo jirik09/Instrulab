@@ -50,7 +50,7 @@
 "usb_cdc_clear configuration\croutine.o"
 "usb_cdc_clear configuration\port.o"
 "usb_cdc_clear configuration\list.o"
-"usb_cdc_clear configuration\heap_4.o"
+"usb_cdc_clear configuration\heap_2.o"
 "usb_cdc_clear configuration\cmd_parser.o"
 "usb_cdc_clear configuration\comms.o"
 "usb_cdc_clear configuration\scope.o"

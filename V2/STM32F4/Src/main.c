@@ -71,7 +71,7 @@ static void StartThread(void const * argument);
 /* USER CODE END 0 */
 
 int main(void)
-{
+{	
 
   /* USER CODE BEGIN 1 */
 
@@ -88,14 +88,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_ADC1_Init();
-  MX_ADC2_Init();
-  MX_ADC3_Init();
-  MX_DAC_Init();
-  MX_TIM3_Init();
-	MX_TIM6_Init();
-	MX_TIM7_Init();
-  MX_USART2_UART_Init();
+//  MX_ADC1_Init();
+//  MX_ADC2_Init();
+//  MX_ADC3_Init();
+//  MX_DAC_Init();
+//  MX_TIM3_Init();
+//	MX_TIM6_Init();
+//	MX_TIM7_Init();
+  
 
   /* USER CODE BEGIN 2 */
 
@@ -108,15 +108,17 @@ int main(void)
 	osThreadDef(COMM_TASK, CommTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(SCOPE_TASK, ScopeTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(SCOPE_TRIG_TASK, ScopeTriggerTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	#ifdef USE_GEN
 	osThreadDef(GENERATOR_TASK, GeneratorTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	#endif //USE_GEN
 	osThreadCreate (osThread(CMD_PARSER_TASK), NULL);
 	osThreadCreate (osThread(USER_TASK), NULL);
 	osThreadCreate (osThread(COMM_TASK), NULL);
 	osThreadCreate (osThread(SCOPE_TASK), NULL);
 	osThreadCreate (osThread(SCOPE_TRIG_TASK), NULL);
+		#ifdef USE_GEN
 	osThreadCreate (osThread(GENERATOR_TASK), NULL);
-	
-
+	#endif //USE_GEN
   /* Start scheduler */
   osKernelStart(NULL, NULL);
 
@@ -178,7 +180,7 @@ static void StartThread(void const * argument)
   for(;;)
   {
     osDelay(100);
-		GPIOD->ODR ^= GPIO_PIN_12;
+		GPIOA->ODR ^= GPIO_PIN_5;
   }
 
   /* USER CODE END 5 */ 
