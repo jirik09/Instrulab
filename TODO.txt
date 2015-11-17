@@ -1,5 +1,5 @@
 Generator
-- doplnit generovani Sine,PWM,triangle  (delka,faze,amplituda atd)
+- Vypnout vytup pokud generator nebezi
 - dodelat sweep
 
 Scope
@@ -11,3 +11,7 @@ Aplikace
 
 
 Obecne
+Bug 00c - pokud se zmeni vzorkovani behem odesilani tak se spatne vypocita X osa 
+OK - Bug 00a - Zmena frekvence pri odesilani dat vyvola chybu (internal prefix 1DataReady se dostane ven)
+OK - Bug 00b - pokuf je v datech strednik tak gen vyhodi chybu E999
+ 

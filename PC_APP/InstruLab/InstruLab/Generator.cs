@@ -489,13 +489,13 @@ namespace InstruLab
                     if (signalType_ch1 != SIGNAL_TYPE.ARB)
                     {
                         //int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch1);
-                        signal_leng_ch1 = signal_leng / actual_channels;
+                        signal_leng_ch1 = signal_leng;
                     }
 
                     if (signalType_ch2 != SIGNAL_TYPE.ARB)
                     {
                         //int.TryParse(toolStripTextBox_signal_leng.Text, out signal_leng_ch2);
-                        signal_leng_ch2 = signal_leng / actual_channels;
+                        signal_leng_ch2 = signal_leng;
                     }
 
                     int divA = tclk / device.genCfg.maxSamplingFrequency;
@@ -1217,23 +1217,26 @@ namespace InstruLab
             try
             {
                 int val = int.Parse(this.toolStripTextBox_signal_leng.Text);
-                if(val>device.genCfg.BufferLength/2)
-                //if ((actual_channels == 1 && val > device.genCfg.BufferLength / 2) || (actual_channels == 2 && val > device.genCfg.BufferLength / 2 / 2))
+                //if(val>device.genCfg.BufferLength/2)
+                if ((actual_channels == 1 && val > device.genCfg.BufferLength / 2) || (actual_channels == 2 && val > device.genCfg.BufferLength / 2 / 2))
                 {
-                    throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                    signal_leng = device.genCfg.BufferLength / 2 / actual_channels;
+                    //throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                }
+                else
+                {
+                    signal_leng = val;
                 }
                 toolStripTextBox_signal_leng.Text = val.ToString();
-                signal_leng = val;
-                if (signal_leng == 0) {
+                
+                if (signal_leng < 10) {
                     signal_leng = 100;
                 }
                 //signal_leng_ch2 = val;
             }
             catch (Exception ex)
             {
-                signal_leng = 100;
             }
-            
         }
 
         private void checkBox_enable_ch2_CheckedChanged(object sender, EventArgs e)

@@ -146086,3 +146086,2999 @@ Send (29:37.16): OSCP:STOP;
 Příjem dat: 4
 Recieved (29:37.16): ACK
 PORT zavřen: COM19
+
+Log Entry : 22:42:50 17. listopadu 2015
+  :PORT otevřen: COM19  Baudrate:115200  Zařízení:STM32F4-Discovery FW1.02 b001
+-------------------------------
+Send (42:52.321): OSCP:TRIG AUTO;
+Send (42:52.321): OSCP:FREQ 1K__;
+Send (42:52.321): OSCP:EDGE RISE;
+Send (42:52.321): OSCP:LEVL 
+32768(0x00000080)
+Send (42:52.321): ;
+Send (42:52.321): OSCP:PRET 
+32768(0x00000080)
+Příjem dat: 20
+Send (42:52.321): ;
+Recieved (42:52.321): ACK
+Send (42:52.321): OSCP:CHAN 1CH_;
+Recieved (42:52.321): ACK
+Recieved (42:52.321): ACK
+Recieved (42:52.321): ACK
+Send (42:52.321): OSCP:LENG 100_;
+Recieved (42:52.321): ACK
+Recieved (42:52.321): ACK
+Recieved (42:52.321): ACK
+Send (42:52.321): OSCP:DATA 12B_;
+Příjem dat: 4
+Recieved (42:52.321): ACK
+Send (42:52.321): OSCP:TRCH 1CH_;
+Příjem dat: 4
+Recieved (42:52.321): ACK
+Send (42:52.341): OSCP:STRT;
+Příjem dat: 4
+Recieved (42:52.341): ACK
+Příjem dat: 4
+Recieved (42:52.341): SMPL
+Příjem dat: 4
+Recieved (42:52.391): SMPL
+Příjem dat: 4
+Recieved (42:52.741): TRIG
+Příjem dat: 220
+Recieved (42:52.791): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:52.791): S_OK
+Příjem dat: 4
+Recieved (42:52.871): ACK
+Send (42:52.871): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:52.921): SMPL
+Příjem dat: 4
+Recieved (42:53.271): TRIG
+Příjem dat: 16
+Recieved (42:53.321): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (42:53.321): S_OK
+Send (42:53.391): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:53.391): ACK
+Příjem dat: 4
+Recieved (42:53.441): SMPL
+Příjem dat: 4
+Recieved (42:53.791): TRIG
+Příjem dat: 16
+Recieved (42:53.841): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:53.841): S_OK
+Send (42:53.911): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:53.911): ACK
+Příjem dat: 4
+Recieved (42:53.961): SMPL
+Příjem dat: 4
+Recieved (42:54.313): TRIG
+Příjem dat: 16
+Recieved (42:54.363): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:54.363): S_OK
+Send (42:54.433): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:54.433): ACK
+Příjem dat: 4
+Recieved (42:54.483): SMPL
+Příjem dat: 4
+Recieved (42:54.833): TRIG
+Příjem dat: 16
+Recieved (42:54.883): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:54.883): S_OK
+Send (42:54.953): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:54.953): ACK
+Příjem dat: 4
+Recieved (42:55.3): SMPL
+Příjem dat: 4
+Recieved (42:55.353): TRIG
+Příjem dat: 16
+Recieved (42:55.403): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:55.403): S_OK
+Send (42:55.473): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:55.473): ACK
+Příjem dat: 4
+Recieved (42:55.523): SMPL
+Příjem dat: 4
+Recieved (42:55.873): TRIG
+Příjem dat: 16
+Recieved (42:55.923): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:55.923): S_OK
+Send (42:56.3): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:56.4): ACK
+Příjem dat: 4
+Recieved (42:56.55): SMPL
+Příjem dat: 4
+Recieved (42:56.395): TRIG
+Příjem dat: 220
+Recieved (42:56.455): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:56.455): S_OK
+Send (42:56.525): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:56.545): ACK
+Příjem dat: 4
+Recieved (42:56.575): SMPL
+Příjem dat: 4
+Recieved (42:56.925): TRIG
+Příjem dat: 16
+Recieved (42:56.975): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:56.975): S_OK
+Send (42:57.55): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:57.55): ACK
+Příjem dat: 4
+Recieved (42:57.105): SMPL
+Příjem dat: 4
+Recieved (42:57.455): TRIG
+Příjem dat: 16
+Recieved (42:57.505): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:57.505): S_OK
+Send (42:57.575): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:57.575): ACK
+Příjem dat: 4
+Recieved (42:57.625): SMPL
+Příjem dat: 4
+Recieved (42:57.975): TRIG
+Příjem dat: 16
+Recieved (42:58.25): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:58.25): S_OK
+Send (42:58.95): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:58.95): ACK
+Příjem dat: 4
+Recieved (42:58.145): SMPL
+Příjem dat: 4
+Recieved (42:58.495): TRIG
+Příjem dat: 16
+Recieved (42:58.545): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:58.545): S_OK
+Příjem dat: 4
+Send (42:58.625): OSCP:NEXT;
+Recieved (42:58.625): ACK
+Příjem dat: 4
+Recieved (42:58.675): SMPL
+Příjem dat: 4
+Recieved (42:59.25): TRIG
+Příjem dat: 16
+Recieved (42:59.75): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:59.75): S_OK
+Send (42:59.197): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:59.197): ACK
+Příjem dat: 4
+Recieved (42:59.247): SMPL
+Příjem dat: 4
+Recieved (42:59.597): TRIG
+Příjem dat: 16
+Recieved (42:59.647): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (42:59.657): S_OK
+Send (42:59.727): OSCP:NEXT;
+Příjem dat: 4
+Recieved (42:59.727): ACK
+Příjem dat: 4
+Recieved (42:59.777): SMPL
+Příjem dat: 4
+Recieved (43:0.127): TRIG
+Příjem dat: 16
+Recieved (43:0.187): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:0.187): S_OK
+Send (43:0.247): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:0.247): ACK
+Příjem dat: 4
+Recieved (43:0.297): SMPL
+Příjem dat: 4
+Recieved (43:0.647): TRIG
+Příjem dat: 16
+Recieved (43:0.697): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:0.697): S_OK
+Send (43:0.777): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:0.777): ACK
+Příjem dat: 4
+Recieved (43:0.827): SMPL
+Příjem dat: 4
+Recieved (43:1.177): TRIG
+Příjem dat: 16
+Recieved (43:1.227): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:1.227): S_OK
+Send (43:1.319): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:1.319): ACK
+Příjem dat: 4
+Recieved (43:1.369): SMPL
+Příjem dat: 4
+Recieved (43:1.719): TRIG
+Příjem dat: 16
+Recieved (43:1.769): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:1.769): S_OK
+Send (43:1.849): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:1.849): ACK
+Příjem dat: 4
+Recieved (43:1.899): SMPL
+Příjem dat: 4
+Recieved (43:2.249): TRIG
+Příjem dat: 16
+Recieved (43:2.299): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:2.299): S_OK
+Send (43:2.379): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:2.379): ACK
+Příjem dat: 4
+Recieved (43:2.429): SMPL
+Příjem dat: 4
+Recieved (43:2.779): TRIG
+Příjem dat: 16
+Recieved (43:2.829): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:2.829): S_OK
+Send (43:2.899): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:2.899): ACK
+Příjem dat: 4
+Recieved (43:2.949): SMPL
+Příjem dat: 4
+Recieved (43:3.299): TRIG
+Příjem dat: 16
+Recieved (43:3.349): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:3.349): S_OK
+Send (43:3.449): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:3.449): ACK
+Příjem dat: 4
+Recieved (43:3.499): SMPL
+Příjem dat: 4
+Recieved (43:3.849): TRIG
+Příjem dat: 216
+Recieved (43:3.899): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:3.899): S_OK
+Send (43:3.979): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:3.979): ACK
+Příjem dat: 4
+Recieved (43:4.29): SMPL
+Příjem dat: 4
+Recieved (43:4.371): TRIG
+Příjem dat: 16
+Recieved (43:4.421): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:4.431): S_OK
+Send (43:4.511): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:4.511): ACK
+Příjem dat: 4
+Recieved (43:4.561): SMPL
+Příjem dat: 4
+Recieved (43:4.911): TRIG
+Příjem dat: 16
+Recieved (43:4.961): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:4.961): S_OK
+Send (43:5.31): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:5.31): ACK
+Příjem dat: 4
+Recieved (43:5.81): SMPL
+Příjem dat: 4
+Recieved (43:5.431): TRIG
+Příjem dat: 16
+Recieved (43:5.481): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:5.481): S_OK
+Send (43:5.591): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:5.591): ACK
+Send (43:5.591): GEN_:LCH1 
+500(0x0000F401)
+Send (43:5.591): ;
+Send (43:5.591): GEN_:LCH2 
+500(0x0000F401)
+Send (43:5.591): ;
+Send (43:5.591): GEN_:CHAN 2CH_;
+Send (43:5.591): GEN_:FREQ 
+12800001(0x0150C300)
+Send (43:5.591): ;
+Send (43:5.591): GEN_:FREQ 
+12800002(0x0250C300)
+Send (43:5.591): ;
+Příjem dat: 4
+Recieved (43:5.591): ACK
+Příjem dat: 4
+Recieved (43:5.591): ACK
+Send (43:5.601): GEN_:DATA 
+18874368(0x00002001)
+Send (43:5.601): :
+2048(0x0008), 2073(0x1908), Příjem dat: 4
+2099(0x3308), Recieved (43:5.601): ACK
+2125(0x4D08), 2150(0x6608), 2176(0x8008), 2202(0x9A08), 2227(0xB308), Příjem dat: 4
+Recieved (43:5.601): ACK
+2253(0xCD08), 2279(0xE708), 2304(0x0009), 2330(0x1A09), 2355(0x3309), 2380(0x4C09), Příjem dat: 4
+Recieved (43:5.601): ACK
+2406(0x6609), 2431(0x7F09), 2456(0x9809), 2482(0xB209), 2507(0xCB09), 2532(0xE409), 2557(0xFD09), 2582(0x160A), 2606(0x2E0A), 2631(0x470A), 2656(0x600A), 2680(0x780A), 2705(0x910A), 2729(0xA90A), 2753(0xC10A), 2777(0xD90A), 2801(0xF10A), 2825(0x090B), Send (43:5.601): ;
+Příjem dat: 4
+Recieved (43:5.601): NEXT
+Příjem dat: 4
+Recieved (43:5.611): ACK
+Send (43:5.611): GEN_:DATA 
+18882560(0x00202001)
+Send (43:5.611): :
+2849(0x210B), 2872(0x380B), 2896(0x500B), 2919(0x670B), 2942(0x7E0B), 2966(0x960B), 2988(0xAC0B), 3011(0xC30B), 3034(0xDA0B), 3056(0xF00B), 3079(0x070C), 3101(0x1D0C), 3123(0x330C), 3145(0x490C), 3166(0x5E0C), 3188(0x740C), 3209(0x890C), 3230(0x9E0C), 3251(0xB30C), 3272(0xC80C), 3292(0xDC0C), 3313(0xF10C), 3333(0x050D), 3353(0x190D), 3372(0x2C0D), 3392(0x400D), 3411(0x530D), 3430(0x660D), 3449(0x790D), 3468(0x8C0D), 3486(0x9E0D), 3504(0xB00D), Send (43:5.611): ;
+Příjem dat: 4
+Recieved (43:5.611): NEXT
+Příjem dat: 4
+Recieved (43:5.611): ACK
+Send (43:5.631): GEN_:DATA 
+18890752(0x00402001)
+Send (43:5.631): :
+3522(0xC20D), 3540(0xD40D), 3558(0xE60D), 3575(0xF70D), 3592(0x080E), 3609(0x190E), 3625(0x290E), 3641(0x390E), 3657(0x490E), 3673(0x590E), 3689(0x690E), 3704(0x780E), 3719(0x870E), 3734(0x960E), 3748(0xA40E), 3762(0xB20E), 3776(0xC00E), 3790(0xCE0E), 3803(0xDB0E), 3816(0xE80E), 3829(0xF50E), 3842(0x020F), 3854(0x0E0F), 3866(0x1A0F), 3878(0x260F), 3889(0x310F), 3900(0x3C0F), 3911(0x470F), 3921(0x510F), 3932(0x5C0F), 3942(0x660F), 3951(0x6F0F), Send (43:5.631): ;
+Příjem dat: 4
+Recieved (43:5.631): NEXT
+Příjem dat: 4
+Recieved (43:5.631): ACK
+Send (43:5.641): GEN_:DATA 
+18898944(0x00602001)
+Send (43:5.641): :
+3961(0x790F), 3970(0x820F), 3978(0x8A0F), 3987(0x930F), 3995(0x9B0F), 4003(0xA30F), 4010(0xAA0F), 4017(0xB10F), 4024(0xB80F), 4031(0xBF0F), 4037(0xC50F), 4043(0xCB0F), 4048(0xD00F), 4054(0xD60F), Příjem dat: 4
+4059(0xDB0F), Recieved (43:5.641): SMPL
+4063(0xDF0F), 4068(0xE40F), 4072(0xE80F), 4075(0xEB0F), 4079(0xEF0F), 4082(0xF20F), 4085(0xF50F), 4087(0xF70F), 4089(0xF90F), 4091(0xFB0F), 4092(0xFC0F), 4094(0xFE0F), 4094(0xFE0F), 4095(0xFF0F), 4095(0xFF0F), 4095(0xFF0F), 4094(0xFE0F), Send (43:5.641): ;
+Příjem dat: 4
+Recieved (43:5.641): NEXT
+Příjem dat: 4
+Recieved (43:5.641): ACK
+Send (43:5.661): GEN_:DATA 
+18907136(0x00802001)
+Send (43:5.661): :
+4094(0xFE0F), 4092(0xFC0F), 4091(0xFB0F), 4089(0xF90F), 4087(0xF70F), 4085(0xF50F), 4082(0xF20F), 4079(0xEF0F), 4075(0xEB0F), 4072(0xE80F), 4068(0xE40F), 4063(0xDF0F), 4059(0xDB0F), 4054(0xD60F), 4048(0xD00F), 4043(0xCB0F), 4037(0xC50F), 4031(0xBF0F), 4024(0xB80F), 4017(0xB10F), 4010(0xAA0F), 4003(0xA30F), 3995(0x9B0F), 3987(0x930F), 3978(0x8A0F), 3970(0x820F), 3961(0x790F), 3951(0x6F0F), 3942(0x660F), 3932(0x5C0F), 3921(0x510F), 3911(0x470F), Send (43:5.661): ;
+Příjem dat: 4
+Recieved (43:5.661): NEXT
+Příjem dat: 4
+Recieved (43:5.661): ACK
+Send (43:5.671): GEN_:DATA 
+18915328(0x00A02001)
+Send (43:5.671): :
+3900(0x3C0F), 3889(0x310F), 3878(0x260F), 3866(0x1A0F), 3854(0x0E0F), 3842(0x020F), 3829(0xF50E), 3816(0xE80E), 3803(0xDB0E), 3790(0xCE0E), 3776(0xC00E), 3762(0xB20E), 3748(0xA40E), 3734(0x960E), 3719(0x870E), 3704(0x780E), 3689(0x690E), 3673(0x590E), 3657(0x490E), 3641(0x390E), 3625(0x290E), 3609(0x190E), 3592(0x080E), 3575(0xF70D), 3558(0xE60D), 3540(0xD40D), 3522(0xC20D), 3504(0xB00D), 3486(0x9E0D), 3468(0x8C0D), 3449(0x790D), 3430(0x660D), Send (43:5.671): ;
+Příjem dat: 4
+Recieved (43:5.671): NEXT
+Příjem dat: 4
+Recieved (43:5.681): ACK
+Send (43:5.691): GEN_:DATA 
+18923520(0x00C02001)
+Send (43:5.691): :
+3411(0x530D), 3392(0x400D), 3372(0x2C0D), 3353(0x190D), 3333(0x050D), 3313(0xF10C), 3292(0xDC0C), 3272(0xC80C), 3251(0xB30C), 3230(0x9E0C), 3209(0x890C), 3188(0x740C), 3166(0x5E0C), 3145(0x490C), 3123(0x330C), 3101(0x1D0C), 3079(0x070C), 3056(0xF00B), 3034(0xDA0B), 3011(0xC30B), 2988(0xAC0B), 2966(0x960B), 2942(0x7E0B), 2919(0x670B), 2896(0x500B), 2872(0x380B), 2849(0x210B), 2825(0x090B), 2801(0xF10A), 2777(0xD90A), 2753(0xC10A), 2729(0xA90A), Send (43:5.691): ;
+Příjem dat: 4
+Recieved (43:5.691): NEXT
+Send (43:5.701): GEN_:DATA 
+18931712(0x00E02001)
+Příjem dat: 4
+Recieved (43:5.701): ACK
+Send (43:5.701): :
+2705(0x910A), 2680(0x780A), 2656(0x600A), 2631(0x470A), 2606(0x2E0A), 2582(0x160A), 2557(0xFD09), 2532(0xE409), 2507(0xCB09), 2482(0xB209), 2456(0x9809), 2431(0x7F09), 2406(0x6609), 2380(0x4C09), 2355(0x3309), 2330(0x1A09), 2304(0x0009), 2279(0xE708), 2253(0xCD08), 2227(0xB308), 2202(0x9A08), 2176(0x8008), 2150(0x6608), 2125(0x4D08), 2099(0x3308), 2073(0x1908), 2048(0x0008), 2022(0xE607), 1996(0xCC07), 1970(0xB207), 1945(0x9907), 1919(0x7F07), Send (43:5.701): ;
+Příjem dat: 4
+Recieved (43:5.701): NEXT
+Příjem dat: 4
+Recieved (43:5.711): ACK
+Send (43:5.721): GEN_:DATA 
+18874369(0x01002001)
+Send (43:5.721): :
+1893(0x6507), 1868(0x4C07), 1842(0x3207), 1816(0x1807), 1791(0xFF06), 1765(0xE506), 1740(0xCC06), 1715(0xB306), 1689(0x9906), 1664(0x8006), 1639(0x6706), 1613(0x4D06), 1588(0x3406), 1563(0x1B06), 1538(0x0206), 1513(0xE905), 1489(0xD105), 1464(0xB805), 1439(0x9F05), 1415(0x8705), 1390(0x6E05), 1366(0x5605), 1342(0x3E05), 1318(0x2605), 1294(0x0E05), 1270(0xF604), 1246(0xDE04), 1223(0xC704), 1199(0xAF04), 1176(0x9804), 1153(0x8104), 1129(0x6904), Send (43:5.721): ;
+Příjem dat: 4
+Recieved (43:5.721): NEXT
+Příjem dat: 4
+Recieved (43:5.731): ACK
+Send (43:5.741): GEN_:DATA 
+18882561(0x01202001)
+Send (43:5.741): :
+1107(0x5304), 1084(0x3C04), 1061(0x2504), 1039(0x0F04), 1016(0xF803), 0994(0xE203), 0972(0xCC03), 0950(0xB603), 0929(0xA103), 0907(0x8B03), 0886(0x7603), 0865(0x6103), 0844(0x4C03), 0823(0x3703), 0803(0x2303), 0782(0x0E03), 0762(0xFA02), 0742(0xE602), 0723(0xD302), 0703(0xBF02), 0684(0xAC02), 0665(0x9902), 0646(0x8602), 0627(0x7302), 0609(0x6102), 0591(0x4F02), 0573(0x3D02), 0555(0x2B02), 0537(0x1902), 0520(0x0802), 0503(0xF701), 0486(0xE601), Send (43:5.741): ;
+Příjem dat: 4
+Recieved (43:5.751): NEXT
+Send (43:5.751): GEN_:DATA 
+18890753(0x01402001)
+Send (43:5.751): :
+0470(0xD601), Příjem dat: 4
+Recieved (43:5.751): ACK
+0454(0xC601), 0438(0xB601), 0422(0xA601), 0406(0x9601), 0391(0x8701), 0376(0x7801), 0361(0x6901), 0347(0x5B01), 0333(0x4D01), 0319(0x3F01), 0305(0x3101), 0292(0x2401), 0279(0x1701), 0266(0x0A01), 0253(0xFD00), 0241(0xF100), 0229(0xE500), 0217(0xD900), 0206(0xCE00), 0195(0xC300), 0184(0xB800), 0174(0xAE00), 0163(0xA300), 0153(0x9900), 0144(0x9000), 0134(0x8600), 0125(0x7D00), 0117(0x7500), 0108(0x6C00), 0100(0x6400), 0092(0x5C00), Send (43:5.751): ;
+Příjem dat: 4
+Recieved (43:5.761): NEXT
+Příjem dat: 4
+Recieved (43:5.761): ACK
+Send (43:5.771): GEN_:DATA 
+18898945(0x01602001)
+Send (43:5.771): :
+0085(0x5500), 0078(0x4E00), 0071(0x4700), 0064(0x4000), 0058(0x3A00), 0052(0x3400), 0047(0x2F00), 0041(0x2900), 0036(0x2400), 0032(0x2000), 0027(0x1B00), 0023(0x1700), 0020(0x1400), 0016(0x1000), 0013(0x0D00), 0010(0x0A00), 0008(0x0800), 0006(0x0600), 0004(0x0400), 0003(0x0300), 0001(0x0100), 0001(0x0100), 0000(0x0000), 0000(0x0000), 0000(0x0000), 0001(0x0100), 0001(0x0100), 0003(0x0300), 0004(0x0400), 0006(0x0600), 0008(0x0800), 0010(0x0A00), Send (43:5.771): ;
+Příjem dat: 4
+Recieved (43:5.771): NEXT
+Send (43:5.781): GEN_:DATA 
+18907137(0x01802001)
+Send (43:5.781): :
+0013(0x0D00), 0016(0x1000), Příjem dat: 4
+Recieved (43:5.781): ACK
+0020(0x1400), 0023(0x1700), 0027(0x1B00), 0032(0x2000), 0036(0x2400), 0041(0x2900), 0047(0x2F00), 0052(0x3400), 0058(0x3A00), 0064(0x4000), 0071(0x4700), 0078(0x4E00), 0085(0x5500), 0092(0x5C00), 0100(0x6400), 0108(0x6C00), 0117(0x7500), 0125(0x7D00), 0134(0x8600), 0144(0x9000), 0153(0x9900), 0163(0xA300), 0174(0xAE00), 0184(0xB800), 0195(0xC300), 0206(0xCE00), 0217(0xD900), 0229(0xE500), 0241(0xF100), 0253(0xFD00), Send (43:5.781): ;
+Příjem dat: 4
+Recieved (43:5.781): NEXT
+Příjem dat: 4
+Recieved (43:5.781): ACK
+Send (43:5.801): GEN_:DATA 
+18915329(0x01A02001)
+Send (43:5.801): :
+0266(0x0A01), 0279(0x1701), 0292(0x2401), 0305(0x3101), 0319(0x3F01), 0333(0x4D01), 0347(0x5B01), 0361(0x6901), 0376(0x7801), 0391(0x8701), 0406(0x9601), 0422(0xA601), 0438(0xB601), 0454(0xC601), 0470(0xD601), 0486(0xE601), 0503(0xF701), 0520(0x0802), 0537(0x1902), 0555(0x2B02), 0573(0x3D02), 0591(0x4F02), 0609(0x6102), 0627(0x7302), 0646(0x8602), 0665(0x9902), 0684(0xAC02), 0703(0xBF02), 0723(0xD302), 0742(0xE602), 0762(0xFA02), 0782(0x0E03), Send (43:5.801): ;
+Příjem dat: 4
+Recieved (43:5.801): NEXT
+Příjem dat: 4
+Recieved (43:5.811): ACK
+Send (43:5.811): GEN_:DATA 
+18923521(0x01C02001)
+Send (43:5.811): :
+0803(0x2303), 0823(0x3703), 0844(0x4C03), 0865(0x6103), 0886(0x7603), 0907(0x8B03), 0929(0xA103), 0950(0xB603), 0972(0xCC03), 0994(0xE203), 1016(0xF803), 1039(0x0F04), 1061(0x2504), 1084(0x3C04), 1107(0x5304), 1129(0x6904), 1153(0x8104), 1176(0x9804), 1199(0xAF04), 1223(0xC704), 1246(0xDE04), 1270(0xF604), 1294(0x0E05), 1318(0x2605), 1342(0x3E05), 1366(0x5605), 1390(0x6E05), 1415(0x8705), 1439(0x9F05), 1464(0xB805), 1489(0xD105), 1513(0xE905), Send (43:5.811): ;
+Příjem dat: 4
+Recieved (43:5.821): NEXT
+Příjem dat: 4
+Recieved (43:5.821): ACK
+Send (43:5.831): GEN_:DATA 
+18145281(0x01E01401)
+Send (43:5.831): :
+1538(0x0206), 1563(0x1B06), 1588(0x3406), 1613(0x4D06), 1639(0x6706), 1664(0x8006), 1689(0x9906), 1715(0xB306), 1740(0xCC06), 1765(0xE506), 1791(0xFF06), 1816(0x1807), 1842(0x3207), 1868(0x4C07), 1893(0x6507), 1919(0x7F07), 1945(0x9907), 1970(0xB207), 1996(0xCC07), 2022(0xE607), Send (43:5.831): ;
+Příjem dat: 4
+Recieved (43:5.831): NEXT
+Příjem dat: 4
+Recieved (43:5.831): ACK
+Send (43:5.841): GEN_:DATA 
+35651584(0x00002002)
+Send (43:5.841): :
+4095(0xFF0F), 4095(0xFF0F), 4094(0xFE0F), 4094(0xFE0F), 4092(0xFC0F), 4091(0xFB0F), 4089(0xF90F), 4087(0xF70F), 4085(0xF50F), 4082(0xF20F), 4079(0xEF0F), 4075(0xEB0F), 4072(0xE80F), 4068(0xE40F), 4063(0xDF0F), 4059(0xDB0F), 4054(0xD60F), 4048(0xD00F), 4043(0xCB0F), 4037(0xC50F), 4031(0xBF0F), 4024(0xB80F), 4017(0xB10F), 4010(0xAA0F), 4003(0xA30F), 3995(0x9B0F), 3987(0x930F), 3978(0x8A0F), 3970(0x820F), 3961(0x790F), 3951(0x6F0F), 3942(0x660F), Send (43:5.841): ;
+Příjem dat: 4
+Recieved (43:5.841): NEXT
+Příjem dat: 4
+Recieved (43:5.851): ACK
+Send (43:5.861): GEN_:DATA 
+35659776(0x00202002)
+Send (43:5.861): :
+3932(0x5C0F), 3921(0x510F), 3911(0x470F), 3900(0x3C0F), 3889(0x310F), 3878(0x260F), 3866(0x1A0F), 3854(0x0E0F), 3842(0x020F), 3829(0xF50E), 3816(0xE80E), 3803(0xDB0E), 3790(0xCE0E), 3776(0xC00E), 3762(0xB20E), 3748(0xA40E), 3734(0x960E), 3719(0x870E), 3704(0x780E), 3689(0x690E), 3673(0x590E), 3657(0x490E), 3641(0x390E), 3625(0x290E), 3609(0x190E), 3592(0x080E), 3575(0xF70D), 3558(0xE60D), 3540(0xD40D), 3522(0xC20D), 3504(0xB00D), 3486(0x9E0D), Send (43:5.861): ;
+Příjem dat: 4
+Recieved (43:5.871): NEXT
+Příjem dat: 4
+Recieved (43:5.871): ACK
+Send (43:5.881): GEN_:DATA 
+35667968(0x00402002)
+Send (43:5.881): :
+3468(0x8C0D), 3449(0x790D), 3430(0x660D), 3411(0x530D), 3392(0x400D), 3372(0x2C0D), 3353(0x190D), 3333(0x050D), 3313(0xF10C), 3292(0xDC0C), 3272(0xC80C), 3251(0xB30C), 3230(0x9E0C), 3209(0x890C), 3188(0x740C), 3166(0x5E0C), 3145(0x490C), 3123(0x330C), 3101(0x1D0C), 3079(0x070C), 3056(0xF00B), 3034(0xDA0B), 3011(0xC30B), 2988(0xAC0B), 2966(0x960B), 2942(0x7E0B), 2919(0x670B), 2896(0x500B), 2872(0x380B), 2849(0x210B), 2825(0x090B), 2801(0xF10A), Send (43:5.881): ;
+Příjem dat: 4
+Recieved (43:5.891): NEXT
+Příjem dat: 4
+Recieved (43:5.891): ACK
+Send (43:5.911): GEN_:DATA 
+35676160(0x00602002)
+Send (43:5.911): :
+2777(0xD90A), 2753(0xC10A), 2729(0xA90A), 2705(0x910A), 2680(0x780A), 2656(0x600A), 2631(0x470A), 2606(0x2E0A), 2582(0x160A), 2557(0xFD09), 2532(0xE409), 2507(0xCB09), 2482(0xB209), 2456(0x9809), 2431(0x7F09), 2406(0x6609), 2380(0x4C09), 2355(0x3309), 2330(0x1A09), 2304(0x0009), 2279(0xE708), 2253(0xCD08), 2227(0xB308), 2202(0x9A08), 2176(0x8008), 2150(0x6608), 2125(0x4D08), 2099(0x3308), 2073(0x1908), 2048(0x0008), 2022(0xE607), 1996(0xCC07), Send (43:5.921): ;
+Příjem dat: 4
+Recieved (43:5.921): NEXT
+Příjem dat: 4
+Recieved (43:5.921): ACK
+Send (43:5.941): GEN_:DATA 
+35684352(0x00802002)
+Send (43:5.941): :
+1970(0xB207), 1945(0x9907), 1919(0x7F07), 1893(0x6507), 1868(0x4C07), 1842(0x3207), 1816(0x1807), 1791(0xFF06), 1765(0xE506), 1740(0xCC06), 1715(0xB306), 1689(0x9906), 1664(0x8006), 1639(0x6706), 1613(0x4D06), 1588(0x3406), 1563(0x1B06), 1538(0x0206), 1513(0xE905), 1489(0xD105), 1464(0xB805), 1439(0x9F05), 1415(0x8705), 1390(0x6E05), 1366(0x5605), 1342(0x3E05), 1318(0x2605), 1294(0x0E05), 1270(0xF604), 1246(0xDE04), 1223(0xC704), 1199(0xAF04), Send (43:5.951): ;
+Příjem dat: 4
+Recieved (43:5.951): NEXT
+Příjem dat: 4
+Recieved (43:5.951): ACK
+Send (43:5.971): GEN_:DATA 
+35692544(0x00A02002)
+Send (43:5.971): :
+1176(0x9804), 1153(0x8104), 1129(0x6904), 1107(0x5304), 1084(0x3C04), 1061(0x2504), 1039(0x0F04), 1016(0xF803), 0994(0xE203), 0972(0xCC03), 0950(0xB603), 0929(0xA103), 0907(0x8B03), 0886(0x7603), 0865(0x6103), 0844(0x4C03), 0823(0x3703), 0803(0x2303), 0782(0x0E03), 0762(0xFA02), 0742(0xE602), 0723(0xD302), 0703(0xBF02), 0684(0xAC02), 0665(0x9902), 0646(0x8602), 0627(0x7302), 0609(0x6102), 0591(0x4F02), 0573(0x3D02), 0555(0x2B02), 0537(0x1902), Send (43:5.981): ;
+Příjem dat: 4
+Recieved (43:5.981): NEXT
+Příjem dat: 4
+Recieved (43:5.981): ACK
+Příjem dat: 4
+Recieved (43:5.991): TRIG
+Send (43:6.1): GEN_:DATA 
+35700736(0x00C02002)
+Send (43:6.1): :
+0520(0x0802), 0503(0xF701), 0486(0xE601), 0470(0xD601), 0454(0xC601), 0438(0xB601), 0422(0xA601), 0406(0x9601), 0391(0x8701), 0376(0x7801), 0361(0x6901), 0347(0x5B01), 0333(0x4D01), 0319(0x3F01), 0305(0x3101), 0292(0x2401), 0279(0x1701), 0266(0x0A01), 0253(0xFD00), 0241(0xF100), 0229(0xE500), 0217(0xD900), 0206(0xCE00), 0195(0xC300), 0184(0xB800), 0174(0xAE00), 0163(0xA300), 0153(0x9900), 0144(0x9000), 0134(0x8600), 0125(0x7D00), 0117(0x7500), Send (43:6.1): ;
+Příjem dat: 4
+Recieved (43:6.11): NEXT
+Příjem dat: 4
+Recieved (43:6.11): ACK
+Send (43:6.21): GEN_:DATA 
+35708928(0x00E02002)
+Send (43:6.21): :
+0108(0x6C00), 0100(0x6400), 0092(0x5C00), 0085(0x5500), 0078(0x4E00), 0071(0x4700), 0064(0x4000), 0058(0x3A00), 0052(0x3400), 0047(0x2F00), 0041(0x2900), 0036(0x2400), 0032(0x2000), 0027(0x1B00), 0023(0x1700), 0020(0x1400), 0016(0x1000), 0013(0x0D00), 0010(0x0A00), 0008(0x0800), 0006(0x0600), 0004(0x0400), 0003(0x0300), 0001(0x0100), 0001(0x0100), 0000(0x0000), 0000(0x0000), 0000(0x0000), 0001(0x0100), 0001(0x0100), 0003(0x0300), 0004(0x0400), Send (43:6.31): ;
+Příjem dat: 4
+Recieved (43:6.31): NEXT
+Příjem dat: 4
+Recieved (43:6.31): ACK
+Příjem dat: 16
+Recieved (43:6.41): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:6.41): S_OK
+Send (43:6.51): GEN_:DATA 
+35651585(0x01002002)
+Send (43:6.51): :
+0006(0x0600), 0008(0x0800), 0010(0x0A00), 0013(0x0D00), 0016(0x1000), 0020(0x1400), 0023(0x1700), 0027(0x1B00), 0032(0x2000), 0036(0x2400), 0041(0x2900), 0047(0x2F00), 0052(0x3400), 0058(0x3A00), 0064(0x4000), 0071(0x4700), 0078(0x4E00), 0085(0x5500), 0092(0x5C00), 0100(0x6400), 0108(0x6C00), 0117(0x7500), 0125(0x7D00), 0134(0x8600), 0144(0x9000), 0153(0x9900), 0163(0xA300), 0174(0xAE00), 0184(0xB800), 0195(0xC300), 0206(0xCE00), 0217(0xD900), Send (43:6.51): ;
+Příjem dat: 8
+Recieved (43:6.61): NEXT
+Recieved (43:6.71): ACK
+Send (43:6.81): GEN_:DATA 
+35659777(0x01202002)
+Send (43:6.81): :
+0229(0xE500), 0241(0xF100), 0253(0xFD00), 0266(0x0A01), 0279(0x1701), 0292(0x2401), 0305(0x3101), 0319(0x3F01), 0333(0x4D01), 0347(0x5B01), 0361(0x6901), 0376(0x7801), 0391(0x8701), 0406(0x9601), 0422(0xA601), 0438(0xB601), 0454(0xC601), 0470(0xD601), 0486(0xE601), 0503(0xF701), 0520(0x0802), 0537(0x1902), 0555(0x2B02), 0573(0x3D02), 0591(0x4F02), 0609(0x6102), 0627(0x7302), 0646(0x8602), 0665(0x9902), 0684(0xAC02), 0703(0xBF02), 0723(0xD302), Send (43:6.81): ;
+Příjem dat: 4
+Recieved (43:6.81): NEXT
+Recieved (43:6.81): ACK
+Send (43:6.91): GEN_:DATA 
+35667969(0x01402002)
+Send (43:6.91): :
+0742(0xE602), 0762(0xFA02), 0782(0x0E03), 0803(0x2303), 0823(0x3703), 0844(0x4C03), 0865(0x6103), 0886(0x7603), 0907(0x8B03), 0929(0xA103), 0950(0xB603), 0972(0xCC03), 0994(0xE203), 1016(0xF803), 1039(0x0F04), 1061(0x2504), 1084(0x3C04), 1107(0x5304), 1129(0x6904), 1153(0x8104), 1176(0x9804), 1199(0xAF04), 1223(0xC704), 1246(0xDE04), 1270(0xF604), 1294(0x0E05), 1318(0x2605), 1342(0x3E05), 1366(0x5605), 1390(0x6E05), 1415(0x8705), 1439(0x9F05), Send (43:6.91): ;
+Příjem dat: 4
+Recieved (43:6.91): NEXT
+Recieved (43:6.91): ACK
+Send (43:6.111): GEN_:DATA 
+35676161(0x01602002)
+Send (43:6.111): :
+1464(0xB805), 1489(0xD105), 1513(0xE905), 1538(0x0206), 1563(0x1B06), 1588(0x3406), 1613(0x4D06), 1639(0x6706), 1664(0x8006), 1689(0x9906), 1715(0xB306), 1740(0xCC06), 1765(0xE506), 1791(0xFF06), 1816(0x1807), 1842(0x3207), 1868(0x4C07), 1893(0x6507), 1919(0x7F07), 1945(0x9907), 1970(0xB207), 1996(0xCC07), 2022(0xE607), 2047(0xFF07), 2073(0x1908), 2099(0x3308), 2125(0x4D08), 2150(0x6608), 2176(0x8008), 2202(0x9A08), 2227(0xB308), 2253(0xCD08), Send (43:6.111): ;
+Příjem dat: 4
+Recieved (43:6.111): NEXT
+Recieved (43:6.111): ACK
+Send (43:6.121): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:6.121): ACK
+Send (43:6.131): GEN_:DATA 
+35684353(0x01802002)
+Send (43:6.131): :
+2279(0xE708), 2304(0x0009), 2330(0x1A09), 2355(0x3309), 2380(0x4C09), 2406(0x6609), 2431(0x7F09), 2456(0x9809), 2482(0xB209), 2507(0xCB09), 2532(0xE409), 2557(0xFD09), 2582(0x160A), 2606(0x2E0A), 2631(0x470A), 2656(0x600A), 2680(0x780A), 2705(0x910A), 2729(0xA90A), 2753(0xC10A), 2777(0xD90A), 2801(0xF10A), 2825(0x090B), 2849(0x210B), 2872(0x380B), 2896(0x500B), 2919(0x670B), 2942(0x7E0B), 2966(0x960B), 2988(0xAC0B), 3011(0xC30B), 3034(0xDA0B), Send (43:6.131): ;
+Příjem dat: 4
+Recieved (43:6.131): NEXT
+Příjem dat: 4
+Recieved (43:6.131): ACK
+Send (43:6.141): GEN_:DATA 
+35692545(0x01A02002)
+Send (43:6.141): :
+3056(0xF00B), 3079(0x070C), 3101(0x1D0C), 3123(0x330C), 3145(0x490C), 3166(0x5E0C), 3188(0x740C), 3209(0x890C), 3230(0x9E0C), 3251(0xB30C), 3272(0xC80C), 3292(0xDC0C), 3313(0xF10C), 3333(0x050D), 3353(0x190D), 3372(0x2C0D), 3392(0x400D), 3411(0x530D), 3430(0x660D), 3449(0x790D), 3468(0x8C0D), 3486(0x9E0D), 3504(0xB00D), 3522(0xC20D), 3540(0xD40D), 3558(0xE60D), 3575(0xF70D), 3592(0x080E), 3609(0x190E), 3625(0x290E), 3641(0x390E), 3657(0x490E), Send (43:6.141): ;
+Příjem dat: 4
+Recieved (43:6.151): NEXT
+Příjem dat: 4
+Recieved (43:6.151): ACK
+Send (43:6.161): GEN_:DATA 
+35700737(0x01C02002)
+Send (43:6.161): :
+3673(0x590E), 3689(0x690E), 3704(0x780E), 3719(0x870E), 3734(0x960E), 3748(0xA40E), 3762(0xB20E), 3776(0xC00E), 3790(0xCE0E), 3803(0xDB0E), 3816(0xE80E), 3829(0xF50E), 3842(0x020F), 3854(0x0E0F), 3866(0x1A0F), 3878(0x260F), 3889(0x310F), 3900(0x3C0F), 3911(0x470F), 3921(0x510F), 3932(0x5C0F), 3942(0x660F), 3951(0x6F0F), 3961(0x790F), 3970(0x820F), 3978(0x8A0F), 3987(0x930F), 3995(0x9B0F), 4003(0xA30F), 4010(0xAA0F), 4017(0xB10F), 4024(0xB80F), Send (43:6.161): ;
+Příjem dat: 4
+Recieved (43:6.171): NEXT
+Recieved (43:6.171): ACK
+Send (43:6.171): GEN_:DATA 
+34922497(0x01E01402)
+Send (43:6.171): :
+4031(0xBF0F), 4037(0xC50F), Recieved (43:6.171): SMPL
+4043(0xCB0F), 4048(0xD00F), 4054(0xD60F), 4059(0xDB0F), 4063(0xDF0F), 4068(0xE40F), 4072(0xE80F), 4075(0xEB0F), 4079(0xEF0F), 4082(0xF20F), 4085(0xF50F), 4087(0xF70F), 4089(0xF90F), 4091(0xFB0F), 4092(0xFC0F), 4094(0xFE0F), 4094(0xFE0F), 4095(0xFF0F), Send (43:6.171): ;
+Příjem dat: 4
+Recieved (43:6.181): NEXT
+Příjem dat: 4
+Recieved (43:6.181): ACK
+Send (43:6.191): GEN_:FRQ?;
+Příjem dat: 12
+Recieved (43:6.191): FRQ?CH_ CH80
+Příjem dat: 12
+Recieved (43:6.191): FRQ?CH_ CH80
+Příjem dat: 4
+Recieved (43:6.191): ACK
+Send (43:6.201): GEN_:STRT;
+Příjem dat: 4
+Recieved (43:6.201): OK
+Příjem dat: 4
+Recieved (43:6.201): TRIG
+Příjem dat: 4
+Recieved (43:6.201): ACK
+Příjem dat: 220
+Recieved (43:6.251): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:6.251): S_OK
+Send (43:6.321): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:6.321): ACK
+Příjem dat: 4
+Recieved (43:6.371): SMPL
+Příjem dat: 4
+Recieved (43:6.371): TRIG
+Send (43:6.411): GEN_:FREQ 
+12800001(0x0150C300)
+Send (43:6.411): ;
+Send (43:6.411): GEN_:FREQ 
+12800002(0x0250C300)
+Send (43:6.411): ;
+Send (43:6.411): GEN_:FRQ?;
+Příjem dat: 4
+Recieved (43:6.411): ACK
+Příjem dat: 4
+Recieved (43:6.411): ACK
+Příjem dat: 12
+Recieved (43:6.411): FRQ?CH_ CH80
+Příjem dat: 16
+Recieved (43:6.421): FRQ?CH_ CH80
+Recieved (43:6.421): ACK
+Recieved (43:6.421): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:6.421): S_OK
+Send (43:6.501): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:6.501): ACK
+Příjem dat: 4
+Recieved (43:6.551): SMPL
+Příjem dat: 4
+Recieved (43:6.551): TRIG
+Příjem dat: 16
+Recieved (43:6.601): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:6.601): S_OK
+Send (43:6.661): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:6.661): ACK
+Příjem dat: 4
+Recieved (43:6.711): SMPL
+Recieved (43:6.711): TRIG
+Příjem dat: 16
+Recieved (43:6.761): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:6.761): S_OK
+Send (43:6.831): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:6.831): ACK
+Příjem dat: 4
+Recieved (43:6.881): SMPL
+Příjem dat: 4
+Recieved (43:6.881): TRIG
+Příjem dat: 16
+Recieved (43:6.931): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:6.931): S_OK
+Send (43:7.1): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.1): ACK
+Příjem dat: 4
+Recieved (43:7.51): SMPL
+Příjem dat: 4
+Recieved (43:7.51): TRIG
+Příjem dat: 16
+Recieved (43:7.101): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:7.101): S_OK
+Send (43:7.171): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.171): ACK
+Příjem dat: 4
+Recieved (43:7.221): SMPL
+Příjem dat: 4
+Recieved (43:7.221): TRIG
+Příjem dat: 16
+Recieved (43:7.271): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:7.271): S_OK
+Send (43:7.331): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.331): ACK
+Příjem dat: 4
+Recieved (43:7.381): SMPL
+Příjem dat: 4
+Recieved (43:7.381): TRIG
+Příjem dat: 16
+Recieved (43:7.431): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:7.431): S_OK
+Send (43:7.501): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.501): ACK
+Příjem dat: 4
+Recieved (43:7.551): SMPL
+Příjem dat: 4
+Recieved (43:7.551): TRIG
+Příjem dat: 16
+Recieved (43:7.601): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:7.601): S_OK
+Send (43:7.661): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.661): ACK
+Příjem dat: 4
+Recieved (43:7.711): SMPL
+Příjem dat: 4
+Recieved (43:7.711): TRIG
+Příjem dat: 16
+Recieved (43:7.761): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:7.761): S_OK
+Send (43:7.831): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:7.831): ACK
+Příjem dat: 4
+Recieved (43:7.881): SMPL
+Příjem dat: 4
+Recieved (43:7.881): TRIG
+Příjem dat: 16
+Recieved (43:7.931): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:7.931): S_OK
+Příjem dat: 0
+Send (43:8.11): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:8.11): ACK
+Příjem dat: 4
+Recieved (43:8.61): SMPL
+Příjem dat: 4
+Recieved (43:8.61): TRIG
+Příjem dat: 220
+Recieved (43:8.111): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:8.111): S_OK
+Send (43:8.181): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:8.181): ACK
+Příjem dat: 4
+Recieved (43:8.231): SMPL
+Příjem dat: 4
+Recieved (43:8.231): TRIG
+Příjem dat: 16
+Recieved (43:8.281): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:8.281): S_OK
+Příjem dat: 0
+Send (43:8.351): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:8.351): ACK
+Příjem dat: 4
+Recieved (43:8.401): SMPL
+Příjem dat: 4
+Recieved (43:8.401): TRIG
+Příjem dat: 16
+Recieved (43:8.451): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:8.451): S_OK
+Příjem dat: 4
+Send (43:8.531): OSCP:NEXT;
+Recieved (43:8.531): ACK
+Příjem dat: 4
+Recieved (43:8.581): SMPL
+Příjem dat: 4
+Recieved (43:8.581): TRIG
+Příjem dat: 16
+Recieved (43:8.631): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:8.631): S_OK
+Příjem dat: 0
+Send (43:8.701): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:8.701): ACK
+Příjem dat: 4
+Recieved (43:8.751): SMPL
+Příjem dat: 4
+Recieved (43:8.751): TRIG
+Příjem dat: 16
+Recieved (43:8.801): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:8.801): S_OK
+Send (43:8.873): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:8.873): ACK
+Příjem dat: 4
+Recieved (43:8.923): SMPL
+Příjem dat: 4
+Recieved (43:8.933): TRIG
+Příjem dat: 16
+Recieved (43:8.983): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:8.983): S_OK
+Send (43:9.53): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.53): ACK
+Příjem dat: 4
+Recieved (43:9.103): SMPL
+Příjem dat: 4
+Recieved (43:9.113): TRIG
+Příjem dat: 16
+Recieved (43:9.163): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:9.163): S_OK
+Send (43:9.223): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.223): ACK
+Příjem dat: 8
+Recieved (43:9.302): SMPL
+Recieved (43:9.302): TRIG
+Příjem dat: 16
+Recieved (43:9.333): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:9.356): S_OK
+Send (43:9.425): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.425): ACK
+Příjem dat: 4
+Recieved (43:9.475): SMPL
+Příjem dat: 4
+Recieved (43:9.475): TRIG
+Příjem dat: 16
+Recieved (43:9.525): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:9.525): S_OK
+Send (43:9.605): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.605): ACK
+Příjem dat: 4
+Recieved (43:9.655): SMPL
+Příjem dat: 4
+Recieved (43:9.655): TRIG
+Příjem dat: 16
+Recieved (43:9.705): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:9.705): S_OK
+Send (43:9.775): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.775): ACK
+Příjem dat: 4
+Recieved (43:9.825): SMPL
+Příjem dat: 4
+Recieved (43:9.825): TRIG
+Příjem dat: 16
+Recieved (43:9.875): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:9.875): S_OK
+Send (43:9.945): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:9.945): ACK
+Příjem dat: 4
+Recieved (43:9.995): SMPL
+Příjem dat: 4
+Recieved (43:9.995): TRIG
+Příjem dat: 16
+Recieved (43:10.45): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:10.55): S_OK
+Příjem dat: 0
+Send (43:10.115): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.115): ACK
+Příjem dat: 4
+Recieved (43:10.165): SMPL
+Příjem dat: 4
+Recieved (43:10.165): TRIG
+Příjem dat: 16
+Recieved (43:10.215): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:10.215): S_OK
+Send (43:10.275): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.275): ACK
+Příjem dat: 4
+Recieved (43:10.325): SMPL
+Příjem dat: 4
+Recieved (43:10.325): TRIG
+Příjem dat: 16
+Recieved (43:10.375): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:10.375): S_OK
+Send (43:10.445): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.445): ACK
+Příjem dat: 4
+Recieved (43:10.495): SMPL
+Příjem dat: 4
+Recieved (43:10.495): TRIG
+Příjem dat: 16
+Recieved (43:10.545): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:10.545): S_OK
+Send (43:10.605): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.605): ACK
+Příjem dat: 4
+Recieved (43:10.655): SMPL
+Příjem dat: 4
+Recieved (43:10.655): TRIG
+Příjem dat: 16
+Recieved (43:10.705): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:10.705): S_OK
+Send (43:10.775): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.775): ACK
+Příjem dat: 4
+Recieved (43:10.825): SMPL
+Příjem dat: 4
+Recieved (43:10.825): TRIG
+Příjem dat: 16
+Recieved (43:10.875): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:10.875): S_OK
+Send (43:10.935): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:10.935): ACK
+Příjem dat: 4
+Recieved (43:10.985): SMPL
+Příjem dat: 4
+Recieved (43:10.985): TRIG
+Příjem dat: 16
+Recieved (43:11.35): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:11.35): S_OK
+Send (43:11.105): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.105): ACK
+Příjem dat: 4
+Recieved (43:11.155): SMPL
+Příjem dat: 4
+Recieved (43:11.155): TRIG
+Příjem dat: 16
+Recieved (43:11.205): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Recieved (43:11.205): S_OK
+Send (43:11.265): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.265): ACK
+Příjem dat: 4
+Recieved (43:11.315): SMPL
+Příjem dat: 4
+Recieved (43:11.315): TRIG
+Příjem dat: 16
+Recieved (43:11.365): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:11.365): S_OK
+Send (43:11.455): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.455): ACK
+Příjem dat: 4
+Recieved (43:11.505): SMPL
+Příjem dat: 4
+Recieved (43:11.505): TRIG
+Příjem dat: 16
+Recieved (43:11.555): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 1 of 1
+Příjem dat: 4
+Recieved (43:11.555): S_OK
+Send (43:11.625): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.625): ACK
+Příjem dat: 4
+Recieved (43:11.675): SMPL
+Příjem dat: 4
+Recieved (43:11.675): TRIG
+Send (43:11.685): OSCP:CHAN 2CH_;
+Příjem dat: 16
+Recieved (43:11.695): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:11.695): S_OK
+Recieved (43:11.695): ACK
+Příjem dat: 0
+Send (43:11.775): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.775): ACK
+Příjem dat: 4
+Recieved (43:11.825): SMPL
+Příjem dat: 4
+Recieved (43:11.825): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:11.875): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:11.875): S_OK
+Příjem dat: 0
+Send (43:11.945): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:11.945): ACK
+Příjem dat: 4
+Recieved (43:11.995): SMPL
+Příjem dat: 4
+Recieved (43:11.995): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:12.45): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:12.45): S_OK
+Send (43:12.115): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.115): ACK
+Příjem dat: 4
+Recieved (43:12.165): SMPL
+Příjem dat: 4
+Recieved (43:12.165): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:12.215): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:12.215): S_OK
+Send (43:12.275): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.275): ACK
+Příjem dat: 4
+Recieved (43:12.325): SMPL
+Příjem dat: 4
+Recieved (43:12.325): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:12.375): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:12.375): S_OK
+Send (43:12.435): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.435): ACK
+Příjem dat: 4
+Recieved (43:12.485): SMPL
+Příjem dat: 4
+Recieved (43:12.485): TRIG
+Příjem dat: 232
+Recieved (43:12.535): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:12.535): S_OK
+Send (43:12.605): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.605): ACK
+Příjem dat: 4
+Recieved (43:12.655): SMPL
+Příjem dat: 4
+Recieved (43:12.655): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:12.705): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:12.705): S_OK
+Příjem dat: 0
+Send (43:12.795): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.795): ACK
+Příjem dat: 4
+Recieved (43:12.845): SMPL
+Příjem dat: 4
+Recieved (43:12.845): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:12.895): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:12.895): S_OK
+Příjem dat: 0
+Send (43:12.965): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:12.965): ACK
+Příjem dat: 4
+Recieved (43:13.15): SMPL
+Příjem dat: 4
+Recieved (43:13.15): TRIG
+Příjem dat: 436
+Recieved (43:13.75): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:13.75): S_OK
+Příjem dat: 0
+Send (43:13.155): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.155): ACK
+Příjem dat: 4
+Recieved (43:13.205): SMPL
+Příjem dat: 4
+Recieved (43:13.205): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:13.255): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:13.255): S_OK
+Send (43:13.325): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.325): ACK
+Příjem dat: 4
+Recieved (43:13.375): SMPL
+Příjem dat: 4
+Recieved (43:13.375): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:13.425): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:13.425): S_OK
+Příjem dat: 0
+Send (43:13.515): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.515): ACK
+Příjem dat: 4
+Recieved (43:13.565): SMPL
+Příjem dat: 4
+Recieved (43:13.565): TRIG
+Příjem dat: 16
+Recieved (43:13.625): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:13.625): S_OK
+Send (43:13.675): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.675): ACK
+Příjem dat: 4
+Recieved (43:13.725): SMPL
+Příjem dat: 4
+Recieved (43:13.725): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:13.775): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:13.775): S_OK
+Send (43:13.835): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.835): ACK
+Příjem dat: 4
+Recieved (43:13.885): SMPL
+Příjem dat: 4
+Recieved (43:13.885): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:13.935): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:13.935): S_OK
+Send (43:13.995): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:13.995): ACK
+Příjem dat: 4
+Recieved (43:14.45): SMPL
+Příjem dat: 4
+Recieved (43:14.45): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:14.95): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:14.95): S_OK
+Send (43:14.185): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:14.185): ACK
+Příjem dat: 4
+Recieved (43:14.235): SMPL
+Příjem dat: 4
+Recieved (43:14.235): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:14.285): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:14.285): S_OK
+Příjem dat: 0
+Příjem dat: 4
+Send (43:14.355): OSCP:NEXT;
+Recieved (43:14.355): ACK
+Příjem dat: 4
+Recieved (43:14.405): SMPL
+Příjem dat: 4
+Recieved (43:14.405): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:14.455): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:14.455): S_OK
+Send (43:14.525): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:14.525): ACK
+Příjem dat: 4
+Recieved (43:14.575): SMPL
+Příjem dat: 4
+Recieved (43:14.575): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:14.625): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:14.625): S_OK
+Send (43:14.705): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:14.705): ACK
+Příjem dat: 4
+Recieved (43:14.755): SMPL
+Příjem dat: 4
+Recieved (43:14.755): TRIG
+Příjem dat: 16
+Recieved (43:14.805): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:14.805): S_OK
+Send (43:14.875): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:14.875): ACK
+Příjem dat: 4
+Recieved (43:14.925): SMPL
+Příjem dat: 4
+Recieved (43:14.925): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:14.985): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:14.985): S_OK
+Příjem dat: 0
+Send (43:15.45): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.45): ACK
+Příjem dat: 4
+Recieved (43:15.95): SMPL
+Příjem dat: 4
+Recieved (43:15.95): TRIG
+Příjem dat: 436
+Recieved (43:15.155): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:15.155): S_OK
+Send (43:15.245): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.245): ACK
+Příjem dat: 4
+Recieved (43:15.295): SMPL
+Příjem dat: 4
+Recieved (43:15.295): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:15.345): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:15.345): S_OK
+Send (43:15.425): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.425): ACK
+Příjem dat: 4
+Recieved (43:15.475): SMPL
+Příjem dat: 4
+Recieved (43:15.475): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:15.525): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:15.525): S_OK
+Send (43:15.585): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.585): ACK
+Příjem dat: 4
+Recieved (43:15.635): SMPL
+Příjem dat: 4
+Recieved (43:15.635): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:15.685): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:15.685): S_OK
+Send (43:15.765): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.765): ACK
+Příjem dat: 8
+Recieved (43:15.835): SMPL
+Send (43:15.835): OSCP:FREQ 2K__;
+Recieved (43:15.835): TRIG
+Příjem dat: 4
+Recieved (43:15.835): ACK
+Příjem dat: 4
+Recieved (43:15.865): SMPL
+Příjem dat: 4
+Recieved (43:15.865): TRIG
+Příjem dat: 16
+Recieved (43:15.895): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:15.895): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:15.965): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:15.965): ACK
+Příjem dat: 4
+Recieved (43:15.985): SMPL
+Příjem dat: 4
+Recieved (43:15.985): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:16.15): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:16.15): S_OK
+Send (43:16.85): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.85): ACK
+Příjem dat: 4
+Recieved (43:16.105): SMPL
+Příjem dat: 4
+Recieved (43:16.105): TRIG
+Příjem dat: 16
+Recieved (43:16.145): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.145): S_OK
+Send (43:16.195): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.195): ACK
+Příjem dat: 4
+Recieved (43:16.215): SMPL
+Příjem dat: 4
+Recieved (43:16.215): TRIG
+Příjem dat: 436
+Recieved (43:16.265): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.265): S_OK
+Příjem dat: 0
+Send (43:16.325): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.325): ACK
+Příjem dat: 4
+Recieved (43:16.345): SMPL
+Příjem dat: 4
+Recieved (43:16.345): TRIG
+Příjem dat: 16
+Recieved (43:16.385): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.385): S_OK
+Send (43:16.467): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.467): ACK
+Příjem dat: 4
+Recieved (43:16.497): SMPL
+Příjem dat: 4
+Recieved (43:16.497): TRIG
+Příjem dat: 16
+Recieved (43:16.527): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.527): S_OK
+Příjem dat: 0
+Send (43:16.607): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.607): ACK
+Příjem dat: 4
+Recieved (43:16.637): SMPL
+Příjem dat: 4
+Recieved (43:16.637): TRIG
+Příjem dat: 16
+Recieved (43:16.667): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.667): S_OK
+Send (43:16.737): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.737): ACK
+Příjem dat: 4
+Recieved (43:16.767): SMPL
+Příjem dat: 4
+Recieved (43:16.767): TRIG
+Příjem dat: 436
+Recieved (43:16.797): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.797): S_OK
+Send (43:16.837): OSCP:FREQ 5K__;
+Příjem dat: 4
+Recieved (43:16.837): ACK
+Send (43:16.867): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.867): ACK
+Příjem dat: 4
+Recieved (43:16.877): SMPL
+Příjem dat: 4
+Recieved (43:16.877): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:16.887): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.887): S_OK
+Send (43:16.967): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:16.967): ACK
+Příjem dat: 4
+Recieved (43:16.977): SMPL
+Příjem dat: 4
+Recieved (43:16.977): TRIG
+Příjem dat: 16
+Recieved (43:16.987): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:16.987): S_OK
+Send (43:17.57): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.57): ACK
+Příjem dat: 4
+Recieved (43:17.67): SMPL
+Příjem dat: 4
+Recieved (43:17.67): TRIG
+Příjem dat: 216
+Recieved (43:17.87): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.87): S_OK
+Příjem dat: 0
+Send (43:17.159): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.159): ACK
+Příjem dat: 4
+Recieved (43:17.169): SMPL
+Příjem dat: 4
+Recieved (43:17.169): TRIG
+Příjem dat: 16
+Recieved (43:17.179): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.179): S_OK
+Send (43:17.279): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.279): ACK
+Příjem dat: 4
+Recieved (43:17.289): SMPL
+Příjem dat: 4
+Recieved (43:17.289): TRIG
+Příjem dat: 436
+Recieved (43:17.319): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.319): S_OK
+Příjem dat: 0
+Send (43:17.391): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.391): ACK
+Příjem dat: 4
+Recieved (43:17.401): SMPL
+Příjem dat: 4
+Recieved (43:17.401): TRIG
+Příjem dat: 232
+Recieved (43:17.411): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.421): S_OK
+Příjem dat: 0
+Send (43:17.501): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.501): ACK
+Příjem dat: 4
+Recieved (43:17.511): SMPL
+Příjem dat: 4
+Recieved (43:17.511): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:17.521): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:17.521): S_OK
+Send (43:17.611): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.611): ACK
+Příjem dat: 4
+Recieved (43:17.621): SMPL
+Příjem dat: 4
+Recieved (43:17.621): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:17.631): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.631): S_OK
+Send (43:17.721): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.721): ACK
+Příjem dat: 4
+Recieved (43:17.731): SMPL
+Příjem dat: 4
+Recieved (43:17.731): TRIG
+Příjem dat: 16
+Recieved (43:17.741): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:17.741): S_OK
+Příjem dat: 0
+Send (43:17.841): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.841): ACK
+Příjem dat: 4
+Recieved (43:17.851): SMPL
+Příjem dat: 4
+Recieved (43:17.851): TRIG
+Příjem dat: 16
+Recieved (43:17.861): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:17.861): S_OK
+Send (43:17.941): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:17.941): ACK
+Příjem dat: 4
+Recieved (43:17.951): SMPL
+Příjem dat: 4
+Recieved (43:17.951): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:17.961): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:17.961): S_OK
+Příjem dat: 0
+Send (43:18.31): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.31): ACK
+Příjem dat: 4
+Recieved (43:18.41): SMPL
+Příjem dat: 4
+Recieved (43:18.41): TRIG
+Příjem dat: 16
+Recieved (43:18.51): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.51): S_OK
+Send (43:18.141): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.141): ACK
+Příjem dat: 4
+Recieved (43:18.151): SMPL
+Příjem dat: 4
+Recieved (43:18.151): TRIG
+Příjem dat: 16
+Recieved (43:18.161): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.161): S_OK
+Send (43:18.241): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.241): ACK
+Příjem dat: 4
+Recieved (43:18.251): SMPL
+Příjem dat: 4
+Recieved (43:18.251): TRIG
+Příjem dat: 436
+Recieved (43:18.261): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.261): S_OK
+Příjem dat: 0
+Send (43:18.351): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.351): ACK
+Příjem dat: 4
+Recieved (43:18.361): SMPL
+Příjem dat: 4
+Recieved (43:18.361): TRIG
+Příjem dat: 436
+Recieved (43:18.391): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.391): S_OK
+Příjem dat: 0
+Send (43:18.451): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.451): ACK
+Příjem dat: 4
+Recieved (43:18.461): SMPL
+Příjem dat: 4
+Recieved (43:18.461): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:18.471): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.471): S_OK
+Send (43:18.531): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.531): ACK
+Příjem dat: 4
+Recieved (43:18.541): SMPL
+Příjem dat: 4
+Recieved (43:18.541): TRIG
+Příjem dat: 16
+Recieved (43:18.551): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:18.551): S_OK
+Příjem dat: 0
+Send (43:18.651): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.651): ACK
+Příjem dat: 4
+Recieved (43:18.661): SMPL
+Příjem dat: 4
+Recieved (43:18.661): TRIG
+Příjem dat: 16
+Recieved (43:18.671): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.671): S_OK
+Send (43:18.751): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.751): ACK
+Příjem dat: 4
+Recieved (43:18.761): SMPL
+Příjem dat: 4
+Recieved (43:18.761): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:18.771): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.771): S_OK
+Send (43:18.861): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.861): ACK
+Příjem dat: 4
+Recieved (43:18.871): SMPL
+Příjem dat: 4
+Recieved (43:18.871): TRIG
+Příjem dat: 16
+Recieved (43:18.881): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:18.881): S_OK
+Send (43:18.991): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:18.992): ACK
+Příjem dat: 4
+Recieved (43:18.993): SMPL
+Příjem dat: 4
+Recieved (43:18.993): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:19.13): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:19.13): S_OK
+Send (43:19.83): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.83): ACK
+Příjem dat: 4
+Recieved (43:19.93): SMPL
+Příjem dat: 4
+Recieved (43:19.93): TRIG
+Příjem dat: 16
+Recieved (43:19.113): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.113): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:19.193): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.193): ACK
+Příjem dat: 4
+Recieved (43:19.203): SMPL
+Příjem dat: 4
+Recieved (43:19.203): TRIG
+Příjem dat: 16
+Recieved (43:19.223): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.223): S_OK
+Příjem dat: 0
+Send (43:19.293): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.293): ACK
+Příjem dat: 4
+Recieved (43:19.303): SMPL
+Příjem dat: 4
+Recieved (43:19.303): TRIG
+Příjem dat: 16
+Recieved (43:19.323): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.323): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:19.403): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.403): ACK
+Příjem dat: 4
+Recieved (43:19.413): SMPL
+Příjem dat: 4
+Recieved (43:19.413): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:19.433): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.433): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:19.545): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.545): ACK
+Příjem dat: 4
+Recieved (43:19.555): SMPL
+Příjem dat: 4
+Recieved (43:19.555): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:19.565): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:19.565): S_OK
+Příjem dat: 0
+Send (43:19.635): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.635): ACK
+Příjem dat: 4
+Recieved (43:19.645): SMPL
+Příjem dat: 4
+Recieved (43:19.645): TRIG
+Příjem dat: 16
+Recieved (43:19.665): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.665): S_OK
+Send (43:19.735): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.735): ACK
+Příjem dat: 4
+Recieved (43:19.745): SMPL
+Příjem dat: 4
+Recieved (43:19.745): TRIG
+Příjem dat: 16
+Recieved (43:19.755): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:19.755): S_OK
+Send (43:19.855): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.855): ACK
+Příjem dat: 4
+Recieved (43:19.865): SMPL
+Příjem dat: 4
+Recieved (43:19.865): TRIG
+Příjem dat: 16
+Recieved (43:19.875): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:19.875): S_OK
+Příjem dat: 0
+Send (43:19.967): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:19.967): ACK
+Příjem dat: 4
+Recieved (43:19.977): SMPL
+Příjem dat: 4
+Recieved (43:19.977): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:19.987): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:19.987): S_OK
+Příjem dat: 0
+Send (43:20.57): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.57): ACK
+Příjem dat: 4
+Recieved (43:20.67): SMPL
+Příjem dat: 4
+Recieved (43:20.67): TRIG
+Příjem dat: 16
+Recieved (43:20.77): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:20.77): S_OK
+Příjem dat: 0
+Send (43:20.157): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.157): ACK
+Příjem dat: 4
+Recieved (43:20.167): SMPL
+Příjem dat: 4
+Recieved (43:20.167): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:20.177): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:20.177): S_OK
+Send (43:20.277): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.277): ACK
+Příjem dat: 4
+Recieved (43:20.287): SMPL
+Příjem dat: 4
+Recieved (43:20.287): TRIG
+Příjem dat: 16
+Recieved (43:20.297): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.297): S_OK
+Send (43:20.387): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.387): ACK
+Příjem dat: 4
+Recieved (43:20.397): SMPL
+Příjem dat: 4
+Recieved (43:20.397): TRIG
+Příjem dat: 16
+Recieved (43:20.407): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.407): S_OK
+Send (43:20.497): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.497): ACK
+Příjem dat: 4
+Recieved (43:20.507): SMPL
+Příjem dat: 4
+Recieved (43:20.507): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:20.517): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.517): S_OK
+Příjem dat: 4
+Recieved (43:20.607): ACK
+Send (43:20.607): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.617): SMPL
+Příjem dat: 4
+Recieved (43:20.617): TRIG
+Příjem dat: 16
+Recieved (43:20.627): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.627): S_OK
+Send (43:20.727): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.727): ACK
+Příjem dat: 4
+Recieved (43:20.737): SMPL
+Příjem dat: 4
+Recieved (43:20.737): TRIG
+Příjem dat: 16
+Recieved (43:20.747): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.747): S_OK
+Příjem dat: 0
+Send (43:20.827): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.827): ACK
+Příjem dat: 4
+Recieved (43:20.837): SMPL
+Příjem dat: 4
+Recieved (43:20.837): TRIG
+Příjem dat: 16
+Recieved (43:20.847): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:20.847): S_OK
+Send (43:20.949): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:20.949): ACK
+Příjem dat: 4
+Recieved (43:20.959): SMPL
+Příjem dat: 4
+Recieved (43:20.959): TRIG
+Příjem dat: 16
+Recieved (43:20.969): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:20.969): S_OK
+Příjem dat: 0
+Send (43:21.59): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.59): ACK
+Příjem dat: 4
+Recieved (43:21.69): SMPL
+Příjem dat: 4
+Recieved (43:21.69): TRIG
+Příjem dat: 16
+Recieved (43:21.79): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:21.79): S_OK
+Příjem dat: 0
+Send (43:21.169): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.169): ACK
+Příjem dat: 4
+Recieved (43:21.179): SMPL
+Příjem dat: 4
+Recieved (43:21.179): TRIG
+Příjem dat: 16
+Recieved (43:21.189): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:21.189): S_OK
+Send (43:21.289): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.289): ACK
+Příjem dat: 4
+Recieved (43:21.299): SMPL
+Příjem dat: 4
+Recieved (43:21.299): TRIG
+Příjem dat: 16
+Recieved (43:21.309): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:21.309): S_OK
+Příjem dat: 0
+Send (43:21.389): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.389): ACK
+Příjem dat: 4
+Recieved (43:21.399): SMPL
+Příjem dat: 4
+Recieved (43:21.399): TRIG
+Příjem dat: 16
+Recieved (43:21.409): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:21.409): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:21.509): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.509): ACK
+Příjem dat: 4
+Recieved (43:21.519): SMPL
+Příjem dat: 4
+Recieved (43:21.519): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:21.529): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:21.529): S_OK
+Příjem dat: 4
+Recieved (43:21.619): ACK
+Send (43:21.619): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.629): SMPL
+Příjem dat: 4
+Recieved (43:21.629): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:21.639): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:21.639): S_OK
+Send (43:21.739): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.739): ACK
+Příjem dat: 4
+Recieved (43:21.749): SMPL
+Příjem dat: 4
+Recieved (43:21.749): TRIG
+Příjem dat: 436
+Recieved (43:21.759): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:21.759): S_OK
+Send (43:21.839): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.839): ACK
+Příjem dat: 4
+Recieved (43:21.849): SMPL
+Příjem dat: 4
+Recieved (43:21.849): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:21.859): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:21.859): S_OK
+Příjem dat: 0
+Send (43:21.949): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:21.949): ACK
+Příjem dat: 4
+Recieved (43:21.959): SMPL
+Příjem dat: 4
+Recieved (43:21.959): TRIG
+Příjem dat: 16
+Recieved (43:21.969): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:21.969): S_OK
+Příjem dat: 0
+Send (43:22.81): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.81): ACK
+Příjem dat: 4
+Recieved (43:22.91): SMPL
+Příjem dat: 4
+Recieved (43:22.91): TRIG
+Příjem dat: 232
+Recieved (43:22.111): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:22.111): S_OK
+Příjem dat: 0
+Send (43:22.201): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.201): ACK
+Příjem dat: 4
+Recieved (43:22.211): SMPL
+Příjem dat: 4
+Recieved (43:22.211): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.221): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:22.221): S_OK
+Send (43:22.291): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.291): ACK
+Příjem dat: 4
+Recieved (43:22.301): SMPL
+Recieved (43:22.301): TRIG
+Příjem dat: 16
+Recieved (43:22.311): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:22.311): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:22.401): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.401): ACK
+Příjem dat: 4
+Recieved (43:22.411): SMPL
+Příjem dat: 4
+Recieved (43:22.411): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.421): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:22.421): S_OK
+Příjem dat: 0
+Send (43:22.521): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.521): ACK
+Příjem dat: 4
+Recieved (43:22.531): SMPL
+Příjem dat: 4
+Recieved (43:22.531): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.541): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:22.541): S_OK
+Send (43:22.621): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.621): ACK
+Příjem dat: 8
+Recieved (43:22.631): SMPL
+Recieved (43:22.631): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.641): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:22.641): S_OK
+Send (43:22.741): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.741): ACK
+Příjem dat: 4
+Recieved (43:22.751): SMPL
+Recieved (43:22.751): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.761): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:22.761): S_OK
+Send (43:22.851): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.851): ACK
+Příjem dat: 4
+Recieved (43:22.861): SMPL
+Příjem dat: 4
+Recieved (43:22.861): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:22.871): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:22.871): S_OK
+Send (43:22.951): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:22.951): ACK
+Příjem dat: 4
+Recieved (43:22.961): SMPL
+Příjem dat: 4
+Recieved (43:22.961): TRIG
+Příjem dat: 16
+Recieved (43:23.1): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.11): S_OK
+Send (43:23.81): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.81): ACK
+Příjem dat: 4
+Recieved (43:23.91): SMPL
+Recieved (43:23.91): TRIG
+Příjem dat: 16
+Recieved (43:23.101): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.101): S_OK
+Send (43:23.181): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.181): ACK
+Příjem dat: 4
+Recieved (43:23.191): SMPL
+Recieved (43:23.191): TRIG
+Příjem dat: 16
+Recieved (43:23.201): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.201): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:23.301): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.301): ACK
+Příjem dat: 4
+Recieved (43:23.311): SMPL
+Příjem dat: 4
+Recieved (43:23.311): TRIG
+Příjem dat: 16
+Recieved (43:23.341): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.341): S_OK
+Příjem dat: 0
+Send (43:23.401): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.401): ACK
+Příjem dat: 4
+Recieved (43:23.411): SMPL
+Recieved (43:23.411): TRIG
+Příjem dat: 16
+Recieved (43:23.421): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:23.421): S_OK
+Send (43:23.511): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.511): ACK
+Příjem dat: 4
+Recieved (43:23.521): SMPL
+Příjem dat: 4
+Recieved (43:23.521): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Příjem dat: 16
+Recieved (43:23.531): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:23.531): S_OK
+Send (43:23.601): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.601): ACK
+Příjem dat: 4
+Recieved (43:23.611): SMPL
+Recieved (43:23.611): TRIG
+Příjem dat: 16
+Recieved (43:23.621): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.621): S_OK
+Send (43:23.721): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.721): ACK
+Příjem dat: 4
+Recieved (43:23.731): SMPL
+Příjem dat: 4
+Recieved (43:23.731): TRIG
+Příjem dat: 16
+Recieved (43:23.741): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.741): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:23.821): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.821): ACK
+Příjem dat: 4
+Recieved (43:23.831): SMPL
+Příjem dat: 4
+Recieved (43:23.831): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:23.841): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:23.841): S_OK
+Send (43:23.911): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:23.911): ACK
+Příjem dat: 4
+Recieved (43:23.921): SMPL
+Recieved (43:23.921): TRIG
+Příjem dat: 16
+Recieved (43:23.931): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:23.941): S_OK
+Send (43:24.21): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.21): ACK
+Příjem dat: 4
+Recieved (43:24.31): SMPL
+Příjem dat: 4
+Recieved (43:24.31): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:24.41): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:24.41): S_OK
+Send (43:24.121): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.121): ACK
+Příjem dat: 4
+Recieved (43:24.131): SMPL
+Příjem dat: 4
+Recieved (43:24.131): TRIG
+Příjem dat: 16
+Recieved (43:24.141): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.141): S_OK
+Send (43:24.211): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.211): ACK
+Příjem dat: 4
+Recieved (43:24.221): SMPL
+Recieved (43:24.221): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:24.231): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.231): S_OK
+Send (43:24.321): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.321): ACK
+Příjem dat: 4
+Recieved (43:24.331): SMPL
+Příjem dat: 4
+Recieved (43:24.331): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:24.341): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:24.341): S_OK
+Send (43:24.411): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.411): ACK
+Příjem dat: 4
+Recieved (43:24.421): SMPL
+Příjem dat: 4
+Recieved (43:24.421): TRIG
+Příjem dat: 16
+Recieved (43:24.431): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.431): S_OK
+Příjem dat: 0
+Send (43:24.531): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.531): ACK
+Příjem dat: 4
+Recieved (43:24.541): SMPL
+Recieved (43:24.541): TRIG
+Příjem dat: 16
+Recieved (43:24.551): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.551): S_OK
+Příjem dat: 0
+Send (43:24.621): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.621): ACK
+Příjem dat: 4
+Recieved (43:24.631): SMPL
+Příjem dat: 4
+Recieved (43:24.631): TRIG
+Příjem dat: 16
+Recieved (43:24.641): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.641): S_OK
+Send (43:24.711): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.711): ACK
+Příjem dat: 4
+Recieved (43:24.721): SMPL
+Příjem dat: 4
+Recieved (43:24.721): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:24.731): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.731): S_OK
+Send (43:24.841): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.841): ACK
+Příjem dat: 4
+Recieved (43:24.851): SMPL
+Recieved (43:24.851): TRIG
+Příjem dat: 16
+Recieved (43:24.861): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.861): S_OK
+Příjem dat: 0
+Send (43:24.951): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:24.951): ACK
+Příjem dat: 4
+Recieved (43:24.961): SMPL
+Příjem dat: 4
+Recieved (43:24.961): TRIG
+Příjem dat: 16
+Recieved (43:24.971): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:24.971): S_OK
+Send (43:25.51): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.51): ACK
+Příjem dat: 4
+Recieved (43:25.61): SMPL
+Příjem dat: 4
+Recieved (43:25.61): TRIG
+Příjem dat: 16
+Recieved (43:25.71): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.71): S_OK
+Send (43:25.151): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.151): ACK
+Příjem dat: 4
+Recieved (43:25.161): SMPL
+Příjem dat: 4
+Recieved (43:25.161): TRIG
+Příjem dat: 16
+Recieved (43:25.171): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.181): S_OK
+Příjem dat: 0
+Send (43:25.251): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.251): ACK
+Příjem dat: 4
+Recieved (43:25.261): SMPL
+Recieved (43:25.261): TRIG
+Příjem dat: 16
+Recieved (43:25.271): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.281): S_OK
+Send (43:25.351): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.351): ACK
+Příjem dat: 4
+Recieved (43:25.361): SMPL
+Recieved (43:25.361): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:25.371): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.371): S_OK
+Send (43:25.461): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.461): ACK
+Příjem dat: 8
+Recieved (43:25.471): SMPL
+Recieved (43:25.471): TRIG
+Příjem dat: 16
+Recieved (43:25.481): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:25.481): S_OK
+Send (43:25.571): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.571): ACK
+Příjem dat: 4
+Recieved (43:25.581): SMPL
+Příjem dat: 4
+Recieved (43:25.581): TRIG
+Příjem dat: 16
+Recieved (43:25.591): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.591): S_OK
+Send (43:25.661): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.661): ACK
+Příjem dat: 4
+Recieved (43:25.671): SMPL
+Recieved (43:25.671): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:25.681): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:25.681): S_OK
+Příjem dat: 0
+Send (43:25.771): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.771): ACK
+Příjem dat: 4
+Recieved (43:25.781): SMPL
+Příjem dat: 4
+Recieved (43:25.781): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:25.791): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:25.791): S_OK
+Příjem dat: 0
+Send (43:25.861): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.861): ACK
+Příjem dat: 8
+Recieved (43:25.871): SMPL
+Recieved (43:25.871): TRIG
+Příjem dat: 436
+Recieved (43:25.901): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:25.901): S_OK
+Send (43:25.971): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:25.971): ACK
+Příjem dat: 4
+Recieved (43:25.981): SMPL
+Příjem dat: 4
+Recieved (43:25.981): TRIG
+Příjem dat: 216
+Recieved (43:25.991): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:25.991): S_OK
+Send (43:26.91): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.91): ACK
+Příjem dat: 4
+Recieved (43:26.101): SMPL
+Příjem dat: 4
+Recieved (43:26.101): TRIG
+Příjem dat: 16
+Recieved (43:26.111): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.111): S_OK
+Send (43:26.171): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.171): ACK
+Příjem dat: 4
+Recieved (43:26.181): SMPL
+Příjem dat: 4
+Recieved (43:26.181): TRIG
+Příjem dat: 16
+Recieved (43:26.211): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.211): S_OK
+Send (43:26.271): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.271): ACK
+Příjem dat: 4
+Recieved (43:26.281): SMPL
+Příjem dat: 4
+Recieved (43:26.281): TRIG
+Příjem dat: 16
+Recieved (43:26.291): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 0
+Recieved (43:26.291): S_OK
+Příjem dat: 0
+Send (43:26.393): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.393): ACK
+Příjem dat: 4
+Recieved (43:26.403): SMPL
+Příjem dat: 4
+Recieved (43:26.403): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:26.413): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:26.423): S_OK
+Příjem dat: 0
+Send (43:26.483): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.483): ACK
+Příjem dat: 4
+Recieved (43:26.493): SMPL
+Příjem dat: 4
+Recieved (43:26.493): TRIG
+Příjem dat: 16
+Recieved (43:26.513): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.513): S_OK
+Příjem dat: 0
+Příjem dat: 4
+Recieved (43:26.583): ACK
+Send (43:26.583): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.593): SMPL
+Příjem dat: 4
+Recieved (43:26.593): TRIG
+Příjem dat: 436
+Recieved (43:26.613): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.613): S_OK
+Příjem dat: 0
+Send (43:26.683): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.683): ACK
+Příjem dat: 4
+Recieved (43:26.693): SMPL
+Příjem dat: 4
+Recieved (43:26.693): TRIG
+Příjem dat: 16
+Recieved (43:26.723): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.723): S_OK
+Příjem dat: 0
+Send (43:26.783): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.783): ACK
+Příjem dat: 4
+Recieved (43:26.793): SMPL
+Příjem dat: 4
+Recieved (43:26.793): TRIG
+Příjem dat: 16
+Příjem dat: 0
+Recieved (43:26.803): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:26.813): S_OK
+Send (43:26.873): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.873): ACK
+Příjem dat: 4
+Recieved (43:26.883): SMPL
+Příjem dat: 4
+Recieved (43:26.883): TRIG
+Příjem dat: 216
+Recieved (43:26.913): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:26.913): S_OK
+Příjem dat: 0
+Send (43:26.993): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:26.993): ACK
+Příjem dat: 4
+Recieved (43:27.3): SMPL
+Příjem dat: 4
+Recieved (43:27.3): TRIG
+Příjem dat: 16
+Recieved (43:27.33): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.33): S_OK
+Příjem dat: 0
+Send (43:27.93): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.93): ACK
+Příjem dat: 4
+Recieved (43:27.103): SMPL
+Příjem dat: 4
+Recieved (43:27.103): TRIG
+Příjem dat: 16
+Recieved (43:27.123): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.123): S_OK
+Příjem dat: 0
+Send (43:27.173): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.173): ACK
+Příjem dat: 4
+Recieved (43:27.183): SMPL
+Příjem dat: 4
+Recieved (43:27.183): TRIG
+Příjem dat: 16
+Recieved (43:27.203): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.203): S_OK
+Příjem dat: 0
+Send (43:27.293): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.293): ACK
+Příjem dat: 4
+Recieved (43:27.303): SMPL
+Příjem dat: 4
+Recieved (43:27.303): TRIG
+Příjem dat: 16
+Recieved (43:27.333): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.333): S_OK
+Příjem dat: 0
+Send (43:27.393): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.393): ACK
+Příjem dat: 4
+Recieved (43:27.403): SMPL
+Příjem dat: 4
+Recieved (43:27.403): TRIG
+Příjem dat: 16
+Recieved (43:27.423): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.423): S_OK
+Send (43:27.503): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.503): ACK
+Příjem dat: 4
+Recieved (43:27.513): SMPL
+Příjem dat: 4
+Recieved (43:27.513): TRIG
+Příjem dat: 16
+Recieved (43:27.533): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.533): S_OK
+Send (43:27.623): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.623): ACK
+Příjem dat: 4
+Recieved (43:27.633): SMPL
+Příjem dat: 4
+Recieved (43:27.633): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:27.653): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.653): S_OK
+Příjem dat: 0
+Send (43:27.713): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.713): ACK
+Příjem dat: 4
+Recieved (43:27.723): SMPL
+Příjem dat: 4
+Recieved (43:27.723): TRIG
+Příjem dat: 16
+Recieved (43:27.753): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.753): S_OK
+Send (43:27.813): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.813): ACK
+Příjem dat: 4
+Recieved (43:27.823): SMPL
+Příjem dat: 4
+Recieved (43:27.823): TRIG
+Příjem dat: 16
+Recieved (43:27.843): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.843): S_OK
+Send (43:27.923): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:27.923): ACK
+Příjem dat: 4
+Recieved (43:27.933): SMPL
+Příjem dat: 4
+Recieved (43:27.933): TRIG
+Příjem dat: 16
+Recieved (43:27.953): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:27.953): S_OK
+Send (43:28.43): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.43): ACK
+Příjem dat: 4
+Recieved (43:28.53): SMPL
+Příjem dat: 4
+Recieved (43:28.53): TRIG
+Příjem dat: 16
+Recieved (43:28.83): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.83): S_OK
+Příjem dat: 0
+Send (43:28.143): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.143): ACK
+Příjem dat: 4
+Recieved (43:28.153): SMPL
+Příjem dat: 4
+Recieved (43:28.153): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:28.173): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.173): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:28.253): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.253): ACK
+Příjem dat: 4
+Recieved (43:28.263): SMPL
+Příjem dat: 4
+Recieved (43:28.263): TRIG
+Příjem dat: 16
+Recieved (43:28.283): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.283): S_OK
+Příjem dat: 0
+Send (43:28.373): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.373): ACK
+Příjem dat: 4
+Recieved (43:28.383): SMPL
+Příjem dat: 4
+Recieved (43:28.383): TRIG
+Příjem dat: 16
+Recieved (43:28.403): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.403): S_OK
+Send (43:28.483): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.483): ACK
+Příjem dat: 4
+Recieved (43:28.493): SMPL
+Příjem dat: 4
+Recieved (43:28.493): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:28.513): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.513): S_OK
+Příjem dat: 0
+Send (43:28.593): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.593): ACK
+Příjem dat: 4
+Recieved (43:28.603): SMPL
+Příjem dat: 4
+Recieved (43:28.603): TRIG
+Příjem dat: 216
+Recieved (43:28.623): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.623): S_OK
+Příjem dat: 0
+Send (43:28.725): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.725): ACK
+Příjem dat: 4
+Recieved (43:28.735): SMPL
+Příjem dat: 4
+Recieved (43:28.735): TRIG
+Příjem dat: 16
+Recieved (43:28.745): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.755): S_OK
+Příjem dat: 0
+Send (43:28.825): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.825): ACK
+Příjem dat: 4
+Recieved (43:28.835): SMPL
+Příjem dat: 4
+Recieved (43:28.835): TRIG
+Příjem dat: 16
+Recieved (43:28.845): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.865): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:28.925): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:28.925): ACK
+Příjem dat: 4
+Recieved (43:28.935): SMPL
+Příjem dat: 4
+Recieved (43:28.935): TRIG
+Příjem dat: 16
+Recieved (43:28.945): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:28.955): S_OK
+Send (43:29.35): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.35): ACK
+Příjem dat: 4
+Recieved (43:29.45): SMPL
+Příjem dat: 4
+Recieved (43:29.45): TRIG
+Příjem dat: 16
+Recieved (43:29.55): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.65): S_OK
+Send (43:29.135): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.135): ACK
+Příjem dat: 4
+Recieved (43:29.145): SMPL
+Příjem dat: 4
+Recieved (43:29.145): TRIG
+Příjem dat: 436
+Recieved (43:29.155): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.155): S_OK
+Příjem dat: 0
+Send (43:29.215): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.215): ACK
+Příjem dat: 4
+Recieved (43:29.225): SMPL
+Příjem dat: 4
+Recieved (43:29.225): TRIG
+Příjem dat: 16
+Recieved (43:29.235): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.245): S_OK
+Příjem dat: 0
+Send (43:29.315): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.315): ACK
+Příjem dat: 4
+Recieved (43:29.325): SMPL
+Příjem dat: 4
+Recieved (43:29.325): TRIG
+Příjem dat: 16
+Recieved (43:29.335): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.335): S_OK
+Send (43:29.415): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.415): ACK
+Příjem dat: 4
+Recieved (43:29.425): SMPL
+Příjem dat: 4
+Recieved (43:29.425): TRIG
+Příjem dat: 16
+Recieved (43:29.445): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.445): S_OK
+Příjem dat: 0
+Send (43:29.517): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.517): ACK
+Příjem dat: 4
+Recieved (43:29.527): SMPL
+Příjem dat: 4
+Recieved (43:29.527): TRIG
+Příjem dat: 16
+Recieved (43:29.537): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.537): S_OK
+Send (43:29.627): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.627): ACK
+Příjem dat: 4
+Recieved (43:29.637): SMPL
+Příjem dat: 4
+Recieved (43:29.637): TRIG
+Příjem dat: 436
+Recieved (43:29.657): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.657): S_OK
+Příjem dat: 0
+Send (43:29.749): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.749): ACK
+Příjem dat: 4
+Recieved (43:29.759): SMPL
+Příjem dat: 4
+Recieved (43:29.759): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:29.769): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:29.769): S_OK
+Příjem dat: 0
+Send (43:29.869): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.869): ACK
+Příjem dat: 4
+Recieved (43:29.879): SMPL
+Příjem dat: 4
+Recieved (43:29.879): TRIG
+Příjem dat: 16
+Recieved (43:29.889): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.889): S_OK
+Příjem dat: 0
+Send (43:29.969): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:29.969): ACK
+Příjem dat: 4
+Recieved (43:29.979): SMPL
+Příjem dat: 4
+Recieved (43:29.979): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:29.989): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:29.989): S_OK
+Příjem dat: 0
+Send (43:30.69): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.69): ACK
+Příjem dat: 4
+Recieved (43:30.79): SMPL
+Příjem dat: 4
+Recieved (43:30.79): TRIG
+Příjem dat: 16
+Recieved (43:30.89): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:30.89): S_OK
+Send (43:30.159): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.159): ACK
+Příjem dat: 4
+Recieved (43:30.169): SMPL
+Příjem dat: 4
+Recieved (43:30.169): TRIG
+Příjem dat: 16
+Recieved (43:30.179): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:30.179): S_OK
+Příjem dat: 0
+Send (43:30.249): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.249): ACK
+Příjem dat: 4
+Recieved (43:30.259): SMPL
+Příjem dat: 4
+Recieved (43:30.259): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:30.269): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:30.269): S_OK
+Send (43:30.339): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.339): ACK
+Příjem dat: 4
+Recieved (43:30.349): SMPL
+Příjem dat: 4
+Recieved (43:30.349): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:30.359): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:30.359): S_OK
+Send (43:30.449): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.449): ACK
+Příjem dat: 4
+Recieved (43:30.459): SMPL
+Příjem dat: 4
+Recieved (43:30.459): TRIG
+Příjem dat: 16
+Recieved (43:30.469): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:30.469): S_OK
+Příjem dat: 0
+Send (43:30.559): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.559): ACK
+Příjem dat: 4
+Recieved (43:30.569): SMPL
+Příjem dat: 4
+Recieved (43:30.569): TRIG
+Příjem dat: 16
+Recieved (43:30.579): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:30.579): S_OK
+Send (43:30.679): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.679): ACK
+Příjem dat: 4
+Recieved (43:30.689): SMPL
+Příjem dat: 4
+Recieved (43:30.689): TRIG
+Příjem dat: 216
+Recieved (43:30.719): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:30.719): S_OK
+Send (43:30.779): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.779): ACK
+Příjem dat: 4
+Recieved (43:30.789): SMPL
+Příjem dat: 4
+Recieved (43:30.789): TRIG
+Příjem dat: 436
+Recieved (43:30.799): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:30.799): S_OK
+Send (43:30.889): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:30.889): ACK
+Příjem dat: 4
+Recieved (43:30.899): SMPL
+Příjem dat: 4
+Recieved (43:30.899): TRIG
+Příjem dat: 16
+Recieved (43:30.909): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:30.909): S_OK
+Send (43:31.9): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.9): ACK
+Příjem dat: 4
+Recieved (43:31.19): SMPL
+Příjem dat: 4
+Recieved (43:31.19): TRIG
+Příjem dat: 16
+Recieved (43:31.29): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.29): S_OK
+Příjem dat: 0
+Send (43:31.109): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.109): ACK
+Příjem dat: 4
+Recieved (43:31.119): SMPL
+Příjem dat: 4
+Recieved (43:31.119): TRIG
+Příjem dat: 16
+Recieved (43:31.129): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.129): S_OK
+Příjem dat: 0
+Send (43:31.231): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.231): ACK
+Příjem dat: 8
+Recieved (43:31.241): SMPL
+Recieved (43:31.241): TRIG
+Příjem dat: 16
+Recieved (43:31.251): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:31.251): S_OK
+Příjem dat: 0
+Příjem dat: 0
+Send (43:31.341): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.341): ACK
+Příjem dat: 4
+Recieved (43:31.351): SMPL
+Recieved (43:31.351): TRIG
+Příjem dat: 16
+Recieved (43:31.361): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:31.361): S_OK
+Příjem dat: 0
+Send (43:31.461): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.461): ACK
+Příjem dat: 8
+Recieved (43:31.471): SMPL
+Recieved (43:31.471): TRIG
+Příjem dat: 436
+Recieved (43:31.491): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.491): S_OK
+Send (43:31.561): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.561): ACK
+Příjem dat: 4
+Recieved (43:31.571): SMPL
+Příjem dat: 4
+Recieved (43:31.571): TRIG
+Příjem dat: 436
+Recieved (43:31.581): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.581): S_OK
+Příjem dat: 0
+Send (43:31.651): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.651): ACK
+Příjem dat: 4
+Recieved (43:31.691): SMPL
+Recieved (43:31.691): TRIG
+Recieved (43:31.691): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.691): S_OK
+Send (43:31.783): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.783): ACK
+Příjem dat: 4
+Recieved (43:31.793): SMPL
+Příjem dat: 4
+Recieved (43:31.793): TRIG
+Příjem dat: 216
+Recieved (43:31.833): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.833): S_OK
+Send (43:31.883): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:31.883): ACK
+Příjem dat: 4
+Recieved (43:31.893): SMPL
+Příjem dat: 4
+Recieved (43:31.893): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:31.903): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:31.913): S_OK
+Send (43:32.13): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.13): ACK
+Příjem dat: 4
+Recieved (43:32.23): SMPL
+Příjem dat: 4
+Recieved (43:32.23): TRIG
+Příjem dat: 16
+Recieved (43:32.43): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.43): S_OK
+Příjem dat: 0
+Send (43:32.123): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.123): ACK
+Příjem dat: 4
+Recieved (43:32.133): SMPL
+Příjem dat: 4
+Recieved (43:32.133): TRIG
+Příjem dat: 16
+Recieved (43:32.153): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.163): S_OK
+Send (43:32.223): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.223): ACK
+Příjem dat: 4
+Recieved (43:32.233): SMPL
+Příjem dat: 4
+Recieved (43:32.233): TRIG
+Příjem dat: 16
+Recieved (43:32.253): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.253): S_OK
+Send (43:32.303): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.303): ACK
+Příjem dat: 4
+Recieved (43:32.313): SMPL
+Příjem dat: 4
+Recieved (43:32.313): TRIG
+Příjem dat: 16
+Příjem dat: 16
+Recieved (43:32.333): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.333): S_OK
+Příjem dat: 0
+Send (43:32.403): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.403): ACK
+Příjem dat: 4
+Recieved (43:32.413): SMPL
+Příjem dat: 4
+Recieved (43:32.413): TRIG
+Příjem dat: 16
+Recieved (43:32.433): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.433): S_OK
+Send (43:32.513): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.513): ACK
+Příjem dat: 4
+Recieved (43:32.523): SMPL
+Příjem dat: 4
+Recieved (43:32.523): TRIG
+Příjem dat: 16
+Recieved (43:32.543): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.543): S_OK
+Send (43:32.615): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.615): ACK
+Příjem dat: 4
+Recieved (43:32.625): SMPL
+Příjem dat: 4
+Recieved (43:32.625): TRIG
+Příjem dat: 16
+Recieved (43:32.645): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.645): S_OK
+Send (43:32.725): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.725): ACK
+Příjem dat: 4
+Recieved (43:32.735): SMPL
+Příjem dat: 4
+Recieved (43:32.735): TRIG
+Příjem dat: 16
+Recieved (43:32.745): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Recieved (43:32.745): S_OK
+Send (43:32.805): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.805): ACK
+Příjem dat: 4
+Recieved (43:32.815): SMPL
+Příjem dat: 4
+Recieved (43:32.815): TRIG
+Příjem dat: 16
+Recieved (43:32.825): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:32.825): S_OK
+Send (43:32.915): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:32.915): ACK
+Příjem dat: 4
+Recieved (43:32.925): SMPL
+Příjem dat: 4
+Recieved (43:32.925): TRIG
+Příjem dat: 16
+Recieved (43:32.935): SCOPE DATA RECIEVED: Leng 200, Res 12, Chan 2 of 2
+Příjem dat: 4
+Recieved (43:32.935): S_OK
+Příjem dat: 0
+Send (43:33.15): OSCP:NEXT;
+Příjem dat: 4
+Recieved (43:33.15): ACK
+Příjem dat: 4
+Recieved (43:33.25): SMPL
+Příjem dat: 4
+Recieved (43:33.25): TRIG
+Send (43:33.35): OSCP:STOP;
+Příjem dat: 4
+Recieved (43:33.35): ACK
+Příjem dat: 4
+Recieved (43:34.125): ACK
+Send (43:34.125): GEN_:STOP;
+PORT zavřen: COM19

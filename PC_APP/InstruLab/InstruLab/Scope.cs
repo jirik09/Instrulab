@@ -22,7 +22,7 @@ namespace InstruLab
         System.Timers.Timer GUITimer;
         System.Timers.Timer ZedTimer;
 
-        int semaphoreTimeout = 5000;
+        int semaphoreTimeout = 4000;
 
         private Queue<Message> scope_q = new Queue<Message>();
         Message messg;
@@ -41,7 +41,9 @@ namespace InstruLab
 
         public triggerEdge_def triggeredge = triggerEdge_def.RISE;
         public double triggerLevel;
+        public double last_trigger_level;
         public double pretrigger;
+        public double last_pretrigger;
         public int adcRes;
         public int numSamples;
         public int actualCahnnels;
@@ -54,10 +56,10 @@ namespace InstruLab
         private double[] signal_ch4;
         private double[] signal_math;
 
-        private int[] gain = new int[5] { 1, 1, 1, 1, 1 };
+        private double[] gain = new double[5] { 1, 1, 1, 1, 1 };
         public int[] offset = new int[5] { 0, 0, 0, 0, 0 };
 
-        private int[] last_gain = new int[5] { 1, 1, 1, 1, 1 };
+        private double[] last_gain = new double[5] { 1, 1, 1, 1, 1 };
         public int[] last_offset = new int[5] { 0, 0, 0, 0, 0 };
 
         private int selectedRange = 0;
@@ -322,6 +324,19 @@ namespace InstruLab
                 last_math = math;
             }
 
+            if (last_pretrigger != pretrigger)
+            {
+                set_prettriger(pretrigger);
+                last_pretrigger = pretrigger;
+            }
+
+            if (last_trigger_level != triggerLevel) {
+                set_trigger_level(triggerLevel);
+                last_trigger_level = triggerLevel;
+            }
+
+
+
 
 
             if (update)
@@ -447,7 +462,7 @@ namespace InstruLab
 
                     if (VA >= 1 || VA <= -1)
                     {
-                        this.UA = "U " + (Math.Round(VA, 2)).ToString() + " V";
+                        this.UA = "U " + (Math.Round(VA, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -456,7 +471,7 @@ namespace InstruLab
 
                     if (VB >= 1 || VB <= -1)
                     {
-                        this.UB = "U " + (Math.Round(VB, 2)).ToString() + " V";
+                        this.UB = "U " + (Math.Round(VB, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -465,7 +480,7 @@ namespace InstruLab
 
                     if (ud >= 1 || ud <= -1)
                     {
-                        this.DiffU = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                        this.DiffU = "dU " + (Math.Round(ud, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -484,7 +499,7 @@ namespace InstruLab
                     double tmpB = (tB - off) / gain[VerticalCursorSrc - 1];
                     if (ud >= 1 || ud <= -1)
                     {
-                        this.DiffU = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                        this.DiffU = "dU " + (Math.Round(ud, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -492,7 +507,7 @@ namespace InstruLab
                     }
                     if (tmpA >= 1 || tmpA <= -1)
                     {
-                        this.UA = "UA " + (Math.Round(tmpA, 2)).ToString() + " V";
+                        this.UA = "UA " + (Math.Round(tmpA, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -500,7 +515,7 @@ namespace InstruLab
                     }
                     if (tmpB >= 1 || tmpB <= -1)
                     {
-                        this.UB = "UB " + (Math.Round(tmpB, 2)).ToString() + " V";
+                        this.UB = "UB " + (Math.Round(tmpB, 3)).ToString() + " V";
                     }
                     else
                     {
@@ -527,7 +542,7 @@ namespace InstruLab
                 double tmpB = (uB - off) / gain[HorizontalCursorSrc - 1];
                 if (ud >= 1 || ud <= -1)
                 {
-                    this.voltDif = "dU " + (Math.Round(ud, 2)).ToString() + " V";
+                    this.voltDif = "dU " + (Math.Round(ud, 3)).ToString() + " V";
                 }
                 else
                 {
@@ -535,7 +550,7 @@ namespace InstruLab
                 }
                 if (tmpA >= 1 || tmpA <= -1)
                 {
-                    this.voltA = "U " + (Math.Round(tmpA, 2)).ToString() + " V";
+                    this.voltA = "U " + (Math.Round(tmpA, 3)).ToString() + " V";
                 }
                 else
                 {
@@ -543,7 +558,7 @@ namespace InstruLab
                 }
                 if (tmpB >= 1 || tmpB <= -1)
                 {
-                    this.voltB = "U " + (Math.Round(tmpB, 2)).ToString() + " V";
+                    this.voltB = "U " + (Math.Round(tmpB, 3)).ToString() + " V";
                 }
                 else
                 {
@@ -663,9 +678,6 @@ namespace InstruLab
         {
             this.scope_q.Enqueue(msg);
         }
-
-
-
 
 
         //
@@ -802,9 +814,11 @@ namespace InstruLab
             set_trigger_edge_rise();
 
             triggerLevel = 0.5;
+            last_trigger_level = 0.5;
             set_trigger_level(triggerLevel);
 
             pretrigger = 0.5;
+            last_pretrigger = 0.5;
             set_prettriger(pretrigger);
 
             actualCahnnels = 1;
@@ -1052,6 +1066,33 @@ namespace InstruLab
             }
         }
 
+
+
+
+        private void radioButton_01x_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_01x.Checked)
+            {
+                this.gain[selectedChannelVolt] = 0.1;
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+            }
+        }
+        private void radioButton_02x_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_02x.Checked)
+            {
+                this.gain[selectedChannelVolt] = 0.2;
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+            }
+        }
+        private void radioButton_05x_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton_05x.Checked)
+            {
+                this.gain[selectedChannelVolt] = 0.5;
+                //add_message(new Message(Message.MsgRequest.CHANGE_GAIN));
+            }
+        }
         private void radioButton_1x_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_1x.Checked)
@@ -1366,21 +1407,38 @@ namespace InstruLab
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                try
-                {
-                    double val = double.Parse(this.maskedTextBox_pretrig.Text);
-                    if (val > 100)
-                    {
-                        throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
-                    }
-                    pretrigger = val / 100;
-                    set_prettriger(pretrigger);
+                validate_pretrigger();
+            }
+        }
 
-                }
-                catch (Exception ex)
+        private void maskedTextBox_pretrig_Leave(object sender, EventArgs e)
+        {
+            validate_pretrigger();
+        }
+
+        private void trackBar_pretrig_ValueChanged(object sender, EventArgs e)
+        {
+            pretrigger = ((double)(this.trackBar_pretrig.Value)/100);
+            this.maskedTextBox_pretrig.Text = (pretrigger*100).ToString();
+        }
+        private void validate_pretrigger()
+        {
+            try
+            {
+                Double val = Double.Parse(this.maskedTextBox_pretrig.Text);
+                if (val > 100)
                 {
-                    this.maskedTextBox_pretrig.Text = (pretrigger * 100).ToString();
+                    throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
                 }
+                this.trackBar_pretrig.Value = (int)(val);
+                pretrigger = val / 100;
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                this.maskedTextBox_pretrig.Text = (pretrigger*100).ToString();
             }
         }
 
@@ -1388,21 +1446,39 @@ namespace InstruLab
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                try
-                {
-                    double val = double.Parse(this.maskedTextBox_trig_level.Text);
-                    if (val > 100)
-                    {
-                        throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
-                    }
-                    triggerLevel = val / 100;
-                    set_trigger_level(triggerLevel);
+                validate_trigger_level();
+            }
+        }
 
-                }
-                catch (Exception ex)
+        private void maskedTextBox_trig_level_Leave(object sender, EventArgs e)
+        {
+            validate_trigger_level();
+        }
+
+        private void trackBar_trig_level_ValueChanged(object sender, EventArgs e)
+        {
+            triggerLevel = ((double)(this.trackBar_trig_level.Value)/100);
+            this.maskedTextBox_trig_level.Text = (triggerLevel*100).ToString();
+        }
+
+        private void validate_trigger_level()
+        {
+            try
+            {
+                Double val = Double.Parse(this.maskedTextBox_trig_level.Text);
+                if (val > 100)
                 {
-                    this.maskedTextBox_trig_level.Text = (pretrigger * 100).ToString();
+                    throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
                 }
+                this.trackBar_trig_level.Value = (int)(val);
+                triggerLevel = val / 100;
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                this.maskedTextBox_trig_level.Text = (triggerLevel * 100).ToString();
             }
         }
 
@@ -1617,7 +1693,7 @@ namespace InstruLab
 
         private void button_volt_reset_all_Click(object sender, EventArgs e)
         {
-            gain = new int[5] { 1, 1, 1, 1, 1 };
+            gain = new double[5] { 1, 1, 1, 1, 1 };
             offset = new int[5] { 0, 0, 0, 0, 0 };
             this.trackBar_vol_level.Value = 500;
             redrawVolt();
@@ -1776,6 +1852,9 @@ namespace InstruLab
 
         public void redrawVolt() {
             this.trackBar_vol_level.Value = offset[selectedChannelVolt] + 500;
+            this.radioButton_01x.Checked = gain[selectedChannelVolt] == 0.1 ? true : false;
+            this.radioButton_02x.Checked = gain[selectedChannelVolt] == 0.2 ? true : false;
+            this.radioButton_05x.Checked = gain[selectedChannelVolt] == 0.5 ? true : false;
             this.radioButton_1x.Checked = gain[selectedChannelVolt] == 1 ? true : false;
             this.radioButton_2x.Checked = gain[selectedChannelVolt] == 2 ? true : false;
             this.radioButton_5x.Checked = gain[selectedChannelVolt] == 5 ? true : false;
@@ -2428,6 +2507,13 @@ namespace InstruLab
                 radioButton_hor_cur_off.Checked = true;
             }
         }
+
+
+
+
+
+
+
 
 
 

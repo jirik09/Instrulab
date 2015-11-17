@@ -33,6 +33,7 @@ namespace InstruLab
 
         public struct ScopeConfig_def
         {
+            public bool isScope;
             public int maxSamplingFrequency;
             public int maxBufferLength;
             public int maxNumChannels;
@@ -52,6 +53,7 @@ namespace InstruLab
 
         public struct GeneratorConfig_def
         {
+            public bool isGen;
             public int maxSamplingFrequency;
             public int BufferLength;
             public int dataDepth;
@@ -129,7 +131,7 @@ namespace InstruLab
                 port.Open();
                 load_config();
                 port.Close();
-                port.ReadTimeout = 5000;
+                port.ReadTimeout = 10000;
                 port.WriteTimeout = 5000;
                 port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
                 port.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort_ErrorReceived);
@@ -203,7 +205,7 @@ namespace InstruLab
                     this.commsCfg.UartSpeed = BitConverter.ToInt32(msg_byte, 8);
                     this.commsCfg.TX_pin = new string(msg_char, 12,4);
                     this.commsCfg.RX_pin = new string(msg_char, 16,4);
-                    if (toRead > 20)
+                    if (toRead > 24)
                     {
                         this.commsCfg.DP_pin = new string(msg_char, 24, 4);
                         this.commsCfg.DM_pin = new string(msg_char, 28, 4);
@@ -221,7 +223,7 @@ namespace InstruLab
 
                 if (new string(msg_char, 0, 4).Equals("OSCP"))
                 {
-
+                    scopeCfg.isScope=true;
                     scopeCfg.maxSamplingFrequency = BitConverter.ToInt32(msg_byte, 4);
                     scopeCfg.maxBufferLength = BitConverter.ToInt32(msg_byte, 8);
                     scopeCfg.maxNumChannels = BitConverter.ToInt32(msg_byte, 12);
@@ -240,6 +242,8 @@ namespace InstruLab
                     }
                     
 
+                }else{
+                    scopeCfg.isScope=false;
                 }
 
                 port.Write(Commands.GENERATOR + ":" + Commands.CONFIGRequest + ";");
@@ -250,6 +254,7 @@ namespace InstruLab
 
                 if (new string(msg_char, 0, 4).Equals("GEN_"))
                 {
+                    genCfg.isGen=true;
                     genCfg.maxSamplingFrequency = BitConverter.ToInt32(msg_byte, 4);
                     genCfg.BufferLength = BitConverter.ToInt32(msg_byte, 8);
                     genCfg.dataDepth = BitConverter.ToInt32(msg_byte, 12);
@@ -260,6 +265,8 @@ namespace InstruLab
                         genCfg.pins[i] = new string(msg_char, 20 + 4 * i, 4);
                     }
                     genCfg.VRef = BitConverter.ToInt32(msg_byte, 20 + 4 * genCfg.numChannels);
+                }else{
+                    genCfg.isGen=false;
                 }
             }
         }
@@ -323,7 +330,14 @@ namespace InstruLab
 
                             while (toRead > 0)
                             {
-                                wasRead += port.Read(scopeCfg.buffer, wasRead, toRead);
+                               ///// if (port.BytesToRead <= leng + wasRead)
+                               /// {
+                                    wasRead += port.Read(scopeCfg.buffer, wasRead, Math.Min(port.BytesToRead,toRead));
+                                ///}
+                                ///else {
+                                 ///   wasRead += port.Read(scopeCfg.buffer, wasRead, toRead);
+                               /// }
+                                
                                 toRead = (leng - wasRead) > partsLen ? partsLen : (leng - wasRead);
                             }
 
@@ -417,7 +431,7 @@ namespace InstruLab
                                 {
                                     int err = int.Parse(new string(inputMsg, 1, 3));
                                     if (writeLog) { logRecieved("ERROR " + err); }
-                                    MessageBox.Show("Error recieved \r\n" + new string(inputMsg, 0, 4), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Error recieved \r\n" + new string(inputMsg, 0, 4) + "\r\n" + getErrReason(err), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     //scopeCfg.mode = Scope.mode_def.IDLE;
                                 }
                                 catch (Exception ex)
@@ -638,6 +652,73 @@ namespace InstruLab
             logWriter.Write(s + ", ");
             logSemaphore.Release();
         }
+
+        public string getErrReason(int err)
+        {
+            string result = null;
+            switch (err)
+            {
+                case 1:
+                    result = "Reading configuration error";
+                    break;
+                case 50:
+                    result = "Scope - Invalid feature";
+                    break;
+                case 54:
+                    result = "Scope - Invalid param";
+                    break;
+                case 55:
+                    result = "Scope - Unsuported resolution";
+                    break;
+                case 56:
+                    result = "Scope - Invalid trigger channel";
+                    break;
+                case 57:
+                    result = "Scope - Invalid sampling frequency";
+                    break;
+                case 58:
+                    result = "Scope - Buffer size error";
+                    break;
+                case 100:
+                    result = "Gen - Invalid feature";
+                    break;
+                case 101:
+                    result = "Gen - Invalid state";
+                    break;
+                case 102:
+                    result = "Gen - Writing data out of memory";
+                    break;
+                case 103:
+                    result = "Gen - Buffer size error";
+                    break;
+                case 104:
+                    result = "Gen - Missing data";
+                    break;
+                case 105:
+                    result = "Gen - To high samling frequency";
+                    break;
+                case 107:
+                    result = "Gen - Frequency is inaccurate";
+                    break;
+                case 108:
+                    result = "Gen - Frequency mismatch";
+                    break;
+                case 109:
+                    result = "Gen - Invalid data";
+                    break;
+                case 255:
+                    result = "Unknown error";
+                    break;
+                case 533:
+                    result = "Communication error";
+                    break;
+                case 999:
+                    result = "Unsuported function";
+                    break;
+            }
+            return result;
+        }
+
 
         //end class
     }
