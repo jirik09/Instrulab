@@ -177,8 +177,11 @@ static void StartThread(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
-		GPIOD->ODR ^= GPIO_PIN_12;
+    osDelay(400);
+		GPIOD->ODR |= GPIO_PIN_12;
+		osDelay(100);
+		GPIOD->ODR &= ~GPIO_PIN_12;
+		
   }
 
   /* USER CODE END 5 */ 
