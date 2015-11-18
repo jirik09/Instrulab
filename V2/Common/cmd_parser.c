@@ -16,7 +16,6 @@
 #include "scope.h"
 #include "generator.h"
 #include "adc.h"
-#include "firmware_version.h"
 
 // External variables definitions =============================================
 xQueueHandle cmdParserMessageQueue;
@@ -35,7 +34,7 @@ void printErrResponse(command cmd);
   */
 	//portTASK_FUNCTION(vCmdParserTask, pvParameters) {
 void CmdParserTask(void const *argument){
-	portBASE_TYPE xHigherPriorityTaskWoken;
+//	portBASE_TYPE xHigherPriorityTaskWoken;
 	cmdParserMessageQueue = xQueueCreate(10, 20);
 	uint8_t message[20];
 	uint8_t cmdIn[5];
@@ -60,10 +59,9 @@ void CmdParserTask(void const *argument){
 					case CMD_IDN: //send IDN
 						xQueueSendToBack(messageQueue, STR_ACK, portMAX_DELAY);
 						xQueueSendToBack (messageQueue, IDN_STRING, portMAX_DELAY);
-						xQueueSendToBack (messageQueue, FW_VERSION, portMAX_DELAY);
-						xQueueSendToBack (messageQueue, " b", portMAX_DELAY);
-						xQueueSendToBack (messageQueue, BUILD, portMAX_DELAY);
-						
+					break;
+					case CMD_VERSION:
+						xQueueSendToBack(messageQueue, "9SendSystVersion", portMAX_DELAY);
 					break;
 					case CMD_SYSTEM: 
 						tempCmd = parseSystemCmd();
@@ -73,10 +71,13 @@ void CmdParserTask(void const *argument){
 						tempCmd = parseCommsCmd();
 						printErrResponse(tempCmd);
 					break;
+					#ifdef USE_SCOPE
 					case CMD_SCOPE: //parse scope command
 						tempCmd = parseScopeCmd();
 						printErrResponse(tempCmd);
 					break;
+					#endif //USE_SCOPE
+
 					#ifdef USE_GEN
 					case CMD_GENERATOR: //parse generator command
 						tempCmd = parseGeneratorCmd();
@@ -89,9 +90,9 @@ void CmdParserTask(void const *argument){
 				}	
 			}
 		}
-		if (getBytesAvailable()>=15){
+	/*	if (getBytesAvailable()>=15){
 			xQueueSendToBackFromISR(cmdParserMessageQueue, "1TryParseCmd", &xHigherPriorityTaskWoken);
-		}
+		}*/
 	}
 }
 
@@ -163,6 +164,7 @@ return cmdIn;
   * @param  None
   * @retval Command ACK or ERR
   */
+#ifdef USE_SCOPE
 command parseScopeCmd(void){
 	command cmdIn=CMD_ERR;
 	uint8_t error=0;
@@ -372,6 +374,8 @@ command parseScopeCmd(void){
 	}
 return cmdIn;
 }
+#endif //USE_SCOPE
+
 
 
 

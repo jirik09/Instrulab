@@ -95,6 +95,11 @@ namespace InstruLab
                         this.label_con4.Text = "";
                     }
 
+                    this.label_fw.Text = comms.get_connected_device().systemCfg.FW_Version;
+                    this.label_RTOS.Text = comms.get_connected_device().systemCfg.FREE_RTOS_Version;
+                    this.label_HAL.Text = comms.get_connected_device().systemCfg.HAL_Version;
+
+
                     if (comms.get_connected_device().genCfg.isGen)
                     {
                         if (comms.get_connected_device().genCfg.maxSamplingFrequency > 1000000)
@@ -176,6 +181,9 @@ namespace InstruLab
                     this.label_scope_vref.Text = "--";
                     this.label_scope_channs.Text = "--";
                     this.label_scope_pins.Text = "--";
+                    this.label_fw.Text = "--";
+                    this.label_RTOS.Text = "--";
+                    this.label_HAL.Text = "--";
 
                     this.btn_scope_open.Enabled = false;
                     this.btn_gen_open.Enabled = false;

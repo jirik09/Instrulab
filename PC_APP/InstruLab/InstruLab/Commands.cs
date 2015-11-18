@@ -12,6 +12,7 @@ namespace InstruLab
         /* KOMUNIKACE */
         // obecne
         public const string IDNRequest = "IDN?";
+        public const string VersionRequest = "VER?";
         public const string CONFIGRequest = "CFG?";
 
         public const string GENERATOR = "GEN_";

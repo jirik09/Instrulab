@@ -33,6 +33,8 @@
   ******************************************************************************
 */
 
+
+#ifdef USE_USB
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_CDC_IF_H
 #define __USBD_CDC_IF_H
@@ -56,5 +58,6 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
   * @}
   */ 
 #endif /* __USBD_CDC_IF_H */
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -443,7 +443,6 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
   /* Check the parameters */
   assert_param(IS_GPIO_PIN(GPIO_Pin));
-
   GPIOx->ODR ^= GPIO_Pin;
 }
 

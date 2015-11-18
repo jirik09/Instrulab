@@ -263,8 +263,8 @@ namespace InstruLab
                         {
                             for (int i = 0; i < buffleng; i++)
                             {
-                                RMS[ch] += Math.Pow(samples[ch, i] * (rangeMax - rangeMin) / 1000 / Math.Pow(2, res), 2);
-                                Mean[ch] += samples[ch, i] * (rangeMax - rangeMin) / 1000 / Math.Pow(2, res);
+                                RMS[ch] += Math.Pow(samples[ch, i] * ((double)rangeMax - (double)rangeMin) / 1000 / Math.Pow(2, res), 2);
+                                Mean[ch] += samples[ch, i] * ((double)rangeMax - (double)rangeMin) / 1000 / Math.Pow(2, res);
                                 if (samples[ch, i] > Max[ch])
                                 {
                                     Max[ch] = samples[ch, i];
@@ -371,19 +371,19 @@ namespace InstruLab
                                 meascount++;
                                 break;
                             case MeasurementTypes.MAX:
-                                double Vmax = Max[ch] * (rangeMax - rangeMin) / 1000 / Math.Pow(2, res);
+                                double Vmax = Max[ch] * ((double)rangeMax - (double)rangeMin) / 1000 / Math.Pow(2, res);
                                 measStrings[meascount] = "Max: " + Math.Round(Vmax, 3) + "V";
                                 setColor(ch, meascount);
                                 meascount++;
                                 break;
                             case MeasurementTypes.MIN:
-                                double Vmin = Max[ch] * (rangeMax - rangeMin) / 1000 / Math.Pow(2, res);
+                                double Vmin = Max[ch] * ((double)rangeMax - (double)rangeMin) / 1000 / Math.Pow(2, res);
                                 measStrings[meascount] = "Min: " + Math.Round(Vmin, 3) + "V";
                                 setColor(ch, meascount);
                                 meascount++;
                                 break;
                             case MeasurementTypes.PKPK:
-                                double Vpkpk = (Max[ch] - Min[ch]) * (rangeMax - rangeMin) / 1000 / Math.Pow(2, res);
+                                double Vpkpk = (Max[ch] - Min[ch]) * ((double)rangeMax - (double)rangeMin) / 1000 / Math.Pow(2, res);
                                 measStrings[meascount] = "PkPk: " + Math.Round(Vpkpk, 3) + "V";
                                 setColor(ch, meascount);
                                 meascount++;

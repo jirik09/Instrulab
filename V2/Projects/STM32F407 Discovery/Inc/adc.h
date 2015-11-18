@@ -33,8 +33,11 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __adc_H
-#define __adc_H
+#ifdef USE_SCOPE
+#ifndef __ADC_H
+#define __ADC_H
+
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -65,6 +68,8 @@ void adcSetResolution (uint8_t res);
 }
 #endif
 #endif /*__ adc_H */
+#endif //USE_SCOPE
+
 
 /**
   * @}

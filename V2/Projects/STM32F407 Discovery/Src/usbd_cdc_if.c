@@ -33,6 +33,7 @@
   ******************************************************************************
 */
 
+#ifdef USE_USB
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
 #include "comms_hal.h"
@@ -54,7 +55,7 @@
 /**
   * @}
   */ 
-
+	
 /** @defgroup USBD_CDC_Private_Defines
   * @{
   */ 
@@ -287,6 +288,8 @@ uint8_t CDC_Transmit_FS(uint8_t* UserTxBufferFS, uint16_t Len)
 /**
   * @}
   */ 
+
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

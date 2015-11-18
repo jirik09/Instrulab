@@ -10,11 +10,13 @@
 #define STM32F4_CONFIG_H_
 
 #include "stm32f4xx_hal.h"
+#include "stm32f4_discovery.h"
+#include "firmware_version.h"
 //#include "usb_device.h"
 #include "math.h"
 #include "err_list.h"
 
-#define IDN_STRING "STM32F4-Discovery FW1." //max 30 chars
+#define IDN_STRING "STM32F4-Discovery" //max 30 chars
 #define MCU "STM32F407VG"
 
 // Communication constatnts ===================================================
@@ -34,7 +36,7 @@
 #define MAX_SAMPLING_FREQ 2000000 //smps
 #define MAX_ADC_CHANNELS 3
 
-#define MAX_SCOPE_BUFF_SIZE 60000 //in bytes
+#define MAX_SCOPE_BUFF_SIZE 100000 //in bytes
 #define SCOPE_BUFFER_MARGIN 100
 
 #define SCOPE_CH1_PIN_STR "PC1_" //must be 4 chars
@@ -42,12 +44,12 @@
 #define SCOPE_CH3_PIN_STR "PC3_" //must be 4 chars
 #define SCOPE_CH4_PIN_STR "----" //must be 4 chars
 
-#define SCOPE_VREF 3000
+#define SCOPE_VREF 3300
 
 #define RANGE_1_LOW 0
 #define RANGE_1_HI SCOPE_VREF
-#define RANGE_2_LOW -3000
-#define RANGE_2_HI 6000
+#define RANGE_2_LOW -SCOPE_VREF
+#define RANGE_2_HI SCOPE_VREF*2
 #define RANGE_3_LOW 0
 #define RANGE_3_HI 0
 #define RANGE_4_LOW 0
@@ -57,10 +59,10 @@
 
 #define MAX_GENERATING_FREQ 2000000 //smps
 #define MAX_DAC_CHANNELS 2
-#define MAX_GENERATOR_BUFF_SIZE 2000
+#define MAX_GENERATOR_BUFF_SIZE 10000
 #define	DAC_DATA_DEPTH 12
 
-#define GEN_VREF 3000
+#define GEN_VREF 3300
 
 #define GEN_CH1_PIN_STR "PA4_" //must be 4 chars
 #define GEN_CH2_PIN_STR "PA5_" //must be 4 chars

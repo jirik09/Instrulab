@@ -9,8 +9,8 @@
 #ifndef FIRMWARE_VERSION_H_
 #define FIRMWARE_VERSION_H_
 
-#define FW_VERSION "02"
-#define BUILD "001"
+#define FW_VERSION "1.00" //must be 4 char (x.yy)
+#define BUILD " b01" //must be 4 char (bxxx)
 
 #endif //FIRMWARE_VERSION_H_
 

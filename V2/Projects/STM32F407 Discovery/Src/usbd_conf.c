@@ -33,6 +33,8 @@
   ******************************************************************************
 */
 /* Includes ------------------------------------------------------------------*/
+
+#ifdef USE_USB
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 #include "usbd_def.h"
@@ -51,7 +53,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef* hpcd)
   if(hpcd->Instance==USB_OTG_FS)
   {
   /* USER CODE BEGIN USB_OTG_FS_MspInit 0 */
-
+	__GPIOA_CLK_ENABLE();
   /* USER CODE END USB_OTG_FS_MspInit 0 */
     /* Peripheral clock enable */
     __USB_OTG_FS_CLK_ENABLE();
@@ -103,7 +105,7 @@ void HAL_PCD_MspDeInit(PCD_HandleTypeDef* hpcd)
     /* Peripheral interrupt Deinit*/
     HAL_NVIC_DisableIRQ(OTG_FS_IRQn);
   /* USER CODE BEGIN USB_OTG_FS_MspDeInit 1 */
-
+	__GPIOA_CLK_DISABLE();
   /* USER CODE END USB_OTG_FS_MspDeInit 1 */
   }
 }
@@ -472,4 +474,6 @@ void  USBD_LL_Delay (uint32_t Delay)
 {
   HAL_Delay(Delay);  
 }
+
+#endif //USE_USB
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

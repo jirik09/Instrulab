@@ -84,6 +84,12 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label_HAL = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label_RTOS = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label_fw = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox_device_info.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
@@ -106,7 +112,7 @@
             this.panel1.Controls.Add(this.listBox_devices);
             this.panel1.Location = new System.Drawing.Point(3, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(793, 383);
+            this.panel1.Size = new System.Drawing.Size(793, 418);
             this.panel1.TabIndex = 0;
             // 
             // groupBox_device_info
@@ -118,7 +124,7 @@
             this.groupBox_device_info.Controls.Add(this.tableLayoutPanel8);
             this.groupBox_device_info.Location = new System.Drawing.Point(8, 10);
             this.groupBox_device_info.Name = "groupBox_device_info";
-            this.groupBox_device_info.Size = new System.Drawing.Size(533, 366);
+            this.groupBox_device_info.Size = new System.Drawing.Size(533, 401);
             this.groupBox_device_info.TabIndex = 3;
             this.groupBox_device_info.TabStop = false;
             this.groupBox_device_info.Text = "Device info";
@@ -155,7 +161,7 @@
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 302F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 302);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 337);
             this.tableLayoutPanel8.TabIndex = 2;
             // 
             // groupBox_general
@@ -165,8 +171,14 @@
             this.groupBox_general.Controls.Add(this.label_con4);
             this.groupBox_general.Controls.Add(this.label_con3);
             this.groupBox_general.Controls.Add(this.label_con2);
+            this.groupBox_general.Controls.Add(this.label_fw);
+            this.groupBox_general.Controls.Add(this.label_RTOS);
+            this.groupBox_general.Controls.Add(this.label_HAL);
+            this.groupBox_general.Controls.Add(this.label8);
             this.groupBox_general.Controls.Add(this.label_con1);
+            this.groupBox_general.Controls.Add(this.label5);
             this.groupBox_general.Controls.Add(this.label29);
+            this.groupBox_general.Controls.Add(this.label3);
             this.groupBox_general.Controls.Add(this.label35);
             this.groupBox_general.Controls.Add(this.label_Freq);
             this.groupBox_general.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -174,7 +186,7 @@
             this.groupBox_general.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_general.Name = "groupBox_general";
             this.groupBox_general.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_general.Size = new System.Drawing.Size(165, 294);
+            this.groupBox_general.Size = new System.Drawing.Size(165, 329);
             this.groupBox_general.TabIndex = 0;
             this.groupBox_general.TabStop = false;
             this.groupBox_general.Text = "General";
@@ -284,7 +296,7 @@
             this.groupBox_scope.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_scope.Name = "groupBox_scope";
             this.groupBox_scope.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_scope.Size = new System.Drawing.Size(165, 294);
+            this.groupBox_scope.Size = new System.Drawing.Size(165, 329);
             this.groupBox_scope.TabIndex = 3;
             this.groupBox_scope.TabStop = false;
             this.groupBox_scope.Text = "Oscilloscope";
@@ -304,7 +316,7 @@
             this.btn_scope_open.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_scope_open.Enabled = false;
-            this.btn_scope_open.Location = new System.Drawing.Point(7, 262);
+            this.btn_scope_open.Location = new System.Drawing.Point(7, 297);
             this.btn_scope_open.Name = "btn_scope_open";
             this.btn_scope_open.Size = new System.Drawing.Size(151, 25);
             this.btn_scope_open.TabIndex = 1;
@@ -422,7 +434,7 @@
             this.groupBox_generator.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_generator.Name = "groupBox_generator";
             this.groupBox_generator.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_generator.Size = new System.Drawing.Size(165, 294);
+            this.groupBox_generator.Size = new System.Drawing.Size(165, 329);
             this.groupBox_generator.TabIndex = 2;
             this.groupBox_generator.TabStop = false;
             this.groupBox_generator.Text = "Generator";
@@ -442,7 +454,7 @@
             this.btn_gen_open.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_gen_open.Enabled = false;
-            this.btn_gen_open.Location = new System.Drawing.Point(11, 262);
+            this.btn_gen_open.Location = new System.Drawing.Point(11, 297);
             this.btn_gen_open.Name = "btn_gen_open";
             this.btn_gen_open.Size = new System.Drawing.Size(147, 25);
             this.btn_gen_open.TabIndex = 1;
@@ -564,7 +576,7 @@
             // 
             this.btn_connect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_connect.Enabled = false;
-            this.btn_connect.Location = new System.Drawing.Point(547, 351);
+            this.btn_connect.Location = new System.Drawing.Point(547, 386);
             this.btn_connect.Name = "btn_connect";
             this.btn_connect.Size = new System.Drawing.Size(136, 25);
             this.btn_connect.TabIndex = 1;
@@ -575,7 +587,7 @@
             // btn_scan
             // 
             this.btn_scan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_scan.Location = new System.Drawing.Point(689, 351);
+            this.btn_scan.Location = new System.Drawing.Point(689, 386);
             this.btn_scan.Name = "btn_scan";
             this.btn_scan.Size = new System.Drawing.Size(101, 25);
             this.btn_scan.TabIndex = 1;
@@ -591,7 +603,7 @@
             this.listBox_devices.ItemHeight = 16;
             this.listBox_devices.Location = new System.Drawing.Point(547, 10);
             this.listBox_devices.Name = "listBox_devices";
-            this.listBox_devices.Size = new System.Drawing.Size(240, 340);
+            this.listBox_devices.Size = new System.Drawing.Size(240, 372);
             this.listBox_devices.TabIndex = 0;
             // 
             // statusStrip1
@@ -600,7 +612,7 @@
             this.toolStripStatusLabel_color,
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 410);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 445);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(802, 25);
             this.statusStrip1.TabIndex = 1;
@@ -688,25 +700,85 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(119, 24);
             this.helpToolStripMenuItem1.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // label_HAL
+            // 
+            this.label_HAL.AutoSize = true;
+            this.label_HAL.Location = new System.Drawing.Point(19, 305);
+            this.label_HAL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_HAL.Name = "label_HAL";
+            this.label_HAL.Size = new System.Drawing.Size(18, 17);
+            this.label_HAL.TabIndex = 1;
+            this.label_HAL.Text = "--";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 288);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 17);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "ST HAL";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 254);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 17);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "FreeRTOS";
+            // 
+            // label_RTOS
+            // 
+            this.label_RTOS.AutoSize = true;
+            this.label_RTOS.Location = new System.Drawing.Point(19, 271);
+            this.label_RTOS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_RTOS.Name = "label_RTOS";
+            this.label_RTOS.Size = new System.Drawing.Size(18, 17);
+            this.label_RTOS.TabIndex = 1;
+            this.label_RTOS.Text = "--";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 218);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(117, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Firmware Version";
+            // 
+            // label_fw
+            // 
+            this.label_fw.AutoSize = true;
+            this.label_fw.Location = new System.Drawing.Point(19, 235);
+            this.label_fw.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_fw.Name = "label_fw";
+            this.label_fw.Size = new System.Drawing.Size(18, 17);
+            this.label_fw.TabIndex = 1;
+            this.label_fw.Text = "--";
             // 
             // Instrulab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 435);
+            this.ClientSize = new System.Drawing.Size(802, 470);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(820, 480);
+            this.MinimumSize = new System.Drawing.Size(820, 515);
             this.Name = "Instrulab";
             this.Text = "Instrulab";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Instrulab_FormClosing);
@@ -786,6 +858,12 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label label_con4;
         private System.Windows.Forms.Label label_con3;
+        private System.Windows.Forms.Label label_fw;
+        private System.Windows.Forms.Label label_RTOS;
+        private System.Windows.Forms.Label label_HAL;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
 
 
     }

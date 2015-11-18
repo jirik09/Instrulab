@@ -34,6 +34,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+
+#ifdef USE_GEN
 #include "dac.h"
 
 #include "gpio.h"
@@ -185,7 +187,6 @@ void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
   */
 void GeneratingEnable (void){
 	TIMGenEnable();
-	GPIOD->ODR |= GPIO_PIN_13;
 }
 
 /**
@@ -195,7 +196,6 @@ void GeneratingEnable (void){
   */
 void GeneratingDisable (void){
 	TIMGenDisable();	
-	GPIOD->ODR &= ~GPIO_PIN_13;
 }
 
 void DACInit(){
@@ -210,5 +210,5 @@ MX_DAC_Init();
 /**
   * @}
   */
-
+#endif //USE_GEN
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

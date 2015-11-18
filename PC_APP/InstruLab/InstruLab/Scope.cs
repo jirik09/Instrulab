@@ -346,16 +346,16 @@ namespace InstruLab
         }
 
         public void update_Y_axe() {
-            maxY = device.scopeCfg.ranges[1, selectedRange] / 1000;
-            minY = device.scopeCfg.ranges[0, selectedRange] / 1000;
+            maxY = (double)device.scopeCfg.ranges[1, selectedRange] / 1000;
+            minY = (double)device.scopeCfg.ranges[0, selectedRange] / 1000;
         }
 
         public void update_X_axe()
         {
             if (XYplot)
             {
-                maxX = device.scopeCfg.ranges[1, selectedRange] / 1000;
-                minY = device.scopeCfg.ranges[0, selectedRange] / 1000;
+                maxX = (double)device.scopeCfg.ranges[1, selectedRange] / 1000;
+                minY = (double)device.scopeCfg.ranges[0, selectedRange] / 1000;
             }
             else
             {
@@ -363,8 +363,8 @@ namespace InstruLab
                 double interval = scale * maxTime;
                 double posmin = (interval / 2);
                 double posScale = (maxTime - interval) / maxTime;
-                maxX = (maxTime) * horPosition * posScale + posmin + interval / 2;
-                minX = (maxTime) * horPosition * posScale + posmin - interval / 2;
+                maxX = (double)(maxTime) * horPosition * posScale + posmin + interval / 2;
+                minX = (double)(maxTime) * horPosition * posScale + posmin - interval / 2;
             }
         }
 
@@ -373,8 +373,8 @@ namespace InstruLab
             {
                 if (!XYplot)
                 {
-                    double scale = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
-                    double off = device.scopeCfg.ranges[0, selectedRange] / 1000;
+                    double scale = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, (double)device.scopeCfg.actualRes);
+                    double off = (double)device.scopeCfg.ranges[0, selectedRange] / 1000;
 
                     //vypocet casu
                     tA = VerticalCursorA * maxX + (1 - VerticalCursorA) * minX;
@@ -490,7 +490,7 @@ namespace InstruLab
                 else
                 {
 
-                    double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[VerticalCursorSrc - 1] / 1000 * gain[VerticalCursorSrc - 1] * 2;
+                    double off = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[VerticalCursorSrc - 1] / 1000 * gain[VerticalCursorSrc - 1] * 2;
 
                     tA = ((VerticalCursorA * maxX + (1 - VerticalCursorA) * minX));
                     tB = ((VerticalCursorB * maxX + (1 - VerticalCursorB) * minX));
@@ -533,7 +533,7 @@ namespace InstruLab
         public void horizontal_cursor_update() {
             if (HorizontalCursorSrc!=0)
             {
-                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[HorizontalCursorSrc - 1] / 1000 * gain[HorizontalCursorSrc - 1] * 2;
+                double off = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[HorizontalCursorSrc - 1] / 1000 * gain[HorizontalCursorSrc - 1] * 2;
 
                 uA = ((HorizontalCursorA * maxY + (1 - HorizontalCursorA) * minY));
                 uB = ((HorizontalCursorB * maxY + (1 - HorizontalCursorB) * minY));
@@ -2087,8 +2087,8 @@ namespace InstruLab
         {
             for (int i = 0; i < device.scopeCfg.actualChannels; i++)
             {
-                double scale = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes) * gain[i];
-                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[i] / 1000 * gain[i] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[i];
+                double scale = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes) * gain[i];
+                double off = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[i] / 1000 * gain[i] * 2 + (double)device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[i];
                 
                 switch (i)
                 {
@@ -2126,9 +2126,9 @@ namespace InstruLab
             if (math != math_def.NONE && actualCahnnels>=2)
             {
                 this.signal_math = new double[device.scopeCfg.timeBase.Length];
-                double scale_ch1 = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
-                double scale_ch2 = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
-                double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[4] / 1000 * gain[4] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[4];
+                double scale_ch1 = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
+                double scale_ch2 = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 / Math.Pow(2, device.scopeCfg.actualRes);
+                double off = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[4] / 1000 * gain[4] * 2 + (double)device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[4];
 
                 switch (math)
                 {
@@ -2247,7 +2247,7 @@ namespace InstruLab
 
             //triggerlevel
             list1 = new PointPairList();
-            double off = (device.scopeCfg.ranges[1, selectedRange] - device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[triggerChannel - 1] / 1000 * gain[triggerChannel - 1] * 2 + device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[triggerChannel-1];
+            double off = ((double)device.scopeCfg.ranges[1, selectedRange] - (double)device.scopeCfg.ranges[0, selectedRange]) / 1000 * (double)offset[triggerChannel - 1] / 1000 * gain[triggerChannel - 1] * 2 + (double)device.scopeCfg.ranges[0, selectedRange] / 1000 * gain[triggerChannel - 1];
                 
             list1.Add(minX, triggerLevel * (maxY - minY)*gain[triggerChannel-1]+off);
             curve = scopePane.AddCurve("", list1, Color.Green, SymbolType.Diamond);

@@ -1,12 +1,15 @@
 /**
   ******************************************************************************
-  * File Name          : DAC.h
-  * Date               : 18/01/2015 10:00:30
-  * Description        : This file provides code for the configuration
-  *                      of the DAC instances.
+  * @file    stm32f4_discovery_accelerometer.h
+  * @author  MCD Application Team
+  * @version V2.1.0
+  * @date    14-August-2015
+  * @brief   This file contains all the functions prototypes for the 
+  *          stm32f4_discovery_accelerometer.c firmware driver.
   ******************************************************************************
+  * @attention
   *
-  * COPYRIGHT(c) 2015 STMicroelectronics
+  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -31,39 +34,79 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */
+  */ 
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifdef USE_GEN
-#ifndef __DAC_H
-#define __DAC_H
+#ifndef __STM32F4_DISCOVERY_ACCELEROMETER_H
+#define __STM32F4_DISCOVERY_ACCELEROMETER_H
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
+#include "stm32f4_discovery.h"
+   
+/* Include Accelerometer component drivers */
+#include "../Components/lis302dl/lis302dl.h"   
+#include "../Components/lis3dsh/lis3dsh.h"   
 
-//extern DAC_HandleTypeDef hdac;
+/** @addtogroup BSP
+  * @{
+  */
+  
+/** @addtogroup STM32F4_DISCOVERY
+  * @{
+  */ 
 
-//void MX_DAC_Init(void);
-	 
-void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len);
-void GeneratingEnable (void);
-void GeneratingDisable (void);
-void DACInit(void);
+/** @addtogroup STM32F4_DISCOVERY_ACCELEROMETER
+  * @{
+  */
+
+/** @defgroup STM32F4_DISCOVERY_ACCELEROMETER_Exported_Types
+  * @{
+  */
+typedef enum 
+{
+  ACCELERO_OK = 0,
+  ACCELERO_ERROR = 1,
+  ACCELERO_TIMEOUT = 2
+}ACCELERO_StatusTypeDef;
+/**
+  * @}
+  */
+  
+/** @defgroup STM32F4_DISCOVERY_ACCELEROMETER_Exported_Functions
+  * @{
+  */
+/* Accelerometer functions */  
+uint8_t BSP_ACCELERO_Init(void);
+uint8_t BSP_ACCELERO_ReadID(void);
+void    BSP_ACCELERO_Reset(void);
+void    BSP_ACCELERO_Click_ITConfig(void);
+void    BSP_ACCELERO_Click_ITClear(void);
+void    BSP_ACCELERO_GetXYZ(int16_t *pDataXYZ);
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */ 
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__DAC_H */
 
-/**
-  * @}
-  */
+#endif /* __STM32F4_DISCOVERY_ACCELEROMETER_H */
 
-/**
-  * @}
-  */
-#endif //USE_GEN
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

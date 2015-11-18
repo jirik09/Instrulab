@@ -8,6 +8,8 @@
 */ 
 
 // Includes ===================================================================
+#ifdef USE_SCOPE
+
 #include "cmsis_os.h"
 #include "mcu_config.h"
 #include "comms.h"
@@ -586,5 +588,8 @@ void scopeStart(void){
 void scopeStop(void){
 	xQueueSendToBack(scopeMessageQueue, "5Stop", portMAX_DELAY);
 }
+
+#endif //USE_SCOPE
+
 
 

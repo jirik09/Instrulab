@@ -18,6 +18,9 @@ namespace InstruLab
             public int CoreClock;
             public int PeriphClock;
             public string MCU;
+            public string FW_Version;
+            public string FREE_RTOS_Version;
+            public string HAL_Version;
         }
 
         public struct CommsConfig_def
@@ -177,10 +180,11 @@ namespace InstruLab
         {
             if (port.IsOpen)
             {
+                int wait = 50;
                 port.Write(Commands.SYSTEM + ":" + Commands.CONFIGRequest + ";");
                 char[] msg_char = new char[256];
                 byte[] msg_byte = new byte[256];
-                Thread.Sleep(50);                
+                Thread.Sleep(wait);                
                 int toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -192,9 +196,22 @@ namespace InstruLab
                     this.systemCfg.MCU = new string(msg_char, 12, toRead-16);
                 }
 
+                port.Write(Commands.VersionRequest + ";");
+                Thread.Sleep(wait);
+                toRead = port.BytesToRead;
+                port.Read(msg_byte, 0, toRead);
+                msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
+
+                if (new string(msg_char, 0, 4).Equals("VER_"))
+                {
+                    this.systemCfg.FW_Version = new string(msg_char, 16,8);
+                    this.systemCfg.FREE_RTOS_Version = new string(msg_char, 32,6);
+                    this.systemCfg.HAL_Version = new string(msg_char, 44, 6);
+                }
+
 
                 port.Write(Commands.COMMS + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(50);
+                Thread.Sleep(wait);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -216,7 +233,7 @@ namespace InstruLab
                 }
 
                 port.Write(Commands.SCOPE + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(50);
+                Thread.Sleep(wait);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();
@@ -247,7 +264,7 @@ namespace InstruLab
                 }
 
                 port.Write(Commands.GENERATOR + ":" + Commands.CONFIGRequest + ";");
-                Thread.Sleep(50);
+                Thread.Sleep(wait);
                 toRead = port.BytesToRead;
                 port.Read(msg_byte, 0, toRead);
                 msg_char = System.Text.Encoding.ASCII.GetString(msg_byte).ToCharArray();

@@ -40,6 +40,7 @@ typedef  uint32_t command;
 //Common commands
 enum{
 REGISTER_CMD(IDN,IDN?),
+REGISTER_CMD(VERSION,VER?),
 REGISTER_CMD(GET_CONFIG,CFG?),
 
 REGISTER_CMD(SCOPE,OSCP),

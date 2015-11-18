@@ -106,16 +106,25 @@ int main(void)
 	osThreadDef(CMD_PARSER_TASK, CmdParserTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(USER_TASK, StartThread, osPriorityNormal, 0, configMINIMAL_STACK_SIZE);
 	osThreadDef(COMM_TASK, CommTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	#ifdef USE_SCOPE
 	osThreadDef(SCOPE_TASK, ScopeTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(SCOPE_TRIG_TASK, ScopeTriggerTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	#endif //USE_SCOPE
+	
+	#ifdef USE_GEN
 	osThreadDef(GENERATOR_TASK, GeneratorTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
+	#endif //USE_GEN
 	osThreadCreate (osThread(CMD_PARSER_TASK), NULL);
 	osThreadCreate (osThread(USER_TASK), NULL);
 	osThreadCreate (osThread(COMM_TASK), NULL);
+	#ifdef USE_SCOPE
 	osThreadCreate (osThread(SCOPE_TASK), NULL);
 	osThreadCreate (osThread(SCOPE_TRIG_TASK), NULL);
-	osThreadCreate (osThread(GENERATOR_TASK), NULL);
+	#endif //USE_SCOPE
 	
+	#ifdef USE_GEN
+	osThreadCreate (osThread(GENERATOR_TASK), NULL);
+	#endif //USE_GEN
 
   /* Start scheduler */
   osKernelStart(NULL, NULL);
@@ -177,10 +186,10 @@ static void StartThread(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(400);
-		GPIOD->ODR |= GPIO_PIN_12;
+    osDelay(600);
+		LED_On();
 		osDelay(100);
-		GPIOD->ODR &= ~GPIO_PIN_12;
+		LED_Off();
 		
   }
 

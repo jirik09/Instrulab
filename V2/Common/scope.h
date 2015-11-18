@@ -6,6 +6,8 @@
   * @brief   This file contains definitions and prototypes of oscilloscope functions
   ***************************************************************************** 
 */ 
+#ifdef USE_SCOPE
+
 #ifndef SCOPE_H_
 #define SCOPE_H_
 
@@ -115,3 +117,5 @@ void scopeStart(void);
 void scopeStop(void);
 
 #endif /* SCOPE_H_ */
+#endif //USE_SCOPE
+

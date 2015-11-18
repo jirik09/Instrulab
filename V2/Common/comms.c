@@ -32,6 +32,7 @@ void sendSystConf(void);
 void sendCommsConf(void);
 void sendScopeConf(void);
 void sendGenConf(void);
+void sendSystemVersion(void);
 
 // Function definitions =======================================================
 /**
@@ -45,13 +46,11 @@ void CommTask(void const *argument){
 	messageQueue = xQueueCreate(5, 30);
 	commsMutex = xSemaphoreCreateRecursiveMutex();
 	char message[30];
+	#ifdef USE_SCOPE
 	uint8_t header[16]="OSC_DATAxxxxCH0x";
-	#ifdef USE_GEN
-	uint8_t header_gen[12]="GEN_xCH_Fxxx";
-	#endif //USE_GEN
 	uint8_t *pointer;
-	uint8_t i;
-	uint32_t j;
+	
+	
 	uint8_t k;
 	uint32_t tmpToSend;
 	uint32_t dataLength;
@@ -59,83 +58,94 @@ void CommTask(void const *argument){
 	uint32_t dataLenSecond;
 	uint16_t adcRes;
 	uint32_t oneChanMemSize;
+	#endif //USE_SCOPE
+
+	#ifdef USE_GEN
+	uint8_t header_gen[12]="GEN_xCH_Fxxx";
+	#endif //USE_GEN
 	
+	#if defined(USE_GEN) || defined(USE_SCOPE)
+	uint8_t i;
+	uint32_t j;	
+	#endif //USE_GEN || USE_SCOPE
 	while(1) {	
 		xQueueReceive (messageQueue, message, portMAX_DELAY);
 		///commsSendString("COMMS_Run\r\n");
 		xSemaphoreTakeRecursive(commsMutex, portMAX_DELAY);
-		GPIOD->ODR |= GPIO_PIN_14;
 		//send data
-		if(message[0]=='1' && getScopeState() == SCOPE_DATA_SENDING){
-			/////TODO - j is pointer where to start send data. Do correct sending ;)
-			oneChanMemSize=getOneChanMemSize();
-			dataLength = getSamples();
-			adcRes = getADCRes();
-			
-			if(adcRes>8){
-				j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))*2+oneChanMemSize)%oneChanMemSize;
-				dataLength*=2;
-			}else{
-				j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))+oneChanMemSize)%oneChanMemSize;
-			} 
-			
-			header[8]=(uint8_t)adcRes;
-			header[9]=(uint8_t)(dataLength >> 16);
-			header[10]=(uint8_t)(dataLength >> 8);
-			header[11]=(uint8_t)dataLength;
-			header[15]=GetNumOfChannels();
-			
-			if(j+dataLength>oneChanMemSize){
-				dataLenFirst=oneChanMemSize-j;
-				dataLenSecond=dataLength-dataLenFirst;
-			}else{
-				dataLenFirst=dataLength;
-				dataLenSecond=0;
+		if(message[0]=='1'){
+			#ifdef USE_SCOPE
+			if(getScopeState() == SCOPE_DATA_SENDING){
+				oneChanMemSize=getOneChanMemSize();
+				dataLength = getSamples();
+				adcRes = getADCRes();
+				
+				if(adcRes>8){
+					j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))*2+oneChanMemSize)%oneChanMemSize;
+					dataLength*=2;
+				}else{
+					j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))+oneChanMemSize)%oneChanMemSize;
+				} 
+				
+				header[8]=(uint8_t)adcRes;
+				header[9]=(uint8_t)(dataLength >> 16);
+				header[10]=(uint8_t)(dataLength >> 8);
+				header[11]=(uint8_t)dataLength;
+				header[15]=GetNumOfChannels();
+				
+				if(j+dataLength>oneChanMemSize){
+					dataLenFirst=oneChanMemSize-j;
+					dataLenSecond=dataLength-dataLenFirst;
+				}else{
+					dataLenFirst=dataLength;
+					dataLenSecond=0;
+				}
+				
+				for(i=0;i<GetNumOfChannels();i++){
+				
+					pointer = (uint8_t*)getDataPointer(i);
+				
+					//sending header
+					header[14]=(i+1);
+					
+					commsSendBuff(header,16);
+					
+					if(dataLenFirst>16384 ){
+						tmpToSend=dataLenFirst;
+						k=0;
+						while(tmpToSend>16384){
+							commsSendBuff(pointer + j+k*16384, 16384);
+							k++;
+							tmpToSend-=16384;
+						}
+						if(tmpToSend>0){
+						commsSendBuff(pointer + j+k*16384, tmpToSend);
+						}
+					}else if(dataLenFirst>0){
+						commsSendBuff(pointer + j, dataLenFirst);
+					}
+					
+					if(dataLenSecond>16384 ){
+						tmpToSend=dataLenSecond;
+						k=0;
+						while(tmpToSend>16384){
+							commsSendBuff(pointer+k*16384, 16384);
+							k++;
+							tmpToSend-=16384;
+						}
+						if(tmpToSend>0){
+						commsSendBuff(pointer+k*16384, tmpToSend);
+						}
+					}else if(dataLenSecond>0){
+						commsSendBuff(pointer, dataLenSecond);
+					}
+				}	
+				///commsSendString("COMMS_DataSending\r\n");
+				commsSendString(STR_SCOPE_OK);
+				xQueueSendToBack(scopeMessageQueue, "2DataSent", portMAX_DELAY);
+				
 			}
-			
-			for(i=0;i<GetNumOfChannels();i++){
-			
-				pointer = (uint8_t*)getDataPointer(i);
-			
-				//sending header
-				header[14]=(i+1);
-				
-				commsSendBuff(header,16);
-				
-				if(dataLenFirst>16384 ){
-					tmpToSend=dataLenFirst;
-					k=0;
-					while(tmpToSend>16384){
-						commsSendBuff(pointer + j+k*16384, 16384);
-						k++;
-						tmpToSend-=16384;
-					}
-					if(tmpToSend>0){
-					commsSendBuff(pointer + j+k*16384, tmpToSend);
-					}
-				}else if(dataLenFirst>0){
-					commsSendBuff(pointer + j, dataLenFirst);
-				}
-				
-				if(dataLenSecond>16384 ){
-					tmpToSend=dataLenSecond;
-					k=0;
-					while(tmpToSend>16384){
-						commsSendBuff(pointer+k*16384, 16384);
-						k++;
-						tmpToSend-=16384;
-					}
-					if(tmpToSend>0){
-					commsSendBuff(pointer+k*16384, tmpToSend);
-					}
-				}else if(dataLenSecond>0){
-					commsSendBuff(pointer, dataLenSecond);
-				}
-			}	
-			///commsSendString("COMMS_DataSending\r\n");
-			commsSendString(STR_SCOPE_OK);
-			xQueueSendToBack(scopeMessageQueue, "2DataSent", portMAX_DELAY);
-			
+			#endif //USE_SCOPE
 		//send generating frequency	
 		}else if(message[0]=='2'){
 			#ifdef USE_GEN
@@ -159,7 +169,10 @@ void CommTask(void const *argument){
 			
 		// send scope config
 		}else if(message[0]=='5'){
+			#ifdef USE_SCOPE
 			sendScopeConf();
+			#endif //USE_SCOPE
+
 			
 		// send gen config
 		}else if(message[0]=='6'){
@@ -169,11 +182,18 @@ void CommTask(void const *argument){
 			
 		// send gen next data block
 		}else if(message[0]=='7'){
+			#ifdef USE_GEN
 			commsSendString(STR_GEN_NEXT);
+			#endif //USE_GEN
 			
 		// send gen ok status
 		}else if(message[0]=='8'){
+			#ifdef USE_GEN
 			commsSendString(STR_GEN_OK);
+			#endif //USE_GEN
+			
+		}else if (message[0]=='9'){
+			sendSystemVersion();
 			
 		// send IDN string
 		}else if (message[0] == 'I'){
@@ -186,7 +206,6 @@ void CommTask(void const *argument){
 			commsSendString(message);
 			/////commsSendString("\r\n");
 		}
-		GPIOD->ODR &= ~GPIO_PIN_14;
 		xSemaphoreGiveRecursive(commsMutex);
 	}
 }
@@ -341,6 +360,24 @@ void sendCommsConf(){
 	#endif
 }
 
+void sendSystemVersion(){
+	commsSendString("VER_");
+	commsSendString("Instrulab FW"); 	//12
+	commsSendString(FW_VERSION); 			//4
+	commsSendString(BUILD);						//4
+	commsSendString("FreeRTOS");			//8	
+	commsSendString(tskKERNEL_VERSION_NUMBER);//6
+	commsSendString("ST HAL");				//6
+	commsSend('V');
+	commsSend((HAL_GetHalVersion()>>24)+48);
+	commsSend('.');
+	commsSend((HAL_GetHalVersion()>>16)+48);
+	commsSend('.');
+	commsSend((HAL_GetHalVersion()>>8)+48); //6
+
+}
+
+#ifdef USE_SCOPE
 void sendScopeConf(){
 	uint8_t i;
 	commsSendString("OSCP");
@@ -365,8 +402,9 @@ void sendScopeConf(){
 	}
 	commsSendUint32(SCOPE_VREF);
 	commsSendBuff((uint8_t*)scopeGetRanges(&i),i);
-
 }
+#endif //USE_SCOPE
+
 
 	#ifdef USE_GEN
 void sendGenConf(){
