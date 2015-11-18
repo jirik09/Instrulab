@@ -71,7 +71,7 @@ static void StartThread(void const * argument);
 /* USER CODE END 0 */
 
 int main(void)
-{	
+{
 
   /* USER CODE BEGIN 1 */
 
@@ -108,17 +108,15 @@ int main(void)
 	osThreadDef(COMM_TASK, CommTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(SCOPE_TASK, ScopeTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
 	osThreadDef(SCOPE_TRIG_TASK, ScopeTriggerTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
-	#ifdef USE_GEN
 	osThreadDef(GENERATOR_TASK, GeneratorTask, osPriorityNormal, 0, configMINIMAL_STACK_SIZE*2);
-	#endif //USE_GEN
 	osThreadCreate (osThread(CMD_PARSER_TASK), NULL);
 	osThreadCreate (osThread(USER_TASK), NULL);
 	osThreadCreate (osThread(COMM_TASK), NULL);
 	osThreadCreate (osThread(SCOPE_TASK), NULL);
 	osThreadCreate (osThread(SCOPE_TRIG_TASK), NULL);
-		#ifdef USE_GEN
 	osThreadCreate (osThread(GENERATOR_TASK), NULL);
-	#endif //USE_GEN
+	
+
   /* Start scheduler */
   osKernelStart(NULL, NULL);
 
@@ -180,7 +178,7 @@ static void StartThread(void const * argument)
   for(;;)
   {
     osDelay(100);
-		GPIOA->ODR ^= GPIO_PIN_5;
+		GPIOD->ODR ^= GPIO_PIN_12;
   }
 
   /* USER CODE END 5 */ 

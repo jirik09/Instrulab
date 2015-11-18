@@ -69,7 +69,6 @@ void MX_TIM3_Init(void)
   * @param  None
   * @retval None
   */
-	#ifdef USE_GEN
 void MX_TIM6_Init(void)
 {
   TIM_MasterConfigTypeDef sMasterConfig;
@@ -93,7 +92,7 @@ void MX_TIM6_Init(void)
   /*##-2- Enable TIM peripheral counter ######################################*/
   //HAL_TIM_Base_Start(&htim6);
 }
-	#endif //USE_GEN
+
 
 
 /**             
@@ -103,7 +102,6 @@ void MX_TIM6_Init(void)
   * @param  None
   * @retval None
   */
-	#ifdef USE_GEN
 void MX_TIM7_Init(void)
 {
   TIM_MasterConfigTypeDef sMasterConfig;
@@ -127,7 +125,7 @@ void MX_TIM7_Init(void)
   /*##-2- Enable TIM peripheral counter ######################################*/
   //HAL_TIM_Base_Start(&htim6);
 }
-	#endif //USE_GEN
+
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
@@ -143,14 +141,12 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspInit 1 */
   }
-		#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_ENABLE();
 	}
 	if(htim_base->Instance==TIM7){
 		__TIM7_CLK_ENABLE();
 	}
-	#endif //USE_GEN
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
@@ -167,14 +163,12 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspDeInit 1 */
   }
-	#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_DISABLE();
 	}
 	if(htim_base->Instance==TIM7){
 		__TIM7_CLK_DISABLE();
 	}
-	#endif //USE_GEN
 	
 } 
 
@@ -271,7 +265,6 @@ void TIMScopeInit(void){
 	MX_TIM3_Init();
 }
 
-	#ifdef USE_GEN
 void TIMGenEnable(void){
   HAL_TIM_Base_Start(&htim6);
 	HAL_TIM_Base_Start(&htim7);
@@ -285,7 +278,6 @@ void TIMGenInit(){
 	MX_TIM6_Init();
 	MX_TIM7_Init();
 }
-	#endif //USE_GEN
 
 
 

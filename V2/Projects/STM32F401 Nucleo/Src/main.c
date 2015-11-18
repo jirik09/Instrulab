@@ -71,7 +71,7 @@ static void StartThread(void const * argument);
 /* USER CODE END 0 */
 
 int main(void)
-{	
+{
 
   /* USER CODE BEGIN 1 */
 

@@ -32,11 +32,8 @@
   ******************************************************************************
 */
 /* Define to prevent recursive inclusion -------------------------------------*/
-
-#ifdef USE_USB
 #ifndef __usb_device_H
 #define __usb_device_H
-
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -63,6 +60,5 @@ void MX_USB_DEVICE_Init(void);
 /**
   * @}
   */
-#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

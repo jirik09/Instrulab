@@ -10,7 +10,6 @@
 #define STM32F4_CONFIG_H_
 
 #include "stm32f4xx_hal.h"
-#include "stm32f4_discovery.h"
 //#include "usb_device.h"
 #include "math.h"
 #include "err_list.h"

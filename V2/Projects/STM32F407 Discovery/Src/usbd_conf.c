@@ -33,8 +33,6 @@
   ******************************************************************************
 */
 /* Includes ------------------------------------------------------------------*/
-
-#ifdef USE_USB
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 #include "usbd_def.h"
@@ -474,6 +472,4 @@ void  USBD_LL_Delay (uint32_t Delay)
 {
   HAL_Delay(Delay);  
 }
-
-#endif //USE_USB
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

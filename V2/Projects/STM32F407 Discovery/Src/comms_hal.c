@@ -80,22 +80,14 @@ void commsSendString(char *chr){
 
 }
 
-
-#ifdef USE_USB
 void commsRecieveUSB(uint8_t chr){
 	if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED){	
 		commInputByte(chr);
 	}
 }
-#endif //USE_USB
 
 void commsRecieveUART(uint8_t chr){
-	#ifdef USE_USB
 	if (hUsbDeviceFS.dev_state != USBD_STATE_CONFIGURED){	
 		commInputByte(chr);
 	}
-	#else
-	commInputByte(chr);
-	#endif //USE_USB
-	
 }

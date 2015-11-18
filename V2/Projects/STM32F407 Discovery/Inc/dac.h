@@ -35,7 +35,6 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __dac_H
 #define __dac_H
-#ifdef USE_GEN
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -64,5 +63,5 @@ void DACInit(void);
 /**
   * @}
   */
-#endif //USE_GEN
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

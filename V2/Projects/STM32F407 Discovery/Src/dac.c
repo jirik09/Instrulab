@@ -34,8 +34,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-
-#ifdef USE_GEN
 #include "dac.h"
 
 #include "gpio.h"
@@ -212,5 +210,5 @@ MX_DAC_Init();
 /**
   * @}
   */
-#endif //USE_GEN
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

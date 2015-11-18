@@ -64,11 +64,7 @@ void CommTask(void const *argument){
 		xQueueReceive (messageQueue, message, portMAX_DELAY);
 		///commsSendString("COMMS_Run\r\n");
 		xSemaphoreTakeRecursive(commsMutex, portMAX_DELAY);
-		
-		#ifdef USE_STM32F4_DISCO
-		BSP_LED_On(LED6);
-		#endif
-		
+		GPIOD->ODR |= GPIO_PIN_14;
 		//send data
 		if(message[0]=='1' && getScopeState() == SCOPE_DATA_SENDING){
 			/////TODO - j is pointer where to start send data. Do correct sending ;)
@@ -190,9 +186,7 @@ void CommTask(void const *argument){
 			commsSendString(message);
 			/////commsSendString("\r\n");
 		}
-		#ifdef USE_STM32F4_DISCO
-		BSP_LED_Off(LED6);
-		#endif
+		GPIOD->ODR &= ~GPIO_PIN_14;
 		xSemaphoreGiveRecursive(commsMutex);
 	}
 }
