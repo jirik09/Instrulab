@@ -44,7 +44,9 @@
  
 extern void xPortSysTickHandler(void);
 
+#ifdef USE_USB
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+#endif //USE_USB
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/

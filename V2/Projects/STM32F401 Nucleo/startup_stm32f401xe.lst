@@ -760,13 +760,13 @@ ARM Macro Assembler    Page 12
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=".\instrulab built\startup_stm32f401xe.d" -o".\instrulab built\
-startup_stm32f401xe.o" -I..\..\Inc -I"F:\Git\Instrulab\V2\Projects\STM32F401 Nu
-cleo\RTE" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include -IC:\Keil_v5\ARM\
-PACK\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --prede
-fine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 516" --predefine="
-_RTE_ SETA 1" --predefine="STM32F401xE SETA 1" --list=startup_stm32f401xe.lst D
-rivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f401xe.s
+erwork --depend=.\instrulab_built\startup_stm32f401xe.d -o.\instrulab_built\sta
+rtup_stm32f401xe.o -I..\..\Inc -I"F:\Git\Instrulab\V2\Projects\STM32F401 Nucleo
+\RTE" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK
+\Keil\STM32F4xx_DFP\2.6.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine
+="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 516" --predefine="_RTE
+_ SETA 1" --predefine="STM32F401xE SETA 1" --list=startup_stm32f401xe.lst ..\..
+\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f401xe.s
 
 
 
@@ -777,8 +777,8 @@ STACK 00000000
 
 Symbol: STACK
    Definitions
-      At line 50 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 50 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: STACK unused
@@ -786,8 +786,8 @@ Stack_Mem 00000000
 
 Symbol: Stack_Mem
    Definitions
-      At line 51 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 51 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: Stack_Mem unused
@@ -795,13 +795,13 @@ __initial_sp 00000400
 
 Symbol: __initial_sp
    Definitions
-      At line 52 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 52 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 76 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 369 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 76 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 369 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 3 symbols
 
@@ -814,8 +814,8 @@ HEAP 00000000
 
 Symbol: HEAP
    Definitions
-      At line 61 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 61 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: HEAP unused
@@ -823,8 +823,8 @@ Heap_Mem 00000000
 
 Symbol: Heap_Mem
    Definitions
-      At line 63 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 63 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: Heap_Mem unused
@@ -832,21 +832,21 @@ __heap_base 00000000
 
 Symbol: __heap_base
    Definitions
-      At line 62 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 62 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 370 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 370 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 Comment: __heap_base used once
 __heap_limit 00000200
 
 Symbol: __heap_limit
    Definitions
-      At line 64 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 64 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 371 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 371 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 Comment: __heap_limit used once
 4 symbols
 
@@ -859,8 +859,8 @@ RESET 00000000
 
 Symbol: RESET
    Definitions
-      At line 71 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 71 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: RESET unused
@@ -868,25 +868,25 @@ __Vectors 00000000
 
 Symbol: __Vectors
    Definitions
-      At line 76 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 76 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 72 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 182 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 72 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 182 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 __Vectors_End 00000194
 
 Symbol: __Vectors_End
    Definitions
-      At line 180 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 180 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 73 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 182 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 73 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 182 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 3 symbols
 
@@ -899,8 +899,8 @@ Relocatable symbols
 
 Symbol: .text
    Definitions
-      At line 184 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 184 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: .text unused
@@ -908,49 +908,49 @@ ADC_IRQHandler 0000001A
 
 Symbol: ADC_IRQHandler
    Definitions
-      At line 319 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 319 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 112 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 262 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 112 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 262 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 BusFault_Handler 0000000E
 
 Symbol: BusFault_Handler
    Definitions
-      At line 215 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 215 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 81 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 216 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 81 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 216 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream0_IRQHandler 0000001A
 
 Symbol: DMA1_Stream0_IRQHandler
    Definitions
-      At line 312 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 312 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 105 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 255 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 105 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 255 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream1_IRQHandler 0000001A
 
 Symbol: DMA1_Stream1_IRQHandler
    Definitions
-      At line 313 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 313 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 106 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 256 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 106 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 256 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream2_IRQHandler 0000001A
 
@@ -962,61 +962,61 @@ Relocatable symbols
 
 Symbol: DMA1_Stream2_IRQHandler
    Definitions
-      At line 314 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 314 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 107 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 257 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 107 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 257 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream3_IRQHandler 0000001A
 
 Symbol: DMA1_Stream3_IRQHandler
    Definitions
-      At line 315 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 315 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 108 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 258 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 108 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 258 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream4_IRQHandler 0000001A
 
 Symbol: DMA1_Stream4_IRQHandler
    Definitions
-      At line 316 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 316 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 109 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 259 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 109 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 259 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream5_IRQHandler 0000001A
 
 Symbol: DMA1_Stream5_IRQHandler
    Definitions
-      At line 317 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 317 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 110 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 260 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 110 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 260 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream6_IRQHandler 0000001A
 
 Symbol: DMA1_Stream6_IRQHandler
    Definitions
-      At line 318 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 318 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 111 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 261 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 111 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 261 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA1_Stream7_IRQHandler 0000001A
 
@@ -1028,61 +1028,61 @@ Relocatable symbols
 
 Symbol: DMA1_Stream7_IRQHandler
    Definitions
-      At line 339 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 339 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 141 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 282 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 141 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 282 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream0_IRQHandler 0000001A
 
 Symbol: DMA2_Stream0_IRQHandler
    Definitions
-      At line 343 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 343 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 150 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 286 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 150 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 286 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream1_IRQHandler 0000001A
 
 Symbol: DMA2_Stream1_IRQHandler
    Definitions
-      At line 344 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 344 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 151 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 287 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 151 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 287 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream2_IRQHandler 0000001A
 
 Symbol: DMA2_Stream2_IRQHandler
    Definitions
-      At line 345 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 345 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 152 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 288 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 152 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 288 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream3_IRQHandler 0000001A
 
 Symbol: DMA2_Stream3_IRQHandler
    Definitions
-      At line 346 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 346 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 153 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 289 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 153 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 289 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
@@ -1094,61 +1094,61 @@ DMA2_Stream4_IRQHandler 0000001A
 
 Symbol: DMA2_Stream4_IRQHandler
    Definitions
-      At line 347 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 347 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 154 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 290 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 154 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 290 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream5_IRQHandler 0000001A
 
 Symbol: DMA2_Stream5_IRQHandler
    Definitions
-      At line 349 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 349 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 162 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 292 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 162 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 292 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream6_IRQHandler 0000001A
 
 Symbol: DMA2_Stream6_IRQHandler
    Definitions
-      At line 350 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 350 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 163 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 293 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 163 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 293 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DMA2_Stream7_IRQHandler 0000001A
 
 Symbol: DMA2_Stream7_IRQHandler
    Definitions
-      At line 351 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 351 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 164 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 294 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 164 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 294 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 DebugMon_Handler 00000014
 
 Symbol: DebugMon_Handler
    Definitions
-      At line 229 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 229 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 88 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 230 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 88 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 230 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
@@ -1160,8 +1160,8 @@ Default_Handler 0000001A
 
 Symbol: Default_Handler
    Definitions
-      At line 242 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 242 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
       None
 Comment: Default_Handler unused
@@ -1169,49 +1169,49 @@ EXTI0_IRQHandler 0000001A
 
 Symbol: EXTI0_IRQHandler
    Definitions
-      At line 307 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 307 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 100 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 250 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 100 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 250 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI15_10_IRQHandler 0000001A
 
 Symbol: EXTI15_10_IRQHandler
    Definitions
-      At line 336 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 336 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 134 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 279 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 134 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 279 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI1_IRQHandler 0000001A
 
 Symbol: EXTI1_IRQHandler
    Definitions
-      At line 308 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 308 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 101 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 251 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 101 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 251 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI2_IRQHandler 0000001A
 
 Symbol: EXTI2_IRQHandler
    Definitions
-      At line 309 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 309 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 102 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 252 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 102 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 252 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI3_IRQHandler 0000001A
 
@@ -1223,61 +1223,61 @@ Relocatable symbols
 
 Symbol: EXTI3_IRQHandler
    Definitions
-      At line 310 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 310 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 103 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 253 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 103 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 253 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI4_IRQHandler 0000001A
 
 Symbol: EXTI4_IRQHandler
    Definitions
-      At line 311 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 311 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 104 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 254 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 104 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 254 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 EXTI9_5_IRQHandler 0000001A
 
 Symbol: EXTI9_5_IRQHandler
    Definitions
-      At line 320 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 320 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 117 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 263 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 117 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 263 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 FLASH_IRQHandler 0000001A
 
 Symbol: FLASH_IRQHandler
    Definitions
-      At line 305 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 305 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 98 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 248 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 98 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 248 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 FPU_IRQHandler 0000001A
 
 Symbol: FPU_IRQHandler
    Definitions
-      At line 355 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 355 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 175 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 298 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 175 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 298 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
@@ -1289,61 +1289,61 @@ HardFault_Handler 0000000A
 
 Symbol: HardFault_Handler
    Definitions
-      At line 205 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 205 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 79 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 206 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 79 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 206 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 I2C1_ER_IRQHandler 0000001A
 
 Symbol: I2C1_ER_IRQHandler
    Definitions
-      At line 329 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 329 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 126 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 272 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 126 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 272 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 I2C1_EV_IRQHandler 0000001A
 
 Symbol: I2C1_EV_IRQHandler
    Definitions
-      At line 328 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 328 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 125 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 271 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 125 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 271 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 I2C2_ER_IRQHandler 0000001A
 
 Symbol: I2C2_ER_IRQHandler
    Definitions
-      At line 331 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 331 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 128 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 274 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 128 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 274 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 I2C2_EV_IRQHandler 0000001A
 
 Symbol: I2C2_EV_IRQHandler
    Definitions
-      At line 330 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 330 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 127 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 273 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 127 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 273 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
@@ -1355,254 +1355,254 @@ I2C3_ER_IRQHandler 0000001A
 
 Symbol: I2C3_ER_IRQHandler
    Definitions
-      At line 354 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 354 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 167 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 297 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 167 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 297 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 I2C3_EV_IRQHandler 0000001A
 
 Symbol: I2C3_EV_IRQHandler
    Definitions
-      At line 353 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 353 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 166 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 296 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 166 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 296 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 MemManage_Handler 0000000C
 
 Symbol: MemManage_Handler
    Definitions
-      At line 210 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 210 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 80 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 211 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 80 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 211 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 NMI_Handler 00000008
 
 Symbol: NMI_Handler
    Definitions
-      At line 200 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 200 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 78 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 201 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 78 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 201 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 OTG_FS_IRQHandler 0000001A
 
 Symbol: OTG_FS_IRQHandler
    Definitions
-      At line 348 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 348 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 161 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 291 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
+      At line 161 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 291 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
 
 
 
 ARM Macro Assembler    Page 9 Alphabetic symbol ordering
 Relocatable symbols
 
-m\startup_stm32f401xe.s
+tes\arm\startup_stm32f401xe.s
 
 OTG_FS_WKUP_IRQHandler 0000001A
 
 Symbol: OTG_FS_WKUP_IRQHandler
    Definitions
-      At line 338 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 338 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 136 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 281 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 136 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 281 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 PVD_IRQHandler 0000001A
 
 Symbol: PVD_IRQHandler
    Definitions
-      At line 302 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 302 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 95 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 245 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 95 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 245 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 PendSV_Handler 00000016
 
 Symbol: PendSV_Handler
    Definitions
-      At line 233 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 233 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 90 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 234 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 90 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 234 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 RCC_IRQHandler 0000001A
 
 Symbol: RCC_IRQHandler
    Definitions
-      At line 306 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 306 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 99 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 249 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 99 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 249 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 RTC_Alarm_IRQHandler 0000001A
 
 Symbol: RTC_Alarm_IRQHandler
    Definitions
-      At line 337 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 337 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 135 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 135 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
 ARM Macro Assembler    Page 10 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 280 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 280 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 RTC_WKUP_IRQHandler 0000001A
 
 Symbol: RTC_WKUP_IRQHandler
    Definitions
-      At line 304 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 304 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 97 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 247 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 97 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 247 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 Reset_Handler 00000000
 
 Symbol: Reset_Handler
    Definitions
-      At line 187 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 187 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 77 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 188 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 77 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 188 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SDIO_IRQHandler 0000001A
 
 Symbol: SDIO_IRQHandler
    Definitions
-      At line 340 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 340 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 143 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 283 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 143 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 283 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SPI1_IRQHandler 0000001A
 
 Symbol: SPI1_IRQHandler
    Definitions
-      At line 332 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 332 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 129 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 275 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 129 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 275 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SPI2_IRQHandler 0000001A
 
 Symbol: SPI2_IRQHandler
    Definitions
-      At line 333 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 333 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 130 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
+      At line 130 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
 
 
 
 ARM Macro Assembler    Page 11 Alphabetic symbol ordering
 Relocatable symbols
 
-m\startup_stm32f401xe.s
-      At line 276 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+tes\arm\startup_stm32f401xe.s
+      At line 276 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SPI3_IRQHandler 0000001A
 
 Symbol: SPI3_IRQHandler
    Definitions
-      At line 342 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 342 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 145 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 285 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 145 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 285 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SPI4_IRQHandler 0000001A
 
 Symbol: SPI4_IRQHandler
    Definitions
-      At line 356 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 356 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 178 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 299 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 178 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 299 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SVC_Handler 00000012
 
 Symbol: SVC_Handler
    Definitions
-      At line 224 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 224 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 87 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 225 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 87 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 225 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 SysTick_Handler 00000018
 
 Symbol: SysTick_Handler
    Definitions
-      At line 237 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 237 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 91 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 238 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 91 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 238 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TAMP_STAMP_IRQHandler 0000001A
 
 Symbol: TAMP_STAMP_IRQHandler
    Definitions
-      At line 303 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 303 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
 
 
@@ -1610,65 +1610,65 @@ m\startup_stm32f401xe.s
 ARM Macro Assembler    Page 12 Alphabetic symbol ordering
 Relocatable symbols
 
-      At line 96 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 246 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 96 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 246 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM1_BRK_TIM9_IRQHandler 0000001A
 
 Symbol: TIM1_BRK_TIM9_IRQHandler
    Definitions
-      At line 321 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 321 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 118 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 264 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 118 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 264 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM1_CC_IRQHandler 0000001A
 
 Symbol: TIM1_CC_IRQHandler
    Definitions
-      At line 324 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 324 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 121 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 267 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 121 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 267 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM1_TRG_COM_TIM11_IRQHandler 0000001A
 
 Symbol: TIM1_TRG_COM_TIM11_IRQHandler
    Definitions
-      At line 323 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 323 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 120 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 266 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 120 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 266 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM1_UP_TIM10_IRQHandler 0000001A
 
 Symbol: TIM1_UP_TIM10_IRQHandler
    Definitions
-      At line 322 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 322 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 119 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 265 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 119 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 265 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM2_IRQHandler 0000001A
 
 Symbol: TIM2_IRQHandler
    Definitions
-      At line 325 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 325 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 
 
@@ -1676,112 +1676,112 @@ ARM Macro Assembler    Page 13 Alphabetic symbol ordering
 Relocatable symbols
 
    Uses
-      At line 122 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 268 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 122 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 268 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM3_IRQHandler 0000001A
 
 Symbol: TIM3_IRQHandler
    Definitions
-      At line 326 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 326 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 123 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 269 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 123 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 269 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM4_IRQHandler 0000001A
 
 Symbol: TIM4_IRQHandler
    Definitions
-      At line 327 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 327 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 124 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 270 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 124 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 270 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 TIM5_IRQHandler 0000001A
 
 Symbol: TIM5_IRQHandler
    Definitions
-      At line 341 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 341 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 144 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 284 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 144 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 284 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 USART1_IRQHandler 0000001A
 
 Symbol: USART1_IRQHandler
    Definitions
-      At line 334 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 334 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 131 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 277 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 131 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 277 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 USART2_IRQHandler 0000001A
 
 Symbol: USART2_IRQHandler
    Definitions
-      At line 335 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
+      At line 335 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
 
 
 
 ARM Macro Assembler    Page 14 Alphabetic symbol ordering
 Relocatable symbols
 
-m\startup_stm32f401xe.s
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 132 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 278 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 132 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 278 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 USART6_IRQHandler 0000001A
 
 Symbol: USART6_IRQHandler
    Definitions
-      At line 352 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 352 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 165 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
-      At line 295 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 165 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
+      At line 295 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 UsageFault_Handler 00000010
 
 Symbol: UsageFault_Handler
    Definitions
-      At line 220 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 220 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 82 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 221 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 82 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 221 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 WWDG_IRQHandler 0000001A
 
 Symbol: WWDG_IRQHandler
    Definitions
-      At line 301 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 301 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 94 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
-      At line 244 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 94 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
+      At line 244 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 
 68 symbols
 
@@ -1794,31 +1794,31 @@ Heap_Size 00000200
 
 Symbol: Heap_Size
    Definitions
-      At line 59 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 59 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 63 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 63 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
 Comment: Heap_Size used once
 Stack_Size 00000400
 
 Symbol: Stack_Size
    Definitions
-      At line 48 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 48 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
    Uses
-      At line 51 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 51 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
 Comment: Stack_Size used once
 __Vectors_Size 00000194
 
 Symbol: __Vectors_Size
    Definitions
-      At line 182 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 182 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 74 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm
-\startup_stm32f401xe.s
+      At line 74 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templat
+es\arm\startup_stm32f401xe.s
 Comment: __Vectors_Size used once
 3 symbols
 
@@ -1831,21 +1831,21 @@ SystemInit 00000000
 
 Symbol: SystemInit
    Definitions
-      At line 189 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 189 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 192 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 192 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 Comment: SystemInit used once
 __main 00000000
 
 Symbol: __main
    Definitions
-      At line 190 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 190 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
    Uses
-      At line 194 in file Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f401xe.s
+      At line 194 in file ..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templa
+tes\arm\startup_stm32f401xe.s
 Comment: __main used once
 2 symbols
 420 symbols in table

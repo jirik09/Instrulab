@@ -43,6 +43,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 void MX_GPIO_Init(void);
+void LED_On(void);
+void LED_Off(void);
+void LED_Toggle(void);
+
 #ifdef __cplusplus
 }
 #endif

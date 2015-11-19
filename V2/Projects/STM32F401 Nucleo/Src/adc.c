@@ -44,6 +44,7 @@
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
+#ifdef USE_SCOPE
 
 ADC_HandleTypeDef hadc1;
 //ADC_HandleTypeDef hadc2;
@@ -86,7 +87,7 @@ void MX_ADC1_Init(void)
 /////	HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&Data[0][0], 8);
 
 }
-/* ADC2 init function */
+///* ADC2 init function */
 //void MX_ADC2_Init(void)
 //{
 //  ADC_ChannelConfTypeDef sConfig;
@@ -117,7 +118,7 @@ void MX_ADC1_Init(void)
 ///////	HAL_ADC_Start_DMA(&hadc2, (uint32_t *)&Data[1][0], 8);
 
 //}
-/* ADC3 init function */
+///* ADC3 init function */
 //void MX_ADC3_Init(void)
 //{
 //  ADC_ChannelConfTypeDef sConfig;
@@ -159,6 +160,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC1_MspInit 0 */
     /* Peripheral clock enable */
+		GPIO_ADC_CH_1_CLK_EN();
     ADC_CH_1_CLK_EN();
   
     /**ADC1 GPIO Configuration    
@@ -203,6 +205,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
 //  /* USER CODE END ADC2_MspInit 0 */
 //    /* Peripheral clock enable */
+//		GPIO_ADC_CH_2_CLK_EN();
 //    ADC_CH_2_CLK_EN();
 //  
 //    /**ADC2 GPIO Configuration    
@@ -247,6 +250,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
 //  /* USER CODE END ADC3_MspInit 0 */
 //    /* Peripheral clock enable */
+//		GPIO_ADC_CH_3_CLK_EN();
 //    ADC_CH_3_CLK_EN();
 //  
 //    /**ADC3 GPIO Configuration    
@@ -397,7 +401,6 @@ uint16_t DMA_GetCurrDataCounter(uint8_t channel){
   */
 void samplingEnable (void){
   TIMScopeEnable();
-//	GPIOD->ODR |= GPIO_PIN_15;
 }
 
 /**
@@ -407,7 +410,6 @@ void samplingEnable (void){
   */
 void samplingDisable (void){
 	TIMScopeDisable();
-//	GPIOD->ODR &= ~GPIO_PIN_15;
 }
 
 
@@ -433,8 +435,8 @@ void adcSetResolution (uint8_t res){
 //	HAL_DMA_DeInit(&hdma_adc3);
 	
 	MX_ADC1_Init();
-// MX_ADC2_Init();
-// MX_ADC3_Init();
+//  MX_ADC2_Init();
+//  MX_ADC3_Init();
 } 
 /* USER CODE END 1 */
 
@@ -445,5 +447,7 @@ void adcSetResolution (uint8_t res){
 /**
   * @}
   */
+#endif //USE_SCOPE
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

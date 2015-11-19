@@ -37,7 +37,7 @@
 #include "usart.h"
 
 #include "gpio.h"
-#include "mcu_config.h"
+#include "stm32f4xx_hal.h"
 
 /* USER CODE BEGIN 0 */
 

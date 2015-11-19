@@ -39,11 +39,16 @@
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
-
+#ifdef USE_SCOPE	
 TIM_HandleTypeDef htim_scope;
+#endif //USE_SCOPE
+	
+#ifdef USE_GEN
 TIM_HandleTypeDef htim6;
 TIM_HandleTypeDef htim7;
-
+#endif //USE_GEN
+			
+#ifdef USE_SCOPE
 /* TIM3 init function */
 void MX_TIM3_Init(void)
 {
@@ -61,6 +66,8 @@ void MX_TIM3_Init(void)
   HAL_TIMEx_MasterConfigSynchronization(&htim_scope, &sMasterConfig);
 
 }
+#endif //USE_SCOPE
+	
 
 /**             
   * @brief  TIM6 Configuration
@@ -131,7 +138,7 @@ void MX_TIM7_Init(void)
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
-
+	#ifdef USE_SCOPE
   if(htim_base->Instance==TIM3)
   {
   /* USER CODE BEGIN TIM3_MspInit 0 */
@@ -143,6 +150,8 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspInit 1 */
   }
+	#endif //USE_SCOPE
+
 		#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_ENABLE();
@@ -155,7 +164,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 {
-
+	#ifdef USE_SCOPE
   if(htim_base->Instance==TIM3)
   {
   /* USER CODE BEGIN TIM3_MspDeInit 0 */
@@ -167,6 +176,9 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
   /* USER CODE END TIM3_MspDeInit 1 */
   }
+	#endif //USE_SCOPE
+
+	
 	#ifdef USE_GEN
 	if(htim_base->Instance==TIM6){
 		__TIM6_CLK_DISABLE();
@@ -179,10 +191,13 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 } 
 
 /* USER CODE BEGIN 1 */
+#ifdef USE_SCOPE
 uint8_t TIM_Reconfig_scope(uint32_t samplingFreq){
 	return TIM_Reconfig(samplingFreq,&htim_scope,0);
 }
+#endif //USE_SCOPE
 
+#ifdef USE_GEN
 uint8_t TIM_Reconfig_gen(uint32_t samplingFreq,uint8_t chan,uint32_t* realFreq){
 	if(chan==0){
 		return TIM_Reconfig(samplingFreq,&htim6,realFreq);
@@ -192,6 +207,8 @@ uint8_t TIM_Reconfig_gen(uint32_t samplingFreq,uint8_t chan,uint32_t* realFreq){
 		return 0;
 	}
 }
+#endif //USE_GEN
+
 
 
 uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t* realFreq){
@@ -259,7 +276,7 @@ uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t
 }
 
 
-
+#ifdef USE_SCOPE
 void TIMScopeEnable(){
 	HAL_TIM_Base_Start(&htim_scope);
 }
@@ -270,6 +287,8 @@ void TIMScopeDisable(){
 void TIMScopeInit(void){
 	MX_TIM3_Init();
 }
+#endif //USE_SCOPE
+
 
 	#ifdef USE_GEN
 void TIMGenEnable(void){

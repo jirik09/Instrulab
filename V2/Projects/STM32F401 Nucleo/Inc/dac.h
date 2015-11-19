@@ -33,9 +33,10 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __dac_H
-#define __dac_H
 #ifdef USE_GEN
+#ifndef __DAC_H
+#define __DAC_H
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -55,7 +56,7 @@ void DACInit(void);
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ dac_H */
+#endif /*__DAC_H */
 
 /**
   * @}

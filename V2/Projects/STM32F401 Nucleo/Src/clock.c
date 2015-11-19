@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : gpio.c
-  * Date               : 18/01/2015 10:00:29
+  * File Name          : clock.c
+  * Date               : 18/01/2015 10:00:30
   * Description        : This file provides code for the configuration
-  *                      of all used GPIO pins.
+  *                      of all system clocks
   ******************************************************************************
   *
   * COPYRIGHT(c) 2015 STMicroelectronics
@@ -32,52 +32,50 @@
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
-#include "gpio.h"
-#include "mcu_config.h"
+#include "stm32f4xx_hal.h"
+
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
-/* Configure GPIO                                                             */
+/* Configure Clock                                                             */
 /*----------------------------------------------------------------------------*/
+
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
 
-/** Configure pins as 
-        * Analog 
-        * Input 
-        * Output
-        * EVENT_OUT
-        * EXTI
-     PA6   ------> SPI1_MISO
-     PA7   ------> SPI1_MOSI
-     PB10   ------> I2S2_CK
-     PC7   ------> I2S3_MCK
-     PC10   ------> I2S3_CK
-     PC12   ------> I2S3_SD
-     PB6   ------> I2C1_SCL
-     PB9   ------> I2C1_SDA
+/** System Clock Configuration
 */
-void MX_GPIO_Init(void)
+void SystemClock_Config(void)
 {
-	BSP_LED_Init(LED2);
 
-}
+  RCC_OscInitTypeDef RCC_OscInitStruct;
+  RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
-void LED_On(void){
-	BSP_LED_On(LED2);
-}
-void LED_Off(void)
-{
-	BSP_LED_Off(LED2);
-}
-void LED_Toggle(void)
-{
-	BSP_LED_Toggle(LED2);
+  __PWR_CLK_ENABLE();
+
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
+  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1
+                              |RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
 }
 
 /* USER CODE BEGIN 2 */

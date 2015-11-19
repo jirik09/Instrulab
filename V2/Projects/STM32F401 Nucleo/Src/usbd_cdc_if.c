@@ -55,7 +55,7 @@
 /**
   * @}
   */ 
-
+	
 /** @defgroup USBD_CDC_Private_Defines
   * @{
   */ 

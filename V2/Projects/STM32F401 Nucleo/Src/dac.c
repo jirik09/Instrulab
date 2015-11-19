@@ -187,7 +187,6 @@ void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
   */
 void GeneratingEnable (void){
 	TIMGenEnable();
-	GPIOD->ODR |= GPIO_PIN_13;
 }
 
 /**
@@ -197,7 +196,6 @@ void GeneratingEnable (void){
   */
 void GeneratingDisable (void){
 	TIMGenDisable();	
-	GPIOD->ODR &= ~GPIO_PIN_13;
 }
 
 void DACInit(){
