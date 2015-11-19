@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : USB_DEVICE
-  * @date           : 19/11/2015 22:15:10  
+  * @date           : 18/01/2015 10:00:31  
   * @version        : v1.0_Cube
   * @brief          : Header for usb_device file.
   ******************************************************************************
@@ -32,8 +32,11 @@
   ******************************************************************************
 */
 /* Define to prevent recursive inclusion -------------------------------------*/
+
+#ifdef USE_USB
 #ifndef __usb_device_H
 #define __usb_device_H
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -60,5 +63,6 @@ void MX_USB_DEVICE_Init(void);
 /**
   * @}
   */
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

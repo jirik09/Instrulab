@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file           : usbd_conf.h
-  * @date           : 19/11/2015 22:15:10  
+  * @date           : 18/01/2015 10:00:31  
   * @version        : v1.0_Cube
   * @brief          : Header for usbd_conf file.
   ******************************************************************************
@@ -69,21 +69,20 @@
 #define USBD_SELF_POWERED     1
 /*---------- -----------*/
 #define USBD_CDC_INTERVAL     1000
-/*---------- -----------*/
-#define MAX_STATIC_ALLOC_SIZE     1000
 /****************************************/
 /* #define for FS and HS identification */
 #define DEVICE_FS 		0
+#define DEVICE_HS 		1
 
 /** @defgroup USBD_Exported_Macros
   * @{
   */ 
 
-/* Memory management macros */  
-#define USBD_malloc               (uint32_t *)USBD_static_malloc
-#define USBD_free                 USBD_static_free
-#define USBD_memset               /* Not used */
-#define USBD_memcpy               /* Not used */
+ /* Memory management macros */   
+#define USBD_malloc               malloc
+#define USBD_free                 free
+#define USBD_memset               memset
+#define USBD_memcpy               memcpy
 
 #define USBD_Delay   HAL_Delay
     
@@ -152,9 +151,6 @@
 /**
   * @}
   */ 
-/* Exported functions ------------------------------------------------------- */
-void *USBD_static_malloc(uint32_t size);
-void USBD_static_free(void *p);
 
 #endif //__USBD_CONF__H__
 

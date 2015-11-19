@@ -1,10 +1,11 @@
 /**
   ******************************************************************************
   * @file           : USB_DEVICE
-  * @date           : 19/11/2015 22:15:10  
+  * @date           : 18/01/2015 10:00:31  
   * @version        : v1.0_Cube
-  * @brief          : Header for usb_device file.
+  * @brief          : This file implements the USB Device 
   ******************************************************************************
+  *
   * COPYRIGHT(c) 2015 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
@@ -31,28 +32,34 @@
   *
   ******************************************************************************
 */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usb_device_H
-#define __usb_device_H
-#ifdef __cplusplus
- extern "C" {
-#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f3xx.h"
-#include "stm32f3xx_hal.h"
-#include "usbd_def.h"
 
-extern USBD_HandleTypeDef hUsbDeviceFS;
+#ifdef USE_USB
+#include "usb_device.h"
+#include "usbd_core.h"
+#include "usbd_desc.h"
+#include "usbd_cdc.h"
+#include "usbd_cdc_if.h"
 
-/* USB_Device init function */	
-void MX_USB_DEVICE_Init(void);
 
-#ifdef __cplusplus
+
+/* USB Device Core handle declaration */
+USBD_HandleTypeDef hUsbDeviceFS;
+
+/* init function */				        
+void MX_USB_DEVICE_Init(void)
+{
+  /* Init Device Library,Add Supported Class and Start the library*/
+  USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS);
+
+  USBD_RegisterClass(&hUsbDeviceFS, &USBD_CDC);
+
+  USBD_CDC_RegisterInterface(&hUsbDeviceFS, &USBD_Interface_fops_FS);
+
+  USBD_Start(&hUsbDeviceFS);
+
 }
-#endif
-#endif /*__usb_device_H */
-
 /**
   * @}
   */
@@ -60,5 +67,7 @@ void MX_USB_DEVICE_Init(void);
 /**
   * @}
   */
+
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

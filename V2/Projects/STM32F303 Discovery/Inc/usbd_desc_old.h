@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file           : USB_DEVICE
-  * @date           : 19/11/2015 22:15:10  
+  * @file           : usbd_desc.h
+  * @date           : 18/01/2015 10:00:32  
   * @version        : v1.0_Cube
-  * @brief          : Header for usb_device file.
+  * @brief          : Header for usbd_desc file.
   ******************************************************************************
   * COPYRIGHT(c) 2015 STMicroelectronics
   *
@@ -31,34 +31,68 @@
   *
   ******************************************************************************
 */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usb_device_H
-#define __usb_device_H
-#ifdef __cplusplus
- extern "C" {
-#endif
+#ifndef __USBD_DESC__H__
+#define __USBD_DESC__H__
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f3xx.h"
-#include "stm32f3xx_hal.h"
 #include "usbd_def.h"
 
-extern USBD_HandleTypeDef hUsbDeviceFS;
+/** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
+  * @{
+  */
+  
+/** @defgroup USB_DESC
+  * @brief general defines for the usb device library file
+  * @{
+  */ 
 
-/* USB_Device init function */	
-void MX_USB_DEVICE_Init(void);
-
-#ifdef __cplusplus
-}
-#endif
-#endif /*__usb_device_H */
-
-/**
-  * @}
+/** @defgroup USB_DESC_Exported_Defines
+  * @{
   */
 
 /**
   * @}
-  */
+  */ 
 
+/** @defgroup USBD_DESC_Exported_TypesDefinitions
+  * @{
+  */
+/**
+  * @}
+  */ 
+
+/** @defgroup USBD_DESC_Exported_Macros
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+/** @defgroup USBD_DESC_Exported_Variables
+  * @{
+  */ 
+extern USBD_DescriptorsTypeDef FS_Desc;
+/**
+  * @}
+  */ 
+
+/** @defgroup USBD_DESC_Exported_FunctionsPrototype
+  * @{
+  */ 
+
+/**
+  * @}
+  */ 
+
+#endif /* __USBD_DESC_H */
+
+/**
+  * @}
+  */ 
+
+/**
+* @}
+*/ 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

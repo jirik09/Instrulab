@@ -45,7 +45,7 @@
 extern void xPortSysTickHandler(void);
 
 #ifdef USE_USB
-extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+extern PCD_HandleTypeDef hpcd_USB_FS;
 #endif //USE_USB
 extern UART_HandleTypeDef huart2;
 
@@ -75,16 +75,19 @@ void SysTick_Handler(void)
 */
 
 #ifdef USE_USB
-void OTG_FS_IRQHandler(void)
+/**
+* @brief This function handles USB Low Priority or CAN_RX0 interrupts.
+*/
+void USB_LP_CAN_RX0_IRQHandler(void)
 {
-  /* USER CODE BEGIN OTG_FS_IRQn 0 */
+  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 0 */
 
-  /* USER CODE END OTG_FS_IRQn 0 */
-  HAL_NVIC_ClearPendingIRQ(OTG_FS_IRQn);
-  HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
-  /* USER CODE BEGIN OTG_FS_IRQn 1 */
+  /* USER CODE END USB_LP_CAN_RX0_IRQn 0 */
+  HAL_NVIC_ClearPendingIRQ(USB_LP_CAN_RX0_IRQn);
+  HAL_PCD_IRQHandler(&hpcd_USB_FS);
+  /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
 
-  /* USER CODE END OTG_FS_IRQn 1 */
+  /* USER CODE END USB_LP_CAN_RX0_IRQn 1 */
 }
 #endif //USE_USB
 
@@ -94,7 +97,7 @@ void OTG_FS_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-	char c = (uint16_t)(USART2->DR & (uint16_t)0x01FF);
+	char c = (uint16_t)(USART2->RDR & (uint16_t)0x01FF);
 	commsRecieveUART(c);
 	HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
   /* USER CODE END USART2_IRQn 0 */

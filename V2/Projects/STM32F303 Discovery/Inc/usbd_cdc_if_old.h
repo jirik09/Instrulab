@@ -1,9 +1,10 @@
 /**
   ******************************************************************************
-  * @file           : USB_DEVICE
-  * @date           : 19/11/2015 22:15:10  
-  * @version        : v1.0_Cube
-  * @brief          : Header for usb_device file.
+  * @file           : usbd_cdc_if.h
+  * @author         : MCD Application Team
+  * @version        : V1.1.0
+  * @date           : 19-March-2012
+  * @brief          : Header for usbd_cdc_if file.
   ******************************************************************************
   * COPYRIGHT(c) 2015 STMicroelectronics
   *
@@ -31,34 +32,32 @@
   *
   ******************************************************************************
 */
+
+
+#ifdef USE_USB
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usb_device_H
-#define __usb_device_H
-#ifdef __cplusplus
- extern "C" {
-#endif
+#ifndef __USBD_CDC_IF_H
+#define __USBD_CDC_IF_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f3xx.h"
-#include "stm32f3xx_hal.h"
-#include "usbd_def.h"
+#include "usbd_cdc.h"
 
-extern USBD_HandleTypeDef hUsbDeviceFS;
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported cariables --------------------------------------------------------*/
+extern USBD_CDC_ItfTypeDef  USBD_Interface_fops_FS;
 
-/* USB_Device init function */	
-void MX_USB_DEVICE_Init(void);
-
-#ifdef __cplusplus
-}
-#endif
-#endif /*__usb_device_H */
-
-/**
-  * @}
-  */
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+/** @defgroup USBD_CDC_IF_Exported_FunctionsPrototype
+  * @{
+  */ 
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 
 /**
   * @}
-  */
+  */ 
+#endif /* __USBD_CDC_IF_H */
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

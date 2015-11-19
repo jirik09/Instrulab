@@ -33,8 +33,6 @@
   ******************************************************************************
 */
 
-
-#ifdef USE_USB
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_CDC_IF_H
 #define __USBD_CDC_IF_H
@@ -52,12 +50,11 @@ extern USBD_CDC_ItfTypeDef  USBD_Interface_fops_FS;
 /** @defgroup USBD_CDC_IF_Exported_FunctionsPrototype
   * @{
   */ 
-uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
+uint8_t CDC_Transmit_FS(uint8_t* UserTxBufferFS, uint16_t Len);
 
 /**
   * @}
   */ 
 #endif /* __USBD_CDC_IF_H */
-#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

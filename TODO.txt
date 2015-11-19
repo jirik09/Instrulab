@@ -1,3 +1,10 @@
+pracovat ne F303 
+- nenacte se konfigurace v instrulabu - oddebugovat
+- pravdepodobne chyba v knihovne USB ktere se zasekava
+- soubory z usb jsou zkopirovany tudiz nefunguje USE_USB
+- Vyzkouset UART
+- nastavit spravne piny na GEN a SCOPE
+
 Generator
 - Vypnout vytup pokud generator nebezi
 - dodelat sweep

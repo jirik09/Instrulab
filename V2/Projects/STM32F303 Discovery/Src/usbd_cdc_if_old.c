@@ -33,6 +33,7 @@
   ******************************************************************************
 */
 
+#ifdef USE_USB
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
 #include "comms_hal.h"
@@ -54,7 +55,7 @@
 /**
   * @}
   */ 
-
+	
 /** @defgroup USBD_CDC_Private_Defines
   * @{
   */ 
@@ -239,13 +240,20 @@ static int8_t CDC_Control_FS  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   */
 static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
 {
-  /* USER CODE BEGIN 7 */ 
-	    int i = 0;
+    //static uint8_t buff_TX[256];
+		    
+    int i = 0;
     
     for (i = 0; i < *Len; i++){
 			commsRecieveUSB(*(Buf++));
      //   buff_TX[i] = *(Buf++);
 		}
+
+    USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+		
+   // CDC_Transmit_FS(buff_TX,*Len);  
+	
+  /* USER CODE BEGIN 7 */ 
   return (USBD_OK);
   /* USER CODE END 7 */ 
 }
@@ -263,12 +271,10 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
   */
 uint8_t CDC_Transmit_FS(uint8_t* UserTxBufferFS, uint16_t Len)
 {
-  uint8_t result = USBD_OK;
-  /* USER CODE BEGIN 8 */ 
-  USBD_CDC_SetTxBuffer(hUsbDevice_0, UserTxBufferFS, Len);   
-  result = USBD_CDC_TransmitPacket(hUsbDevice_0);
-  /* USER CODE END 8 */ 
-  return result;
+	/* USER CODE BEGIN 8 */ 
+	USBD_CDC_SetTxBuffer(hUsbDevice_0, UserTxBufferFS, Len);   
+	return USBD_CDC_TransmitPacket(hUsbDevice_0);
+	/* USER CODE END 8 */ 
 }
 
 /**
@@ -282,6 +288,8 @@ uint8_t CDC_Transmit_FS(uint8_t* UserTxBufferFS, uint16_t Len)
 /**
   * @}
   */ 
+
+#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

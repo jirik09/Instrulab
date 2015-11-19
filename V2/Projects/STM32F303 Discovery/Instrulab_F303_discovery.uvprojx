@@ -371,7 +371,7 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls>--C99</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F303xx,ARM_MATH_CM4,USE_USB,USE_GEN,USE_SCOPE</Define>
+              <Define>USE_HAL_DRIVER,STM32F303xx,ARM_MATH_CM4,USE_USB</Define>
               <Undefine></Undefine>
               <IncludePath>Inc;..\..\Drivers\STM32F3xx_HAL_Driver\Inc;..\..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\..\Drivers\CMSIS\Include;..\..\Drivers\CMSIS\Device\ST\STM32F3xx\Include;..\..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F;..\..\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\..\Common;..\..\Drivers\BSP\STM32F3-Discovery</IncludePath>
             </VariousControls>
@@ -417,14 +417,14 @@
           <GroupName>Application/User</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx_hal_msp.c</FileName>
+              <FileName>stm32f3xx_hal_msp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>Src\stm32f4xx_hal_msp.c</FilePath>
+              <FilePath>Src\stm32f3xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
+              <FileName>stm32f3xx_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>Src\stm32f4xx_it.c</FilePath>
+              <FilePath>Src\stm32f3xx_it.c</FilePath>
             </File>
             <File>
               <FileName>usbd_cdc_if.c</FileName>
@@ -502,9 +502,9 @@
           <GroupName>Application/MDK-ARM</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f407xx.s</FileName>
+              <FileName>startup_stm32f303xc.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s</FilePath>
+              <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32F3xx\Source\Templates\arm\startup_stm32f303xc.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -537,9 +537,9 @@
           <GroupName>Drivers/BSP</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4_discovery.c</FileName>
+              <FileName>stm32f3_discovery.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\BSP\STM32F4-Discovery\stm32f4_discovery.c</FilePath>
+              <FilePath>..\..\Drivers\BSP\STM32F3-Discovery\stm32f3_discovery.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -547,114 +547,114 @@
           <GroupName>Drivers/CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>system_stm32f4xx.c</FileName>
+              <FileName>system_stm32f3xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c</FilePath>
+              <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32F3xx\Source\Templates\system_stm32f3xx.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Drivers/STM32F4xx_HAL_Driver</GroupName>
+          <GroupName>Drivers/STM32F3xx_HAL_Driver</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx_hal.c</FileName>
+              <FileName>stm32f3xx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_adc.c</FileName>
+              <FileName>stm32f3xx_hal_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_adc_ex.c</FileName>
+              <FileName>stm32f3xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_cortex.c</FileName>
+              <FileName>stm32f3xx_hal_cortex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_dac.c</FileName>
+              <FileName>stm32f3xx_hal_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dac.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_dac_ex.c</FileName>
+              <FileName>stm32f3xx_hal_dac_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dac_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_dma.c</FileName>
+              <FileName>stm32f3xx_hal_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_gpio.c</FileName>
+              <FileName>stm32f3xx_hal_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_i2c.c</FileName>
+              <FileName>stm32f3xx_hal_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_i2s.c</FileName>
+              <FileName>stm32f3xx_hal_i2c_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_i2s_ex.c</FileName>
+              <FileName>stm32f3xx_hal_i2s.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2s_ex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2s.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_pcd.c</FileName>
+              <FileName>stm32f3xx_hal_pcd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pcd.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_pcd_ex.c</FileName>
+              <FileName>stm32f3xx_hal_pcd_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pcd_ex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pcd_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_rcc.c</FileName>
+              <FileName>stm32f3xx_hal_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_spi.c</FileName>
+              <FileName>stm32f3xx_hal_rcc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_tim.c</FileName>
+              <FileName>stm32f3xx_hal_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_spi.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_tim_ex.c</FileName>
+              <FileName>stm32f3xx_hal_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_uart.c</FileName>
+              <FileName>stm32f3xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_usart.c</FileName>
+              <FileName>stm32f3xx_hal_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_usart.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_ll_usb.c</FileName>
+              <FileName>stm32f3xx_hal_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_usb.c</FilePath>
+              <FilePath>..\..\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_usart.c</FilePath>
             </File>
           </Files>
         </Group>

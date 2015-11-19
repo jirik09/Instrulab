@@ -16,8 +16,8 @@
 #include "math.h"
 #include "err_list.h"
 
-#define IDN_STRING "STM32F4-Discovery" //max 30 chars
-#define MCU "STM32F407VG"
+#define IDN_STRING "STM32F3-Discovery" //max 30 chars
+#define MCU "STM32F303VC"
 
 // Communication constatnts ===================================================
 #define COMM_BUFFER_SIZE 512
