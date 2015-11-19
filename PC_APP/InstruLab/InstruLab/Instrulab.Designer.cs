@@ -38,8 +38,14 @@
             this.label_con4 = new System.Windows.Forms.Label();
             this.label_con3 = new System.Windows.Forms.Label();
             this.label_con2 = new System.Windows.Forms.Label();
+            this.label_fw = new System.Windows.Forms.Label();
+            this.label_RTOS = new System.Windows.Forms.Label();
+            this.label_HAL = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label_con1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label_Freq = new System.Windows.Forms.Label();
             this.groupBox_scope = new System.Windows.Forms.GroupBox();
@@ -84,12 +90,6 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label_HAL = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label_RTOS = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label_fw = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox_device_info.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
@@ -124,7 +124,7 @@
             this.groupBox_device_info.Controls.Add(this.tableLayoutPanel8);
             this.groupBox_device_info.Location = new System.Drawing.Point(8, 10);
             this.groupBox_device_info.Name = "groupBox_device_info";
-            this.groupBox_device_info.Size = new System.Drawing.Size(533, 401);
+            this.groupBox_device_info.Size = new System.Drawing.Size(560, 401);
             this.groupBox_device_info.TabIndex = 3;
             this.groupBox_device_info.TabStop = false;
             this.groupBox_device_info.Text = "Device info";
@@ -136,7 +136,7 @@
             this.label_device.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label_device.Location = new System.Drawing.Point(6, 18);
             this.label_device.Name = "label_device";
-            this.label_device.Size = new System.Drawing.Size(520, 35);
+            this.label_device.Size = new System.Drawing.Size(547, 35);
             this.label_device.TabIndex = 3;
             this.label_device.Text = "No device connected";
             this.label_device.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -160,8 +160,8 @@
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 302F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 337);
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 337F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(546, 337);
             this.tableLayoutPanel8.TabIndex = 2;
             // 
             // groupBox_general
@@ -186,7 +186,7 @@
             this.groupBox_general.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_general.Name = "groupBox_general";
             this.groupBox_general.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_general.Size = new System.Drawing.Size(165, 329);
+            this.groupBox_general.Size = new System.Drawing.Size(174, 329);
             this.groupBox_general.TabIndex = 0;
             this.groupBox_general.TabStop = false;
             this.groupBox_general.Text = "General";
@@ -238,6 +238,46 @@
             this.label_con2.Size = new System.Drawing.Size(0, 17);
             this.label_con2.TabIndex = 1;
             // 
+            // label_fw
+            // 
+            this.label_fw.AutoSize = true;
+            this.label_fw.Location = new System.Drawing.Point(19, 235);
+            this.label_fw.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_fw.Name = "label_fw";
+            this.label_fw.Size = new System.Drawing.Size(18, 17);
+            this.label_fw.TabIndex = 1;
+            this.label_fw.Text = "--";
+            // 
+            // label_RTOS
+            // 
+            this.label_RTOS.AutoSize = true;
+            this.label_RTOS.Location = new System.Drawing.Point(19, 271);
+            this.label_RTOS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_RTOS.Name = "label_RTOS";
+            this.label_RTOS.Size = new System.Drawing.Size(18, 17);
+            this.label_RTOS.TabIndex = 1;
+            this.label_RTOS.Text = "--";
+            // 
+            // label_HAL
+            // 
+            this.label_HAL.AutoSize = true;
+            this.label_HAL.Location = new System.Drawing.Point(19, 305);
+            this.label_HAL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_HAL.Name = "label_HAL";
+            this.label_HAL.Size = new System.Drawing.Size(18, 17);
+            this.label_HAL.TabIndex = 1;
+            this.label_HAL.Text = "--";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 218);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(117, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Firmware Version";
+            // 
             // label_con1
             // 
             this.label_con1.AutoSize = true;
@@ -248,6 +288,16 @@
             this.label_con1.TabIndex = 1;
             this.label_con1.Text = "--";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 254);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 17);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "FreeRTOS";
+            // 
             // label29
             // 
             this.label29.AutoSize = true;
@@ -257,6 +307,16 @@
             this.label29.Size = new System.Drawing.Size(105, 17);
             this.label29.TabIndex = 0;
             this.label29.Text = "Core frequency";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 288);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 17);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "ST HAL";
             // 
             // label35
             // 
@@ -292,11 +352,11 @@
             this.groupBox_scope.Controls.Add(this.label4);
             this.groupBox_scope.Controls.Add(this.label22);
             this.groupBox_scope.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_scope.Location = new System.Drawing.Point(350, 4);
+            this.groupBox_scope.Location = new System.Drawing.Point(368, 4);
             this.groupBox_scope.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_scope.Name = "groupBox_scope";
             this.groupBox_scope.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_scope.Size = new System.Drawing.Size(165, 329);
+            this.groupBox_scope.Size = new System.Drawing.Size(174, 329);
             this.groupBox_scope.TabIndex = 3;
             this.groupBox_scope.TabStop = false;
             this.groupBox_scope.Text = "Oscilloscope";
@@ -318,7 +378,7 @@
             this.btn_scope_open.Enabled = false;
             this.btn_scope_open.Location = new System.Drawing.Point(7, 297);
             this.btn_scope_open.Name = "btn_scope_open";
-            this.btn_scope_open.Size = new System.Drawing.Size(151, 25);
+            this.btn_scope_open.Size = new System.Drawing.Size(160, 25);
             this.btn_scope_open.TabIndex = 1;
             this.btn_scope_open.Text = "Open";
             this.btn_scope_open.UseVisualStyleBackColor = true;
@@ -430,11 +490,11 @@
             this.groupBox_generator.Controls.Add(this.label46);
             this.groupBox_generator.Controls.Add(this.label_gen_buff_len);
             this.groupBox_generator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_generator.Location = new System.Drawing.Point(177, 4);
+            this.groupBox_generator.Location = new System.Drawing.Point(186, 4);
             this.groupBox_generator.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox_generator.Name = "groupBox_generator";
             this.groupBox_generator.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox_generator.Size = new System.Drawing.Size(165, 329);
+            this.groupBox_generator.Size = new System.Drawing.Size(174, 329);
             this.groupBox_generator.TabIndex = 2;
             this.groupBox_generator.TabStop = false;
             this.groupBox_generator.Text = "Generator";
@@ -456,7 +516,7 @@
             this.btn_gen_open.Enabled = false;
             this.btn_gen_open.Location = new System.Drawing.Point(11, 297);
             this.btn_gen_open.Name = "btn_gen_open";
-            this.btn_gen_open.Size = new System.Drawing.Size(147, 25);
+            this.btn_gen_open.Size = new System.Drawing.Size(156, 25);
             this.btn_gen_open.TabIndex = 1;
             this.btn_gen_open.Text = "Open";
             this.btn_gen_open.UseVisualStyleBackColor = true;
@@ -576,9 +636,9 @@
             // 
             this.btn_connect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_connect.Enabled = false;
-            this.btn_connect.Location = new System.Drawing.Point(547, 386);
+            this.btn_connect.Location = new System.Drawing.Point(574, 386);
             this.btn_connect.Name = "btn_connect";
-            this.btn_connect.Size = new System.Drawing.Size(136, 25);
+            this.btn_connect.Size = new System.Drawing.Size(109, 25);
             this.btn_connect.TabIndex = 1;
             this.btn_connect.Text = "Connect";
             this.btn_connect.UseVisualStyleBackColor = true;
@@ -601,9 +661,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_devices.FormattingEnabled = true;
             this.listBox_devices.ItemHeight = 16;
-            this.listBox_devices.Location = new System.Drawing.Point(547, 10);
+            this.listBox_devices.Location = new System.Drawing.Point(574, 10);
             this.listBox_devices.Name = "listBox_devices";
-            this.listBox_devices.Size = new System.Drawing.Size(240, 372);
+            this.listBox_devices.Size = new System.Drawing.Size(213, 372);
             this.listBox_devices.TabIndex = 0;
             // 
             // statusStrip1
@@ -708,66 +768,6 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(119, 24);
             this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // label_HAL
-            // 
-            this.label_HAL.AutoSize = true;
-            this.label_HAL.Location = new System.Drawing.Point(19, 305);
-            this.label_HAL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_HAL.Name = "label_HAL";
-            this.label_HAL.Size = new System.Drawing.Size(18, 17);
-            this.label_HAL.TabIndex = 1;
-            this.label_HAL.Text = "--";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 288);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "ST HAL";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 254);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 17);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "FreeRTOS";
-            // 
-            // label_RTOS
-            // 
-            this.label_RTOS.AutoSize = true;
-            this.label_RTOS.Location = new System.Drawing.Point(19, 271);
-            this.label_RTOS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_RTOS.Name = "label_RTOS";
-            this.label_RTOS.Size = new System.Drawing.Size(18, 17);
-            this.label_RTOS.TabIndex = 1;
-            this.label_RTOS.Text = "--";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 218);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(117, 17);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Firmware Version";
-            // 
-            // label_fw
-            // 
-            this.label_fw.AutoSize = true;
-            this.label_fw.Location = new System.Drawing.Point(19, 235);
-            this.label_fw.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_fw.Name = "label_fw";
-            this.label_fw.Size = new System.Drawing.Size(18, 17);
-            this.label_fw.TabIndex = 1;
-            this.label_fw.Text = "--";
             // 
             // Instrulab
             // 

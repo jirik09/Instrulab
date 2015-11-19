@@ -71,6 +71,7 @@
 /* Definition of ADC and DMA for channel 1 */
 #define ADC_CH_1_CLK_EN() __ADC1_CLK_ENABLE()
 #define ADC_CH_1_CLK_DIS() __ADC1_CLK_DISABLE()
+#define GPIO_ADC_CH_1_CLK_EN() __GPIOC_CLK_ENABLE()
 #define ADC_CH_1  ADC1 //
 #define ADC_GPIO_CH_1  GPIOC
 #define ADC_PIN_CH_1  GPIO_PIN_1
@@ -81,6 +82,7 @@
 /* Definition of ADC and DMA for channel 2 */
 #define ADC_CH_2_CLK_EN() __ADC2_CLK_ENABLE()
 #define ADC_CH_2_CLK_DIS() __ADC2_CLK_DISABLE()
+#define GPIO_ADC_CH_2_CLK_EN() __GPIOC_CLK_ENABLE()
 #define ADC_CH_2  ADC2
 #define ADC_GPIO_CH_2  GPIOC
 #define ADC_PIN_CH_2  GPIO_PIN_2 //
@@ -91,6 +93,7 @@
 /* Definition of ADC and DMA for channel 3 */
 #define ADC_CH_3_CLK_EN() __ADC3_CLK_ENABLE()
 #define ADC_CH_3_CLK_DIS() __ADC3_CLK_DISABLE()
+#define GPIO_ADC_CH_3_CLK_EN() __GPIOC_CLK_ENABLE()
 #define ADC_CH_3  ADC3 //
 #define ADC_GPIO_CH_3  GPIOC
 #define ADC_PIN_CH_3  GPIO_PIN_3//

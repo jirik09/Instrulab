@@ -12,6 +12,7 @@ Aplikace
 
 Obecne
 Bug 00c - pokud se zmeni vzorkovani behem odesilani tak se spatne vypocita X osa 
+OK - Bug 00d - USB led by mela svitit i kdyz usb neni pripojeno (najit kde je pripojena - pravdepodobne to zpusobila zmena v gpio.c)
 OK - Bug 00a - Zmena frekvence pri odesilani dat vyvola chybu (internal prefix 1DataReady se dostane ven)
 OK - Bug 00b - pokuf je v datech strednik tak gen vyhodi chybu E999
  

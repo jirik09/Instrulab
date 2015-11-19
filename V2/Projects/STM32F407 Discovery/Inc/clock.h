@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
-  * Date               : 18/01/2015 10:00:31
-  * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  * File Name          : clock.h
+  * Date               : 18/01/2015 10:00:30
+  * Description        : This file contains all the function prototypes for
+  *                      the clock.c file
   ******************************************************************************
   *
   * COPYRIGHT(c) 2015 STMicroelectronics
@@ -33,29 +33,22 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
+#ifndef __CLOCK_H
+#define __CLOCK_H
+
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "mcu_config.h"
 
-extern UART_HandleTypeDef huart2;
-
-void MX_USART2_UART_Init(void);
-uint8_t UARTsendChar(char chr);
-uint8_t UARTsendBuff(char *chr, uint32_t len);
+void SystemClock_Config(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ usart_H */
 
-/**
-  * @}
-  */
+#endif /* __CLOCK_H */
 
 /**
   * @}

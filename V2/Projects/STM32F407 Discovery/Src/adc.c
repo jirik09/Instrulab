@@ -160,7 +160,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC1_MspInit 0 */
     /* Peripheral clock enable */
-		__GPIOC_CLK_ENABLE();
+		GPIO_ADC_CH_1_CLK_EN();
     ADC_CH_1_CLK_EN();
   
     /**ADC1 GPIO Configuration    
@@ -205,7 +205,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC2_MspInit 0 */
     /* Peripheral clock enable */
-		__GPIOC_CLK_ENABLE();
+		GPIO_ADC_CH_2_CLK_EN();
     ADC_CH_2_CLK_EN();
   
     /**ADC2 GPIO Configuration    
@@ -250,7 +250,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 
   /* USER CODE END ADC3_MspInit 0 */
     /* Peripheral clock enable */
-		__GPIOC_CLK_ENABLE();
+		GPIO_ADC_CH_3_CLK_EN();
     ADC_CH_3_CLK_EN();
   
     /**ADC3 GPIO Configuration    

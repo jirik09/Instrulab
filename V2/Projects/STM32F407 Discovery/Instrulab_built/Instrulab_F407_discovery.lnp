@@ -14,6 +14,7 @@
 ".\instrulab_built\freertos.o"
 ".\instrulab_built\usart.o"
 ".\instrulab_built\comms_hal.o"
+".\instrulab_built\clock.o"
 ".\instrulab_built\startup_stm32f407xx.o"
 ".\instrulab_built\usbd_core.o"
 ".\instrulab_built\usbd_ctlreq.o"

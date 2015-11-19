@@ -86,6 +86,7 @@ void CmdParserTask(void const *argument){
 					#endif //USE_GEN
 					default:
 					xQueueSendToBack(messageQueue, UNSUPORTED_FUNCTION_ERR_STR, portMAX_DELAY);
+					while(commBufferReadByte(&chr)==0 && chr!=';');
 ////					commsSendUint32(cmdIn);
 				}	
 			}

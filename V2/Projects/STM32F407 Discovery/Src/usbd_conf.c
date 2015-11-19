@@ -53,7 +53,8 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef* hpcd)
   if(hpcd->Instance==USB_OTG_FS)
   {
   /* USER CODE BEGIN USB_OTG_FS_MspInit 0 */
-	__GPIOA_CLK_ENABLE();
+		__GPIOA_CLK_ENABLE();
+		__GPIOC_CLK_ENABLE();
   /* USER CODE END USB_OTG_FS_MspInit 0 */
     /* Peripheral clock enable */
     __USB_OTG_FS_CLK_ENABLE();
@@ -63,7 +64,16 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef* hpcd)
     PA10     ------> USB_OTG_FS_ID
     PA11     ------> USB_OTG_FS_DM
     PA12     ------> USB_OTG_FS_DP 
+		PC0			------> USB_POWER_UP
     */
+		
+		/*Configure GPIO pin : PC0 */
+		GPIO_InitStruct.Pin = GPIO_PIN_0;
+		GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+		
     GPIO_InitStruct.Pin = GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
