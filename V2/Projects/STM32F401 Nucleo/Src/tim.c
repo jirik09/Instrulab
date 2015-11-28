@@ -192,8 +192,8 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
 /* USER CODE BEGIN 1 */
 #ifdef USE_SCOPE
-uint8_t TIM_Reconfig_scope(uint32_t samplingFreq){
-	return TIM_Reconfig(samplingFreq,&htim_scope,0);
+uint8_t TIM_Reconfig_scope(uint32_t samplingFreq,uint32_t* realFreq){
+	return TIM_Reconfig(samplingFreq,&htim_scope,realFreq);
 }
 #endif //USE_SCOPE
 

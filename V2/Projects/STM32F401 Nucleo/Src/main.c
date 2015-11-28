@@ -90,13 +90,11 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
 	LED_On();
-//  MX_ADC1_Init();
-//  MX_ADC2_Init();
-//  MX_ADC3_Init();
-//  MX_DAC_Init();
-//  MX_TIM3_Init();
-//	MX_TIM6_Init();
-//	MX_TIM7_Init();
+	#ifdef USE_SCOPE
+  MX_ADC1_Init();
+
+	MX_TIM3_Init();
+	#endif //USE_SCOPE
   
 
   /* USER CODE BEGIN 2 */

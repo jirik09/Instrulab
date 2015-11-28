@@ -46,7 +46,8 @@
 uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t* realFreq);
 	 
 #ifdef USE_SCOPE
-uint8_t TIM_Reconfig_scope(uint32_t samplingFreq);
+uint8_t TIM_Reconfig_scope(uint32_t samplingFreq,uint32_t* realFreq);
+void MX_TIM3_Init(void);
 #endif //USE_SCOPE
 	 
 #ifdef USE_GEN

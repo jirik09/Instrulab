@@ -54,7 +54,7 @@
 //extern ADC_HandleTypeDef hadc2;
 //extern ADC_HandleTypeDef hadc3;
 
-//void MX_ADC1_Init(void);
+void MX_ADC1_Init(void);
 //void MX_ADC2_Init(void);
 //void MX_ADC3_Init(void);
 

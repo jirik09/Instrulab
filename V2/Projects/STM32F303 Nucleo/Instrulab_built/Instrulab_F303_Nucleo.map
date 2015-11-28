@@ -2789,9 +2789,9 @@ Image Symbol Table
     comm                                     0x2000277c   Data          12  comms.o(.bss)
     .bss                                     0x20002788   Section    50464  scope.o(.bss)
     scope                                    0x2000ec68   Data          64  scope.o(.bss)
-    .bss                                     0x2000eca8   Section     1044  generator.o(.bss)
+    .bss                                     0x2000eca8   Section     2044  generator.o(.bss)
     generator                                0x2000eca8   Data          44  generator.o(.bss)
-    STACK                                    0x2000f0c0   Section     1024  startup_stm32f303xe.o(STACK)
+    STACK                                    0x2000f4a8   Section     1024  startup_stm32f303xe.o(STACK)
 
     Global Symbols
 
@@ -3199,8 +3199,8 @@ Image Symbol Table
     hdma_adc4                                0x200003e8   Data          56  adc.o(.bss)
     huart2                                   0x20000420   Data         108  usart.o(.bss)
     scopeBuffer                              0x20002788   Data       50400  scope.o(.bss)
-    generatorBuffer                          0x2000ecd4   Data        1000  generator.o(.bss)
-    __initial_sp                             0x2000f4c0   Data           0  startup_stm32f303xe.o(STACK)
+    generatorBuffer                          0x2000ecd4   Data        2000  generator.o(.bss)
+    __initial_sp                             0x2000f8a8   Data           0  startup_stm32f303xe.o(STACK)
 
 
 
@@ -3529,7 +3529,7 @@ Memory Map of the image
     0x08008f8c   0x00000020   Data   RO         6087    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000f4c0, Max: 0x00010000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x0000f8a8, Max: 0x00010000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3554,9 +3554,9 @@ Memory Map of the image
     0x2000057c   0x00002000   Zero   RW         5448    .bss                heap_2.o
     0x2000257c   0x0000020c   Zero   RW         5562    .bss                comms.o
     0x20002788   0x0000c520   Zero   RW         5683    .bss                scope.o
-    0x2000eca8   0x00000414   Zero   RW         5872    .bss                generator.o
-    0x2000f0bc   0x00000004   PAD
-    0x2000f0c0   0x00000400   Zero   RW          813    STACK               startup_stm32f303xe.o
+    0x2000eca8   0x000007fc   Zero   RW         5872    .bss                generator.o
+    0x2000f4a4   0x00000004   PAD
+    0x2000f4a8   0x00000400   Zero   RW          813    STACK               startup_stm32f303xe.o
 
 
 ==============================================================================
@@ -3575,7 +3575,7 @@ Image component sizes
        452         52          0          4        132       5211   dac.o
         28          4          0          0          0        422   dma.o
          2          0          0          0          0        552   freertos.o
-       924        190          0          6       1044       9726   generator.o
+       924        190          0          6       2044       9726   generator.o
        116         12          0          0          0       1362   gpio.o
        304         40          0         24       8192       3955   heap_2.o
        148          0          0          0          0       3554   list.o
@@ -3605,7 +3605,7 @@ Image component sizes
        198         22          0          0        108       2680   usart.o
 
     ----------------------------------------------------------------------
-     30568       2816        708        212      62440     640738   Object Totals
+     30568       2816        708        212      63440     640738   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         28          0          5          2          4          0   (incl. Padding)
 
@@ -3670,14 +3670,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     35928       3178        852        216      62440     618746   Grand Totals
-     35928       3178        852        216      62440     618746   ELF Image Totals
+     35928       3178        852        216      63440     618746   Grand Totals
+     35928       3178        852        216      63440     618746   ELF Image Totals
      35928       3178        852        216          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                36780 (  35.92kB)
-    Total RW  Size (RW Data + ZI Data)             62656 (  61.19kB)
+    Total RW  Size (RW Data + ZI Data)             63656 (  62.16kB)
     Total ROM Size (Code + RO Data + RW Data)      36996 (  36.13kB)
 
 ==============================================================================

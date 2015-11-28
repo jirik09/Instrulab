@@ -211,6 +211,8 @@ void clearGenBuffer(void){
 	}
 }
 
+
+
 void genSetOutputBuffer(void){
 	DACSetOutputBuffer();
 }

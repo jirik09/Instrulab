@@ -49,6 +49,8 @@ DAC_HandleTypeDef hdac;
 DMA_HandleTypeDef hdma_dac1;
 DMA_HandleTypeDef hdma_dac2;
 
+uint32_t outputBuffEn=DAC_OUTPUTBUFFER_ENABLE;
+
 /* DAC init function */
 void MX_DAC_Init(void)
 {
@@ -62,14 +64,14 @@ void MX_DAC_Init(void)
     /**DAC channel OUT1 config 
     */
   sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
-  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  sConfig.DAC_OutputBuffer = outputBuffEn;
   HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1);
 
     /**DAC channel OUT2 config 
     */
   
 	sConfig.DAC_Trigger = DAC_TRIGGER_T7_TRGO;
-  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+  sConfig.DAC_OutputBuffer = outputBuffEn;
 	HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_2);
 }
 
@@ -180,12 +182,38 @@ void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
 }
 
 
+void DACDisableOutput(void){
+	GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+void DACEnableOutput(void){
+	GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+}
+
+void DACSetOutputBuffer(void){
+	outputBuffEn=DAC_OUTPUTBUFFER_ENABLE;
+}
+
+void DACUnsetOutputBuffer(void){
+	outputBuffEn=DAC_OUTPUTBUFFER_DISABLE;
+}
+
 /**
   * @brief  Enable sampling
   * @param  None
   * @retval None
   */
 void GeneratingEnable (void){
+	MX_DAC_Init();
+	DACEnableOutput();
 	TIMGenEnable();
 }
 
@@ -195,12 +223,10 @@ void GeneratingEnable (void){
   * @retval None
   */
 void GeneratingDisable (void){
+	DACDisableOutput();
 	TIMGenDisable();	
 }
 
-void DACInit(){
-MX_DAC_Init();
-}
 /* USER CODE END 1 */
 
 /**

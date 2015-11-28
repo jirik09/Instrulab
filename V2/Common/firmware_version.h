@@ -10,7 +10,7 @@
 #define FIRMWARE_VERSION_H_
 
 #define FW_VERSION "1.03" //must be 4 char (x.yy)
-#define BUILD " b01" //must be 4 char (bxxx)
+#define BUILD " b00" //must be 4 char (bxxx)
 
 #endif //FIRMWARE_VERSION_H_
 
