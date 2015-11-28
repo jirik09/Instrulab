@@ -14,6 +14,7 @@ namespace InstruLab
         public const string IDNRequest = "IDN?";
         public const string VersionRequest = "VER?";
         public const string CONFIGRequest = "CFG?";
+        public const string GET_REAL_SMP_FREQ = "FRQ?";
 
         public const string GENERATOR = "GEN_";
         public const string SCOPE = "OSCP";
@@ -47,12 +48,16 @@ namespace InstruLab
         public const string SCOPE_DATA_DEPTH = "DATA";
         public const string SCOPE_PRETRIGGER = "PRET";
         public const string SCOPE_NEXT = "NEXT";
+        public const string SCOPE_FREQ = "OSCF";
         
 
         public const string GEN_DATA = "DATA";
-        public const string GEN_GET_REAL_SMP_FREQ = "FRQ?";
+        
         public const string GEN_OK = "G_OK";
         public const string GEN_NEXT = "G_NX";
+
+        public const string GEN_BUFF_ON = "B_ON";
+        public const string GEN_BUFF_OFF = "B_OF";
 
 
         //scope modes

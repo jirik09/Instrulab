@@ -35,7 +35,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#ifdef USE_USB
 #include "usbd_core.h"
 #include "usbd_desc.h"
 #include "usbd_conf.h"
@@ -292,6 +291,5 @@ uint8_t *  USBD_FS_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *l
   * @}
   */ 
 
-#endif //USE_USB
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

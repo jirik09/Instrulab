@@ -49,6 +49,7 @@ typedef enum{
 
 typedef struct{
 	uint32_t samplingFrequency; 
+	uint32_t realSamplingFreq;
 	uint32_t samplesToSend;
 	scopeTriggerEdge triggerEdge;	
 	scopeTriggerMode triggerMode;	
@@ -109,6 +110,7 @@ void scopeSetTrigLevel(uint16_t level);
 void scopeSetPretrigger(uint16_t pretrig);
 uint8_t scopeSetNumOfSamples(uint32_t len);
 uint8_t scopeSetTrigChannel(uint8_t chan);
+uint32_t scopeGetRealSmplFreq(void);
 uint8_t scopeSetNumOfChannels(uint8_t chan);
 uint8_t scopeSetTrigChannel(uint8_t chan);
 const int16_t* scopeGetRanges(uint8_t * len);

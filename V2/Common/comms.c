@@ -47,7 +47,7 @@ void CommTask(void const *argument){
 	commsMutex = xSemaphoreCreateRecursiveMutex();
 	char message[30];
 	#ifdef USE_SCOPE
-	uint8_t header[16]="OSC_DATAxxxxCH0x";
+	uint8_t header[16]="OSC_yyyyxxxxCH0x";
 	uint8_t *pointer;
 	
 	
@@ -80,6 +80,13 @@ void CommTask(void const *argument){
 				dataLength = getSamples();
 				adcRes = getADCRes();
 				
+				j=scopeGetRealSmplFreq();
+				header[4]=(uint8_t)(j>>24);
+				header[5]=(uint8_t)(j>>16);
+				header[6]=(uint8_t)(j>>8);
+				header[7]=(uint8_t)(j);
+
+				
 				if(adcRes>8){
 					j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))*2+oneChanMemSize)%oneChanMemSize;
 					dataLength*=2;
@@ -87,7 +94,7 @@ void CommTask(void const *argument){
 					j = ((getTriggerIndex() - ((getSamples() * getPretrigger()) >> 16 ))+oneChanMemSize)%oneChanMemSize;
 				} 
 				
-				header[8]=(uint8_t)adcRes;
+				header[8]=(uint8_t)adcRes;	
 				header[9]=(uint8_t)(dataLength >> 16);
 				header[10]=(uint8_t)(dataLength >> 8);
 				header[11]=(uint8_t)dataLength;
@@ -151,12 +158,11 @@ void CommTask(void const *argument){
 			#ifdef USE_GEN
 			for(i = 0;i<MAX_DAC_CHANNELS;i++){
 				header_gen[4]=i+1+48;
-				j=getRealSmplFreq(i+1);
+				j=genGetRealSmplFreq(i+1);
 				header_gen[9]=(uint8_t)(j>>16);
 				header_gen[10]=(uint8_t)(j>>8);
 				header_gen[11]=(uint8_t)(j);
 				commsSendBuff(header_gen,12);
-				
 			}
 			#endif //USE_GEN
 		// send system config
@@ -195,7 +201,6 @@ void CommTask(void const *argument){
 		}else if (message[0]=='9'){
 			sendSystemVersion();
 			
-		// send IDN string
 		}else if (message[0] == 'I'){
 			xQueueReceive(messageQueue, message, portMAX_DELAY);
 			commsSendString(message);

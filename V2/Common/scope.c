@@ -55,7 +55,6 @@ uint8_t validateBuffUsage(void);
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void ScopeTask(void const *argument){
-	TIMScopeInit();
 	scopeMessageQueue = xQueueCreate(10, 20);
 	scopeMutex = xSemaphoreCreateRecursiveMutex();
 	scopeSetDefault();
@@ -265,6 +264,7 @@ uint8_t validateBuffUsage(){
   */
 void scopeInit(void){
 	writingIndex = 0;
+	uint32_t realfreq=0;
 	
 	for(uint8_t i = 0;i<MAX_ADC_CHANNELS;i++){
 		if(scope.numOfChannles>i){
@@ -273,7 +273,8 @@ void scopeInit(void){
 			ADC_DMA_Reconfig(i,(uint32_t *)&blindBuffer[i], 1);
 		}
 	}
-	TIM_Reconfig_scope(scope.settings.samplingFrequency);
+	TIM_Reconfig_scope(scope.settings.samplingFrequency,&realfreq);
+	scope.settings.realSamplingFreq=realfreq;
 }
 
 /**
@@ -516,14 +517,14 @@ uint8_t scopeSetNumOfChannels(uint8_t chan){
 		if(validateBuffUsage()){
 			scope.numOfChannles = chanTmp;
 		}else{
-				scope.oneChanMemSize=MAX_SCOPE_BUFF_SIZE/chan+SCOPE_BUFFER_MARGIN;
+				scope.oneChanMemSize=MAX_SCOPE_BUFF_SIZE/chan+SCOPE_BUFFER_MARGIN-(MAX_SCOPE_BUFF_SIZE/chan+SCOPE_BUFFER_MARGIN)%2;
 				if(scope.settings.adcRes>8){
 					scope.oneChanSamples=scope.oneChanMemSize/2;
 				}else{
 					scope.oneChanSamples=scope.oneChanMemSize;
 				}
 				for(uint8_t i=0;i<chan;i++){
-				scope.pChanMem[i]=(uint16_t *)&scopeBuffer[i*scope.oneChanMemSize];
+				scope.pChanMem[i]=(uint16_t *)(&scopeBuffer[i*scope.oneChanMemSize]+(uint32_t)(&scopeBuffer[i*scope.oneChanMemSize])%2);
 			}
 			result=0;
 		}
@@ -548,6 +549,10 @@ uint8_t scopeSetTrigChannel(uint8_t chan){
 		xQueueSendToBack(scopeMessageQueue, "3Invalidate", portMAX_DELAY);
 	}
 	return result;
+}
+
+uint32_t scopeGetRealSmplFreq(){
+	return scope.settings.realSamplingFreq;
 }
 
 
@@ -588,6 +593,7 @@ void scopeStart(void){
 void scopeStop(void){
 	xQueueSendToBack(scopeMessageQueue, "5Stop", portMAX_DELAY);
 }
+
 
 #endif //USE_SCOPE
 

@@ -614,6 +614,9 @@ namespace InstruLab
                         status_text = "Wait";
                         this.Invalidate();
                         break;
+                    case Message.MsgRequest.SCOPE_FREQ:
+                        device.scopeCfg.realSmplFreq = messg.GetNum();
+                        break;
                 }
                 
             }
@@ -665,6 +668,17 @@ namespace InstruLab
                 }
             }
             this.label_scope_status.Text = status_text;
+            if (device.scopeCfg.realSmplFreq >= 1000000) {
+                this.label_samplingfreq.Text = Math.Round((double)device.scopeCfg.realSmplFreq / 1000000, 3).ToString() + "MSPS";
+            }
+            else if (device.scopeCfg.realSmplFreq >= 1000)
+            {
+                this.label_samplingfreq.Text = Math.Round((double)device.scopeCfg.realSmplFreq / 1000, 3).ToString() + "kSPS";
+            }
+            else {
+                this.label_samplingfreq.Text = Math.Round((double)device.scopeCfg.realSmplFreq, 3).ToString() + "SPS";
+            }
+            
             base.OnPaint(e);
         }
 

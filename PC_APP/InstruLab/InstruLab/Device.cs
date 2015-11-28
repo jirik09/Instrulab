@@ -38,6 +38,7 @@ namespace InstruLab
         {
             public bool isScope;
             public int maxSamplingFrequency;
+            public int realSmplFreq;
             public int maxBufferLength;
             public int maxNumChannels;
             public string[] pins;
@@ -336,6 +337,7 @@ namespace InstruLab
                                 wait_for_data(watchDog--);
                             }
                             port.Read(inputData, 0, 4);
+                            scopeCfg.realSmplFreq=inputData[0] * 256 * 256 * 256 + inputData[1] * 256 * 256 + inputData[2] * 256 + inputData[3];
                             res = port.ReadByte();
                             leng = port.ReadByte() * 65536 + port.ReadByte() * 256 + port.ReadByte();
                             port.Read(inputData, 0, 2);
@@ -388,12 +390,12 @@ namespace InstruLab
                                 if (res > 8)
                                 {
                                     scopeCfg.timeBase = new double[leng / 2];
-                                    generate_time_base(scopeCfg.sampligFreq, leng / 2);
+                                    generate_time_base(scopeCfg.realSmplFreq, leng / 2);
                                 }
                                 else
                                 {
                                     scopeCfg.timeBase = new double[leng];
-                                    generate_time_base(scopeCfg.sampligFreq, leng);
+                                    generate_time_base(scopeCfg.realSmplFreq, leng);
                                 }
                                 scopeCfg.actualChannels = numChan;
                                 scopeCfg.actualRes = res;
@@ -439,7 +441,7 @@ namespace InstruLab
                             port.Read(inputData, 0, 4);
                             Gen_form.add_message(new Message(Message.MsgRequest.GEN_FRQ,new string(inputMsg,0,4),inputData[1]*256*256+inputData[2]*256+inputData[3]));
                             //Console.WriteLine(Commands.TRIGGERED);
-                            if (writeLog) { logRecieved("FRQ?" + new string(inputMsg, 1, 3) + " CH" + inputData[3].ToString()); }
+                            if (writeLog) { logRecieved("GEN_FRQ?" + new string(inputMsg, 1, 3) + " CH" + inputData[3].ToString()); }
                             break;
                         default:
                             if (inputMsg[0] == Commands.ERROR)

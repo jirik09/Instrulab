@@ -429,7 +429,7 @@ command parseGeneratorCmd(void){
 				}
 			break;	
 				
-			case CMD_GEN_GET_REAL_SMP_FREQ: //set sampling freq
+			case CMD_GET_REAL_FREQ: //get sampling freq
 				genSendRealSamplingFreq();
 			break;	
 				
@@ -468,6 +468,12 @@ command parseGeneratorCmd(void){
 				}
 			break;
 				
+			case CMD_GEN_OUTBUFF_ON: //buffer on
+				genSetOutputBuffer();
+			break;			
+			case CMD_GEN_OUTBUFF_OFF: //buffer off
+				genUnsetOutputBuffer();
+			break;	
 				
 			case CMD_GEN_START: //start sampling
 				genStart();

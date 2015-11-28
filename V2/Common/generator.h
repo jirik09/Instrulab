@@ -39,9 +39,11 @@ uint8_t genSetFrequency(uint32_t freq,uint8_t chan);
 void genSendRealSamplingFreq(void);
 void genDataOKSendNext(void);
 void genStatusOK(void);
-uint32_t getRealSmplFreq(uint8_t chan);
+uint32_t genGetRealSmplFreq(uint8_t chan);
 uint8_t genSetLength(uint32_t length,uint8_t chan);
 uint8_t genSetNumOfChannels(uint8_t chan);
+void genSetOutputBuffer(void);
+void genUnsetOutputBuffer(void);
 void genStart(void);
 void genStop(void);
 

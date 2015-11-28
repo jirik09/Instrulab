@@ -123,6 +123,8 @@ namespace InstruLab
             this.trackBar_offset_ch1.Text = (dev.genCfg.VRef / 2).ToString();
             this.trackBar_offset_ch2.Text = (dev.genCfg.VRef / 2).ToString();
 
+            this.trackBar_phase_ch2.Value = 900;
+
             freq_ch1 = trackBar_freq_ch1.Value/10;
             freq_ch2 = trackBar_freq_ch2.Value/10;
 
@@ -625,7 +627,22 @@ namespace InstruLab
 
         public void gen_get_freq() {
             device.takeCommsSemaphore(semaphoreTimeout + 106);
-            device.send(Commands.GENERATOR + ":" + Commands.GEN_GET_REAL_SMP_FREQ + ";");
+            device.send(Commands.GENERATOR + ":" + Commands.GET_REAL_SMP_FREQ + ";");
+            device.giveCommsSemaphore();
+        }
+
+        public void gen_set_out_buff()
+        {
+            device.takeCommsSemaphore(semaphoreTimeout + 106);
+            device.send(Commands.GENERATOR + ":" + Commands.GEN_BUFF_ON + ";");
+            device.giveCommsSemaphore();
+        }
+
+
+        public void gen_unset_out_buff()
+        {
+            device.takeCommsSemaphore(semaphoreTimeout + 106);
+            device.send(Commands.GENERATOR + ":" + Commands.GEN_BUFF_OFF + ";");
             device.giveCommsSemaphore();
         }
 
@@ -1582,6 +1599,19 @@ namespace InstruLab
         public void giveGenSemaphore()
         {
             genSemaphore.Release();
+        }
+
+        private void outputBufferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.outputBufferToolStripMenuItem.Checked)
+            {
+                this.outputBufferToolStripMenuItem.Checked = false;
+                gen_unset_out_buff();
+            }
+            else {
+                this.outputBufferToolStripMenuItem.Checked = true;
+                gen_set_out_buff();
+            }
         }
 
 

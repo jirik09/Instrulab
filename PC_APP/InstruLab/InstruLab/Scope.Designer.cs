@@ -206,6 +206,7 @@
             this.label_meas1 = new System.Windows.Forms.Label();
             this.zedGraphControl_scope = new ZedGraph.ZedGraphControl();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label_samplingfreq = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -2175,6 +2176,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label_samplingfreq);
             this.panel1.Controls.Add(this.label_meas5);
             this.panel1.Controls.Add(this.label_meas4);
             this.panel1.Controls.Add(this.label_meas3);
@@ -2275,6 +2277,18 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(971, 575);
             this.panel5.TabIndex = 1;
+            // 
+            // label_samplingfreq
+            // 
+            this.label_samplingfreq.AutoSize = true;
+            this.label_samplingfreq.BackColor = System.Drawing.Color.White;
+            this.label_samplingfreq.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_samplingfreq.Location = new System.Drawing.Point(585, 326);
+            this.label_samplingfreq.Name = "label_samplingfreq";
+            this.label_samplingfreq.Size = new System.Drawing.Size(37, 17);
+            this.label_samplingfreq.TabIndex = 2;
+            this.label_samplingfreq.Text = "freq";
+            this.label_samplingfreq.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Scope
             // 
@@ -2504,6 +2518,7 @@
         private System.Windows.Forms.RadioButton radioButton_01x;
         private System.Windows.Forms.TrackBar trackBar_pretrig;
         private System.Windows.Forms.TrackBar trackBar_trig_level;
+        private System.Windows.Forms.Label label_samplingfreq;
 
 
     }

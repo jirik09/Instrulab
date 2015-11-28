@@ -128,6 +128,8 @@
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label_status_gen = new System.Windows.Forms.Label();
+            this.signalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputBufferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1138,6 +1140,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.lengthToolStripMenuItem,
+            this.signalToolStripMenuItem,
             this.toolStripMenuItem1,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1316,6 +1319,23 @@
             this.label_status_gen.Text = "Idle";
             this.label_status_gen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // signalToolStripMenuItem
+            // 
+            this.signalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.outputBufferToolStripMenuItem});
+            this.signalToolStripMenuItem.Name = "signalToolStripMenuItem";
+            this.signalToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.signalToolStripMenuItem.Text = "Signal";
+            // 
+            // outputBufferToolStripMenuItem
+            // 
+            this.outputBufferToolStripMenuItem.Checked = true;
+            this.outputBufferToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.outputBufferToolStripMenuItem.Name = "outputBufferToolStripMenuItem";
+            this.outputBufferToolStripMenuItem.Size = new System.Drawing.Size(168, 24);
+            this.outputBufferToolStripMenuItem.Text = "Output Buffer";
+            this.outputBufferToolStripMenuItem.Click += new System.EventHandler(this.outputBufferToolStripMenuItem_Click);
+            // 
             // Generator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1493,5 +1513,7 @@
         private System.Windows.Forms.Label label_status_gen;
         private System.Windows.Forms.CheckBox checkBox_join_frequencies;
         private System.Windows.Forms.RadioButton radioButton_arb_ch2;
+        private System.Windows.Forms.ToolStripMenuItem signalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem outputBufferToolStripMenuItem;
     }
 }

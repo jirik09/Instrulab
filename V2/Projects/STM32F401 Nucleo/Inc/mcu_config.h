@@ -39,7 +39,7 @@
 #define MAX_SCOPE_BUFF_SIZE 60000 //in bytes
 #define SCOPE_BUFFER_MARGIN 100
 
-#define SCOPE_CH1_PIN_STR "PC1_" //must be 4 chars
+#define SCOPE_CH1_PIN_STR "A4__" //must be 4 chars
 #define SCOPE_CH2_PIN_STR "----" //must be 4 chars
 #define SCOPE_CH3_PIN_STR "----" //must be 4 chars
 #define SCOPE_CH4_PIN_STR "----" //must be 4 chars

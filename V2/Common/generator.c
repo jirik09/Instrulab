@@ -35,8 +35,6 @@ uint16_t generatorBuffer[MAX_GENERATOR_BUFF_SIZE/2];
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void GeneratorTask(void const *argument){
-	DACInit();
-	TIMGenInit();
 	generatorMessageQueue = xQueueCreate(10, 20);
 	generatorSetDefault();
 	char message[20];
@@ -144,7 +142,7 @@ void genStatusOK(void){
 }
 
 
-uint32_t getRealSmplFreq(uint8_t chan){
+uint32_t genGetRealSmplFreq(uint8_t chan){
 	return generator.realGenFrequency[chan-1];
 }
 
@@ -213,7 +211,13 @@ void clearGenBuffer(void){
 	}
 }
 
+void genSetOutputBuffer(void){
+	DACSetOutputBuffer();
+}
 
+void genUnsetOutputBuffer(void){
+	DACUnsetOutputBuffer();
+}
 
 
 /**
