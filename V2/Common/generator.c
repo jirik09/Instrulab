@@ -35,7 +35,7 @@ uint16_t generatorBuffer[MAX_GENERATOR_BUFF_SIZE/2];
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void GeneratorTask(void const *argument){
-	generatorMessageQueue = xQueueCreate(10, 20);
+	generatorMessageQueue = xQueueCreate(5, 20);
 	generatorSetDefault();
 	char message[20];
 	

@@ -35,7 +35,7 @@ void printErrResponse(command cmd);
 	//portTASK_FUNCTION(vCmdParserTask, pvParameters) {
 void CmdParserTask(void const *argument){
 //	portBASE_TYPE xHigherPriorityTaskWoken;
-	cmdParserMessageQueue = xQueueCreate(10, 20);
+	cmdParserMessageQueue = xQueueCreate(5, 20);
 	uint8_t message[20];
 	uint8_t cmdIn[5];
 	uint8_t chr;

@@ -1,6 +1,6 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/jiri hladik/Desktop/Instrulab cube/F303 nucleo-32/F303 nucleo-32/Inc
-SourcePath=C:/Users/jiri hladik/Desktop/Instrulab cube/F303 nucleo-32/F303 nucleo-32/Src
+HeaderPath=F:/Git/Instrulab/Instrulab cube/F303 nucleo-32/F303 nucleo-32/Inc
+SourcePath=F:/Git/Instrulab/Instrulab cube/F303 nucleo-32/F303 nucleo-32/Src
 SourceFiles=FreeRTOSConfig.h;stm32f3xx_it.h;stm32f3xx_hal_conf.h;mxconstants.h;freertos.c;stm32f3xx_it.c;stm32f3xx_hal_msp.c;main.c;
 HeaderFiles=FreeRTOSConfig.h;stm32f3xx_it.h;stm32f3xx_hal_conf.h;mxconstants.h;
 

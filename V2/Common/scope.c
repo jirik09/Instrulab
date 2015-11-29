@@ -55,7 +55,7 @@ uint8_t validateBuffUsage(void);
   */
 //portTASK_FUNCTION(vScopeTask, pvParameters){	
 void ScopeTask(void const *argument){
-	scopeMessageQueue = xQueueCreate(10, 20);
+	scopeMessageQueue = xQueueCreate(5, 20);
 	scopeMutex = xSemaphoreCreateRecursiveMutex();
 	scopeSetDefault();
 	char message[20];

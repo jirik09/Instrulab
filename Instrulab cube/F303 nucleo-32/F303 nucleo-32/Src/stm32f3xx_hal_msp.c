@@ -229,8 +229,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     hdma_dac1_ch2.Init.MemInc = DMA_MINC_ENABLE;
     hdma_dac1_ch2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
     hdma_dac1_ch2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    hdma_dac1_ch2.Init.Mode = DMA_NORMAL;
-    hdma_dac1_ch2.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_dac1_ch2.Init.Mode = DMA_CIRCULAR;
+    hdma_dac1_ch2.Init.Priority = DMA_PRIORITY_MEDIUM;
     HAL_DMA_Init(&hdma_dac1_ch2);
 
     __HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_TIM7_DAC1_CH2_DMA1_CH4);
@@ -265,8 +265,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     hdma_dac2_ch1.Init.MemInc = DMA_MINC_ENABLE;
     hdma_dac2_ch1.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
     hdma_dac2_ch1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    hdma_dac2_ch1.Init.Mode = DMA_NORMAL;
-    hdma_dac2_ch1.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_dac2_ch1.Init.Mode = DMA_CIRCULAR;
+    hdma_dac2_ch1.Init.Priority = DMA_PRIORITY_MEDIUM;
     HAL_DMA_Init(&hdma_dac2_ch1);
 
     __HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_DAC2_CH1_DMA1_CH5);
@@ -425,6 +425,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /* Peripheral interrupt init*/
+    HAL_NVIC_SetPriority(USART2_IRQn, 6, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -448,6 +451,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
     PA15     ------> USART2_RX 
     */
     HAL_GPIO_DeInit(GPIOA, VCP_TX_Pin|VCP_RX_Pin);
+
+    /* Peripheral interrupt DeInit*/
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
 
   }
   /* USER CODE BEGIN USART2_MspDeInit 1 */
