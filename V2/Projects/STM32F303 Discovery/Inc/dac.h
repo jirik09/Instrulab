@@ -46,12 +46,15 @@
 
 //extern DAC_HandleTypeDef hdac;
 
-//void MX_DAC_Init(void);
+void MX_DAC_Init(void);
 	 
 void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len);
+void DACDisableOutput(void);
+void DACEnableOutput(void);
+void DACSetOutputBuffer(void);
+void DACUnsetOutputBuffer(void);
 void GeneratingEnable (void);
 void GeneratingDisable (void);
-void DACInit(void);
 
 #ifdef __cplusplus
 }

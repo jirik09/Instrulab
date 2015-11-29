@@ -1,11 +1,7 @@
 --cpu Cortex-M4.fp
 ".\instrulab_built\stm32f3xx_hal_msp.o"
 ".\instrulab_built\stm32f3xx_it.o"
-".\instrulab_built\usbd_cdc_if.o"
 ".\instrulab_built\main.o"
-".\instrulab_built\usb_device.o"
-".\instrulab_built\usbd_desc.o"
-".\instrulab_built\usbd_conf.o"
 ".\instrulab_built\tim.o"
 ".\instrulab_built\dma.o"
 ".\instrulab_built\dac.o"
@@ -15,11 +11,11 @@
 ".\instrulab_built\usart.o"
 ".\instrulab_built\comms_hal.o"
 ".\instrulab_built\clock.o"
+".\instrulab_built\usb_device.o"
+".\instrulab_built\usbd_cdc_if.o"
+".\instrulab_built\usbd_conf.o"
+".\instrulab_built\usbd_desc.o"
 ".\instrulab_built\startup_stm32f303xc.o"
-".\instrulab_built\usbd_core.o"
-".\instrulab_built\usbd_ctlreq.o"
-".\instrulab_built\usbd_ioreq.o"
-".\instrulab_built\usbd_cdc.o"
 ".\instrulab_built\stm32f3_discovery.o"
 ".\instrulab_built\system_stm32f3xx.o"
 ".\instrulab_built\stm32f3xx_hal.o"
@@ -54,7 +50,11 @@
 ".\instrulab_built\comms.o"
 ".\instrulab_built\scope.o"
 ".\instrulab_built\generator.o"
---library_type=microlib --strict --scatter ".\Instrulab_built\Instrulab_F303_discovery.sct"
+".\instrulab_built\usbd_core.o"
+".\instrulab_built\usbd_ctlreq.o"
+".\instrulab_built\usbd_ioreq.o"
+".\instrulab_built\usbd_cdc.o"
+--library_type=microlib --strict --scatter ".\Instrulab_built\Instrulab_F303_Discovery.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list "Instrulab_F303_discovery.map" -o .\Instrulab_built\Instrulab_F303_discovery.axf
+--list "Instrulab_F303_Discovery.map" -o .\Instrulab_built\Instrulab_F303_Discovery.axf

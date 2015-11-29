@@ -50,7 +50,7 @@ DAC_HandleTypeDef hdac2;
 DMA_HandleTypeDef hdma_dac1_ch2;
 DMA_HandleTypeDef hdma_dac2_ch1;
 
-uint32_t outputBuffEn=DAC_OUTPUTBUFFER_ENABLE;
+uint32_t outputBuffEn=DAC_OUTPUTBUFFER_DISABLE;
 
 void MX_DAC1_Init(void)
 {
@@ -248,11 +248,11 @@ void DACEnableOutput(void){
 }
 
 void DACSetOutputBuffer(void){
-	outputBuffEn=DAC_OUTPUTBUFFER_ENABLE;
+//	outputBuffEn=DAC_OUTPUTBUFFER_ENABLE;
 }
 
 void DACUnsetOutputBuffer(void){
-	outputBuffEn=DAC_OUTPUTBUFFER_DISABLE;
+//	outputBuffEn=DAC_OUTPUTBUFFER_DISABLE;
 }
 
 
@@ -263,8 +263,8 @@ void DACUnsetOutputBuffer(void){
   * @retval None
   */
 void GeneratingEnable (void){
-//	MX_DAC1_Init();
-//	MX_DAC2_Init();
+	MX_DAC1_Init();
+	MX_DAC2_Init();
 //	DACEnableOutput();
 	TIMGenEnable();
 }

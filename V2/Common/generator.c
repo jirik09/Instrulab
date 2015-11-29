@@ -89,15 +89,13 @@ void generatorSetDefault(void){
 
 void genInit(void){
 	for(uint8_t i = 0;i<MAX_DAC_CHANNELS;i++){
+		TIM_Reconfig_gen(generator.generatingFrequency[i],i,0);
 		if(generator.numOfChannles>i){
 			DAC_DMA_Reconfig(i,(uint32_t *)generator.pChanMem[i], generator.oneChanSamples[i]);
 		}else{
 			DAC_DMA_Reconfig(i,(uint32_t *)&blindValue, 1);
 		}
-		TIM_Reconfig_gen(generator.generatingFrequency[i],i,0);
 	}
-	
-	
 }
 
 

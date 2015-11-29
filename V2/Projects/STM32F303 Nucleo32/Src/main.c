@@ -88,8 +88,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
 	LED_On();
+  MX_DMA_Init();
+	__SYSCFG_CLK_ENABLE();
 	#ifdef USE_SCOPE
   MX_ADC1_Init();
   MX_ADC2_Init();

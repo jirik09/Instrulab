@@ -35,7 +35,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
-#include "err_list.h"
+#include "mcu_config.h"
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
@@ -52,14 +52,18 @@ TIM_HandleTypeDef htim7;
 /* TIM3 init function */
 void MX_TIM3_Init(void)
 {
+  TIM_ClockConfigTypeDef sClockSourceConfig;
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim_scope.Instance = TIM3;
   htim_scope.Init.Prescaler = 0;
   htim_scope.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim_scope.Init.Period = 2048;
+  htim_scope.Init.Period = 0;
   htim_scope.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   HAL_TIM_Base_Init(&htim_scope);
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  HAL_TIM_ConfigClockSource(&htim_scope, &sClockSourceConfig);
 
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
@@ -192,8 +196,8 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 
 /* USER CODE BEGIN 1 */
 #ifdef USE_SCOPE
-uint8_t TIM_Reconfig_scope(uint32_t samplingFreq){
-	return TIM_Reconfig(samplingFreq,&htim_scope,0);
+uint8_t TIM_Reconfig_scope(uint32_t samplingFreq,uint32_t* realFreq){
+	return TIM_Reconfig(samplingFreq,&htim_scope,realFreq);
 }
 #endif //USE_SCOPE
 
@@ -266,10 +270,15 @@ uint8_t TIM_Reconfig(uint32_t samplingFreq,TIM_HandleTypeDef* htim_base,uint32_t
 			result = 0;
 		}
 	}
-	
-	*realFreq=HAL_RCC_GetPCLK2Freq()/((prescaler+1)*(autoReloadReg+1));
+	if(realFreq!=0){
+		*realFreq=HAL_RCC_GetPCLK2Freq()/((prescaler+1)*(autoReloadReg+1));
+		if(*realFreq>MAX_SAMPLING_FREQ && autoReloadReg<0xffff){
+			autoReloadReg++;
+			*realFreq=HAL_RCC_GetPCLK2Freq()/((prescaler+1)*(autoReloadReg+1));
+		}
+	}
+	htim_base->Init.Period = autoReloadReg;
   htim_base->Init.Prescaler = prescaler;
-  htim_base->Init.Period = autoReloadReg;
   HAL_TIM_Base_Init(htim_base);
 	return result;
 
@@ -284,9 +293,7 @@ void TIMScopeDisable(){
 	HAL_TIM_Base_Stop(&htim_scope);
 }	
 
-void TIMScopeInit(void){
-	MX_TIM3_Init();
-}
+
 #endif //USE_SCOPE
 
 
@@ -300,10 +307,6 @@ void TIMGenDisable(void){
 	HAL_TIM_Base_Stop(&htim7);
 }
 
-void TIMGenInit(){
-	MX_TIM6_Init();
-	MX_TIM7_Init();
-}
 	#endif //USE_GEN
 
 

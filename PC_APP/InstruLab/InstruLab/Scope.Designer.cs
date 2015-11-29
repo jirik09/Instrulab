@@ -135,6 +135,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton_1k = new System.Windows.Forms.RadioButton();
             this.radioButton_2k = new System.Windows.Forms.RadioButton();
             this.radioButton_5k = new System.Windows.Forms.RadioButton();
@@ -147,6 +148,7 @@
             this.radioButton_5m = new System.Windows.Forms.RadioButton();
             this.radioButton_2m = new System.Windows.Forms.RadioButton();
             this.radioButton_1m = new System.Windows.Forms.RadioButton();
+            this.label_samplingfreq = new System.Windows.Forms.Label();
             this.groupBox_trigger = new System.Windows.Forms.GroupBox();
             this.trackBar_pretrig = new System.Windows.Forms.TrackBar();
             this.trackBar_trig_level = new System.Windows.Forms.TrackBar();
@@ -206,7 +208,6 @@
             this.label_meas1 = new System.Windows.Forms.Label();
             this.zedGraphControl_scope = new ZedGraph.ZedGraphControl();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label_samplingfreq = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -1309,6 +1310,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel2.Controls.Add(this.radioButton1, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_1k, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_2k, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_5k, 2, 0);
@@ -1321,20 +1323,36 @@
             this.tableLayoutPanel2.Controls.Add(this.radioButton_5m, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_2m, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_1m, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label_samplingfreq, 1, 4);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 19);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(1);
             this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(180, 136);
             this.tableLayoutPanel2.MinimumSize = new System.Drawing.Size(180, 136);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(180, 136);
             this.tableLayoutPanel2.TabIndex = 3;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton1.Enabled = false;
+            this.radioButton1.Location = new System.Drawing.Point(1, 109);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(1);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(58, 26);
+            this.radioButton1.TabIndex = 3;
+            this.radioButton1.Text = "Max";
+            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton_1k
             // 
@@ -1344,7 +1362,7 @@
             this.radioButton_1k.Location = new System.Drawing.Point(1, 1);
             this.radioButton_1k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_1k.Name = "radioButton_1k";
-            this.radioButton_1k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_1k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_1k.TabIndex = 1;
             this.radioButton_1k.TabStop = true;
             this.radioButton_1k.Text = "1 k";
@@ -1359,7 +1377,7 @@
             this.radioButton_2k.Location = new System.Drawing.Point(61, 1);
             this.radioButton_2k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_2k.Name = "radioButton_2k";
-            this.radioButton_2k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_2k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_2k.TabIndex = 1;
             this.radioButton_2k.Text = "2 k";
             this.radioButton_2k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1373,7 +1391,7 @@
             this.radioButton_5k.Location = new System.Drawing.Point(121, 1);
             this.radioButton_5k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_5k.Name = "radioButton_5k";
-            this.radioButton_5k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_5k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_5k.TabIndex = 1;
             this.radioButton_5k.Text = "5 k";
             this.radioButton_5k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1384,10 +1402,10 @@
             // 
             this.radioButton_50k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_50k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_50k.Location = new System.Drawing.Point(121, 35);
+            this.radioButton_50k.Location = new System.Drawing.Point(121, 28);
             this.radioButton_50k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_50k.Name = "radioButton_50k";
-            this.radioButton_50k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_50k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_50k.TabIndex = 1;
             this.radioButton_50k.Text = "50 k";
             this.radioButton_50k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1398,10 +1416,10 @@
             // 
             this.radioButton_20k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_20k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_20k.Location = new System.Drawing.Point(61, 35);
+            this.radioButton_20k.Location = new System.Drawing.Point(61, 28);
             this.radioButton_20k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_20k.Name = "radioButton_20k";
-            this.radioButton_20k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_20k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_20k.TabIndex = 1;
             this.radioButton_20k.Text = "20 k";
             this.radioButton_20k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1412,10 +1430,10 @@
             // 
             this.radioButton_10k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_10k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_10k.Location = new System.Drawing.Point(1, 35);
+            this.radioButton_10k.Location = new System.Drawing.Point(1, 28);
             this.radioButton_10k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_10k.Name = "radioButton_10k";
-            this.radioButton_10k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_10k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_10k.TabIndex = 1;
             this.radioButton_10k.Text = "10 k";
             this.radioButton_10k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1426,10 +1444,10 @@
             // 
             this.radioButton_100k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_100k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_100k.Location = new System.Drawing.Point(1, 69);
+            this.radioButton_100k.Location = new System.Drawing.Point(1, 55);
             this.radioButton_100k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_100k.Name = "radioButton_100k";
-            this.radioButton_100k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_100k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_100k.TabIndex = 1;
             this.radioButton_100k.Text = "100 k";
             this.radioButton_100k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1440,10 +1458,10 @@
             // 
             this.radioButton_200k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_200k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_200k.Location = new System.Drawing.Point(61, 69);
+            this.radioButton_200k.Location = new System.Drawing.Point(61, 55);
             this.radioButton_200k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_200k.Name = "radioButton_200k";
-            this.radioButton_200k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_200k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_200k.TabIndex = 1;
             this.radioButton_200k.Text = "200 k";
             this.radioButton_200k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1454,10 +1472,10 @@
             // 
             this.radioButton_500k.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_500k.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_500k.Location = new System.Drawing.Point(121, 69);
+            this.radioButton_500k.Location = new System.Drawing.Point(121, 55);
             this.radioButton_500k.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_500k.Name = "radioButton_500k";
-            this.radioButton_500k.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_500k.Size = new System.Drawing.Size(58, 25);
             this.radioButton_500k.TabIndex = 1;
             this.radioButton_500k.Text = "500 k";
             this.radioButton_500k.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1468,10 +1486,10 @@
             // 
             this.radioButton_5m.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_5m.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_5m.Location = new System.Drawing.Point(121, 103);
+            this.radioButton_5m.Location = new System.Drawing.Point(121, 82);
             this.radioButton_5m.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_5m.Name = "radioButton_5m";
-            this.radioButton_5m.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_5m.Size = new System.Drawing.Size(58, 25);
             this.radioButton_5m.TabIndex = 1;
             this.radioButton_5m.Text = "5 M";
             this.radioButton_5m.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1482,10 +1500,10 @@
             // 
             this.radioButton_2m.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_2m.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_2m.Location = new System.Drawing.Point(61, 103);
+            this.radioButton_2m.Location = new System.Drawing.Point(61, 82);
             this.radioButton_2m.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_2m.Name = "radioButton_2m";
-            this.radioButton_2m.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_2m.Size = new System.Drawing.Size(58, 25);
             this.radioButton_2m.TabIndex = 1;
             this.radioButton_2m.Text = "2 M";
             this.radioButton_2m.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1496,15 +1514,29 @@
             // 
             this.radioButton_1m.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_1m.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton_1m.Location = new System.Drawing.Point(1, 103);
+            this.radioButton_1m.Location = new System.Drawing.Point(1, 82);
             this.radioButton_1m.Margin = new System.Windows.Forms.Padding(1);
             this.radioButton_1m.Name = "radioButton_1m";
-            this.radioButton_1m.Size = new System.Drawing.Size(58, 32);
+            this.radioButton_1m.Size = new System.Drawing.Size(58, 25);
             this.radioButton_1m.TabIndex = 1;
             this.radioButton_1m.Text = "1 M";
             this.radioButton_1m.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton_1m.UseVisualStyleBackColor = true;
             this.radioButton_1m.CheckedChanged += new System.EventHandler(this.radioButton_1m_CheckedChanged);
+            // 
+            // label_samplingfreq
+            // 
+            this.label_samplingfreq.AutoSize = true;
+            this.label_samplingfreq.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel2.SetColumnSpan(this.label_samplingfreq, 2);
+            this.label_samplingfreq.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_samplingfreq.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_samplingfreq.Location = new System.Drawing.Point(63, 108);
+            this.label_samplingfreq.Name = "label_samplingfreq";
+            this.label_samplingfreq.Size = new System.Drawing.Size(114, 28);
+            this.label_samplingfreq.TabIndex = 2;
+            this.label_samplingfreq.Text = "freq";
+            this.label_samplingfreq.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox_trigger
             // 
@@ -2176,7 +2208,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label_samplingfreq);
             this.panel1.Controls.Add(this.label_meas5);
             this.panel1.Controls.Add(this.label_meas4);
             this.panel1.Controls.Add(this.label_meas3);
@@ -2278,18 +2309,6 @@
             this.panel5.Size = new System.Drawing.Size(971, 575);
             this.panel5.TabIndex = 1;
             // 
-            // label_samplingfreq
-            // 
-            this.label_samplingfreq.AutoSize = true;
-            this.label_samplingfreq.BackColor = System.Drawing.Color.White;
-            this.label_samplingfreq.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_samplingfreq.Location = new System.Drawing.Point(585, 326);
-            this.label_samplingfreq.Name = "label_samplingfreq";
-            this.label_samplingfreq.Size = new System.Drawing.Size(37, 17);
-            this.label_samplingfreq.TabIndex = 2;
-            this.label_samplingfreq.Text = "freq";
-            this.label_samplingfreq.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // Scope
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2317,6 +2336,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_zoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_position)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.groupBox_trigger.ResumeLayout(false);
             this.groupBox_trigger.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_pretrig)).EndInit();
@@ -2519,6 +2539,7 @@
         private System.Windows.Forms.TrackBar trackBar_pretrig;
         private System.Windows.Forms.TrackBar trackBar_trig_level;
         private System.Windows.Forms.Label label_samplingfreq;
+        private System.Windows.Forms.RadioButton radioButton1;
 
 
     }
