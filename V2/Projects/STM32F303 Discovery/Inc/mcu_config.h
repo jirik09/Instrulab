@@ -36,13 +36,13 @@
 #define MAX_SAMPLING_FREQ 5000000 //smps
 #define MAX_ADC_CHANNELS 4
 
-#define MAX_SCOPE_BUFF_SIZE 10000 //in bytes
+#define MAX_SCOPE_BUFF_SIZE 20000 //in bytes
 #define SCOPE_BUFFER_MARGIN 100
 
-#define SCOPE_CH1_PIN_STR "A5__" //must be 4 chars
-#define SCOPE_CH2_PIN_STR "A4__" //must be 4 chars
-#define SCOPE_CH3_PIN_STR "A3__" //must be 4 chars
-#define SCOPE_CH4_PIN_STR "PB14" //must be 4 chars
+#define SCOPE_CH1_PIN_STR "PC0_" //must be 4 chars
+#define SCOPE_CH2_PIN_STR "PC1_" //must be 4 chars
+#define SCOPE_CH3_PIN_STR "PB13_" //must be 4 chars
+#define SCOPE_CH4_PIN_STR "PB12_" //must be 4 chars
 
 #define SCOPE_VREF 3300
 
@@ -64,8 +64,8 @@
 
 #define GEN_VREF 3300
 
-#define GEN_CH1_PIN_STR "A2__" //must be 4 chars
-#define GEN_CH2_PIN_STR "D13_" //must be 4 chars
+#define GEN_CH1_PIN_STR "PA4_" //must be 4 chars
+#define GEN_CH2_PIN_STR "PA5_" //must be 4 chars
 
 
 

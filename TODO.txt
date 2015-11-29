@@ -1,9 +1,7 @@
-pracovat ne F303 
-- nenacte se konfigurace v instrulabu - oddebugovat
-- pravdepodobne chyba v knihovne USB ktere se zasekava
-- soubory z usb jsou zkopirovany tudiz nefunguje USE_USB
-- Vyzkouset UART
-- nastavit spravne piny na GEN a SCOPE
+TODO
+- syscfg clk en dat do hal msp
+- pin config vyhodit z mcu config
+
 
 Generator
 - Vypnout vytup pokud generator nebezi
@@ -11,13 +9,16 @@ Generator
 
 Scope
 - prepinani rozsahu (ukladani do flash)
-
+- nastavit dobu odberu vzorku podle vzorkovaci frekvence
+- dodelat tralcitko max vzorkovaci frekvence
 
 Aplikace
 
 
 
+
 Obecne
+Bug 00d - aplikace nezobrazuje posledni cislo nazvu pinu (f303 discovery je napsano PB1 misto PB12)
 Bug 00c - pokud se zmeni vzorkovani behem odesilani tak se spatne vypocita X osa 
 OK - Bug 00d - USB led by mela svitit i kdyz usb neni pripojeno (najit kde je pripojena - pravdepodobne to zpusobila zmena v gpio.c)
 OK - Bug 00a - Zmena frekvence pri odesilani dat vyvola chybu (internal prefix 1DataReady se dostane ven)

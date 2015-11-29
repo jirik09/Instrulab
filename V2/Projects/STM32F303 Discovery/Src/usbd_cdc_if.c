@@ -246,6 +246,7 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
 			commsRecieveUSB(*(Buf++));
      //   buff_TX[i] = *(Buf++);
 		}
+		USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);
   /* USER CODE END 7 */ 
 }

@@ -1416,8 +1416,8 @@ Section Cross References
     generator.o(i.genDataOKSendNext) refers to queue.o(i.xQueueGenericSend) for xQueueGenericSend
     generator.o(i.genDataOKSendNext) refers to comms.o(.data) for messageQueue
     generator.o(i.genGetRealSmplFreq) refers to generator.o(.bss) for generator
-    generator.o(i.genInit) refers to dac.o(i.DAC_DMA_Reconfig) for DAC_DMA_Reconfig
     generator.o(i.genInit) refers to tim.o(i.TIM_Reconfig_gen) for TIM_Reconfig_gen
+    generator.o(i.genInit) refers to dac.o(i.DAC_DMA_Reconfig) for DAC_DMA_Reconfig
     generator.o(i.genInit) refers to generator.o(.bss) for generator
     generator.o(i.genInit) refers to generator.o(.data) for blindValue
     generator.o(i.genSendRealSamplingFreq) refers to queue.o(i.xQueueGenericSend) for xQueueGenericSend
