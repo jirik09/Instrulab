@@ -20,21 +20,21 @@
 #define MCU "STM32F303K8"
 
 // Communication constatnts ===================================================
-#define COMM_BUFFER_SIZE 128
+#define COMM_BUFFER_SIZE 96
 #define UART_SPEED 115200
 
 #define USART_TX_PIN_STR "PA2_" //must be 4 chars
-#define USART_RX_PIN_STR "PA3_" //must be 4 chars 
+#define USART_RX_PIN_STR "PA15" //must be 4 chars 
 
-#define USB_DP_PIN_STR "PA12" //must be 4 chars
-#define USB_DM_PIN_STR "PA11" //must be 4 chars
+#define USB_DP_PIN_STR "----" //must be 4 chars
+#define USB_DM_PIN_STR "----" //must be 4 chars
 
 // Scope constatnts ===================================================
 #define MAX_SAMPLING_FREQ 5000000 //smps
 #define MAX_ADC_CHANNELS 2
 
-#define MAX_SCOPE_BUFF_SIZE 1000 //in bytes
-#define SCOPE_BUFFER_MARGIN 100
+#define MAX_SCOPE_BUFF_SIZE 4000 //in bytes
+#define SCOPE_BUFFER_MARGIN 10
 
 #define SCOPE_CH1_PIN_STR "A2__" //must be 4 chars
 #define SCOPE_CH2_PIN_STR "A3__" //must be 4 chars
@@ -54,9 +54,9 @@
 
 
 
-#define MAX_GENERATING_FREQ 2000000 //smps
+#define MAX_GENERATING_FREQ 100000 //smps
 #define MAX_DAC_CHANNELS 2
-#define MAX_GENERATOR_BUFF_SIZE 500
+#define MAX_GENERATOR_BUFF_SIZE 240
 #define	DAC_DATA_DEPTH 12
 
 #define GEN_VREF 3300

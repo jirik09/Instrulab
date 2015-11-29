@@ -64,7 +64,7 @@ void MX_DAC1_Init(void)
 
     /**DAC channel OUT2 config 
     */
-  sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
+  sConfig.DAC_Trigger = DAC_TRIGGER_T7_TRGO;
   sConfig.DAC_OutputBuffer = outputBuffEn;
 
   HAL_DAC_ConfigChannel(&hdac1, &sConfig, DAC_CHANNEL_2);
@@ -83,7 +83,7 @@ void MX_DAC2_Init(void)
 
     /**DAC channel OUT1 config 
     */
-  sConfig.DAC_Trigger = DAC_TRIGGER_T7_TRGO;
+  sConfig.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
   sConfig.DAC_OutputBuffer = outputBuffEn;
 
   HAL_DAC_ConfigChannel(&hdac2, &sConfig, DAC_CHANNEL_1);
@@ -122,8 +122,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     hdma_dac1_ch2.Init.Priority = DMA_PRIORITY_HIGH;
     HAL_DMA_Init(&hdma_dac1_ch2);
 
-    __HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_TIM7_DAC1_CH2_DMA1_CH4);
-
+		__HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_TIM7_DAC1_CH2_DMA1_CH4);
+		
     __HAL_LINKDMA(hdac,DMA_Handle2,hdma_dac1_ch2);
 
   /* USER CODE BEGIN DAC1_MspInit 1 */
@@ -158,7 +158,7 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
     hdma_dac2_ch1.Init.Priority = DMA_PRIORITY_HIGH;
     HAL_DMA_Init(&hdma_dac2_ch1);
 
-    __HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_DAC2_CH1_DMA1_CH5);
+		__HAL_REMAPDMA_CHANNEL_ENABLE(HAL_REMAPDMA_DAC2_CH1_DMA1_CH5);
 
     __HAL_LINKDMA(hdac,DMA_Handle1,hdma_dac2_ch1);
 
@@ -217,12 +217,12 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 void DAC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len){
 	uint32_t dacChannel=0;
 	switch(chan){
-		case 0:
+		case 1:
 			dacChannel=DAC_CHANNEL_1;
 			HAL_DAC_Stop_DMA(&hdac2,dacChannel);
 			HAL_DAC_Start_DMA(&hdac2, dacChannel, buff, len, DAC_ALIGN_12B_R);
 		break;
-		case 1:
+		case 0:
 			dacChannel=DAC_CHANNEL_2;
 			HAL_DAC_Stop_DMA(&hdac1,dacChannel);
 			HAL_DAC_Start_DMA(&hdac1, dacChannel, buff, len, DAC_ALIGN_12B_R);
@@ -263,9 +263,9 @@ void DACUnsetOutputBuffer(void){
   * @retval None
   */
 void GeneratingEnable (void){
-	MX_DAC1_Init();
-	MX_DAC2_Init();
-	DACEnableOutput();
+//	MX_DAC1_Init();
+//	MX_DAC2_Init();
+//	DACEnableOutput();
 	TIMGenEnable();
 }
 
@@ -275,7 +275,7 @@ void GeneratingEnable (void){
   * @retval None
   */
 void GeneratingDisable (void){
-	DACDisableOutput();
+//	DACDisableOutput();
 	TIMGenDisable();	
 }
 
