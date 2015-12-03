@@ -2522,6 +2522,15 @@ namespace InstruLab
             }
         }
 
+        private void radioButton_sampl_max_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_sampl_max.Checked)
+            {
+                set_sampling_freq(Commands.FREQ_MAX);
+                device.scopeCfg.sampligFreq = device.scopeCfg.maxSamplingFrequency;
+            }
+        }
+
 
 
 

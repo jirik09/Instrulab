@@ -88,6 +88,7 @@ namespace InstruLab
         public const string FREQ_2M = "2M__";
         public const string FREQ_5M = "5M__";
         public const string FREQ_10M = "10M_";
+        public const string FREQ_MAX = "MAX_";
 
 
 

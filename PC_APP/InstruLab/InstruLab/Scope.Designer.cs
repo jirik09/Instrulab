@@ -135,7 +135,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton_sampl_max = new System.Windows.Forms.RadioButton();
             this.radioButton_1k = new System.Windows.Forms.RadioButton();
             this.radioButton_2k = new System.Windows.Forms.RadioButton();
             this.radioButton_5k = new System.Windows.Forms.RadioButton();
@@ -1310,7 +1310,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel2.Controls.Add(this.radioButton1, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.radioButton_sampl_max, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_1k, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_2k, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.radioButton_5k, 2, 0);
@@ -1340,19 +1340,20 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(180, 136);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
-            // radioButton1
+            // radioButton_sampl_max
             // 
-            this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(1, 109);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(1);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(58, 26);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Text = "Max";
-            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton_sampl_max.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_sampl_max.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton_sampl_max.Enabled = false;
+            this.radioButton_sampl_max.Location = new System.Drawing.Point(1, 109);
+            this.radioButton_sampl_max.Margin = new System.Windows.Forms.Padding(1);
+            this.radioButton_sampl_max.Name = "radioButton_sampl_max";
+            this.radioButton_sampl_max.Size = new System.Drawing.Size(58, 26);
+            this.radioButton_sampl_max.TabIndex = 3;
+            this.radioButton_sampl_max.Text = "Max";
+            this.radioButton_sampl_max.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_sampl_max.UseVisualStyleBackColor = true;
+            this.radioButton_sampl_max.CheckedChanged += new System.EventHandler(this.radioButton_sampl_max_CheckedChanged);
             // 
             // radioButton_1k
             // 
@@ -2539,7 +2540,7 @@
         private System.Windows.Forms.TrackBar trackBar_pretrig;
         private System.Windows.Forms.TrackBar trackBar_trig_level;
         private System.Windows.Forms.Label label_samplingfreq;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton_sampl_max;
 
 
     }

@@ -64,6 +64,7 @@ void ADC_DMA_Reconfig(uint8_t chan, uint32_t *buff, uint32_t len);
 void samplingEnable(void);
 void samplingDisable(void);
 void adcSetResolution (uint8_t res);
+void CalibrateADC (void);
 
 #ifdef __cplusplus
 }

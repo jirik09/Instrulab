@@ -12,8 +12,10 @@ Scope
 - nastavit dobu odberu vzorku podle vzorkovaci frekvence
 - dodelat tralcitko max vzorkovaci frekvence
 
-Aplikace
 
+Aplikace
+- generator nastaveni duty meni oba parametry
+- zoom zed graph prenest na trackbar
 
 
 
